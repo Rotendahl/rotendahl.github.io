@@ -1,0 +1,88 @@
+# Site
+title: Rotendahl
+bio: "I code, I teach, and occasionally I drink beer"
+description: "A site containing teaching material, code projects, and rants"
+reading_time: true
+words_per_minute: 200
+logo: "assets/img/logo.png"
+background: "assets/img/background.jpg"
+tiled_bg: false # Set this true if you want to tile your background image, otherwise it will be covered
+locale: en_US
+#url:                http://rotendahl.dk
+
+# Jekyll
+permalink: /:title/
+markdown: kramdown
+highlighter: rouge
+kramdown:
+    auto_ids: true
+    footnote_nr: 1
+    entity_output: as_char
+    toc_levels: 1..6
+    enable_coderay: false
+mathjax: true
+sass:
+    sass_dir: _sass
+    style: compressed
+
+# Comments
+disqus_shortname: rotendahl
+
+# Social
+google:
+    #plus:            #username
+    analytics: UA-101523400-1
+    #verify:
+    #ad-client:
+    #ad-slot:
+#bing-verify:
+#email:
+twitter: rotendahl
+facebook: rotendahl
+github-url: rotendahl
+#stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
+linkedin: rotendahl
+#xing:              username
+#instagram:          username
+#lastfm:            username
+#tumblr:            username
+#medium:            '@username'
+#pinterest:         username
+#foursquare:        username
+#steam:              username
+#dribbble:          username
+#youtube:            username
+#soundcloud:        username
+#weibo:             username
+#flickr:            username
+#codepen:           username
+keybase: rotendahl
+#xmpp:              username@server.com
+#hackernews:        username
+
+# Gems
+gems:
+    - jekyll-mentions
+    - jekyll-feed
+    - jekyll-sitemap
+    - jekyll-gist
+
+jekyll-mentions:
+    base_url: https://github.com
+
+# Exclude list
+exclude:
+    [
+        README.md,
+        Gemfile,
+        Gemfile.lock,
+        node_modules,
+        gulpfile.js,
+        package.json,
+        _site,
+        src,
+        vendor,
+        CNAME,
+        LICENSE,
+        Rakefile,
+    ]
