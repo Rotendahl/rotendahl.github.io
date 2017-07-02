@@ -56,3 +56,8 @@
     {% unless feature contains 'http://' or feature contains 'https://' %}{% capture feature %}{{ site.url }}/{{ feature }}{% endcapture %}{% endunless %}
     <style type="text/css">.feature {background-image:url({{ feature }});}</style>
     {% endif %}
+
+      <!-- Safari suuuucks https://stackoverflow.com/questions/8788802/prevent-safari-loading-from-cache-when-back-button-is-clicked -->
+    <iframe style="height:0px;width:0px;visibility:hidden" src="about:blank">
+        this frame prevents back forward cache
+    </iframe>
