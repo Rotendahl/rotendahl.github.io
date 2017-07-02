@@ -1,37 +1,27 @@
 ---
 layout: page
-title: About the Theme
-tags: [about, Jekyll, theme, moon]
+title: About
+tags: [about, me, Rotendahl, resume]
 date: 2016-03-21
 comments: false
 ---
-    
-<center><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
 
-## Features
-* Minimal, you can focus on your content
-* Responsive
-* Disqus integration
-* Syntax highlighting
-* Optional post image
-* Social icons
-* Page for sharing projects
-* Optional background image
-* Simple navigation menu
-* MathJax support
+![Benjamin](/assets/img/mig.png)
+_<center>I'm left-handed other than that I'm a happy Dane</center>_
 
-## Preview
+## About the site
+My name is Benjamin Rotendahl and I love programming, teaching and building
+silly things. The idea of this site is to showcase projects, teaching material,
+small guides, and random ramblings.
 
-{% capture images %}
-    https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png
-    https://cloud.githubusercontent.com/assets/754514/14509716/61ac6c8e-01d6-11e6-879f-8308883de790.png
-{% endcapture %}
-{% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
 
-See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub.
+## About me
+I live in a dormitory in Copenhagen where I study computer science at [DIKU](http://diku.dk). I spend some of my free time time being a part of [Coding Pirates](http://codingpirates.dk) where I'm both a volunteer
+teacher and on the board.
 
-## Getting Started
 
-To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
-      
-[Install Moon](https://github.com/TaylanTatli/Moon){: .btn}
+## Contact
+You're free to contact me on <a href="mailto:Benjamin@Rotendahl.dk">
+Benjamin@Rotendahl.dk</a>
+
+My resume can be found here: [resume](/resume)

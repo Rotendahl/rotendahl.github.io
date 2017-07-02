@@ -1,0 +1,226 @@
+/* ----------------------- Responsive Stylesheet -------------------- */
+
+@media(min-width:1200px){
+
+}
+
+@media(max-width:1199px){
+
+	/**************  Home page CSS  ***************/
+	img.purple_hover_img{width: 220px;}
+	img.purple_bubble{right: 33px;}
+	img.blue_bubble{width: 275px; right: -20px;}
+	img.pink_bubble{    top: -73px;    right: 20px; width: 340px;}
+	.right_description ul li a{font-size: 25px;}
+	.right_description ul.list-index li {font-size: 25px;}
+
+	img.excel-monster{position: relative;z-index: 4;}
+	img.pp-monster{width: 300px;}
+
+}
+
+@media(max-width:991px){
+
+	/**************  Home page CSS  ***************/
+	.right_description ul li{margin: 10px 0;}
+	.right_description ul li a{font-size: 19px; padding-bottom: 10px; padding-top: 10px;}
+	.right_description ul.list-index li{font-size: 19px; padding-bottom: 10px;}
+	section.book_section{background-size: 175px;}
+	a.brand{left: -25px;}
+	.mt-50{margin-top: 85px; margin-bottom: 40px;}
+	img.pink_bubble{top: 30px;    right: 20px;    width: 275px;}
+	img.blue_hover_img{left: 75px;    top: 40px;}
+	img.purple_bubble{    width: 292px;    top: 6px;    right: 55px;}
+
+	/**************  book page CSS  ***************/
+	.book_single_cover{background-size: 163px; padding-bottom: 0}
+
+
+	/************** Single book page CSS  ***************/
+	.set{margin: 50px 0 0;}
+	.yellow-monster{z-index: 1;}
+	img.pp-monster{z-index: 3; position: relative;}
+
+}
+
+@media(max-width:767px){
+	/*======================= Responsive Menu CSS ==========================*/
+	.navbar-nav {
+	    margin:0;
+	}
+	/* General styles for all menus */
+	.cbp-spmenu {
+	background: #ffffff;
+	position: fixed;
+	padding:0;
+	margin:0 !important;
+	overflow-x:hidden;
+	overflow-y:visible;
+	display:block;
+	visibility:visible;
+	}
+	/* Orientation-dependent styles for the content of the menu */
+	.cbp-spmenu-vertical {
+	width: 260px;
+	height: 100%;
+	top: 0;
+	z-index: 1000;
+	}
+	/* Vertical menu that slides from the left or right */
+	.cbp-spmenu-left {
+	left: -260px;
+	}
+	.cbp-spmenu-right {
+	right: -260px;
+	}
+	.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+	}
+	.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
+	}
+
+	/* Push classes applied to the body */
+	.cbp-spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+	}
+	.cbp-spmenu-push-toright {
+	left: 260px;
+	}
+	.cbp-spmenu-push-toleft {
+	left: -260px;
+	}
+	/* Transitions */
+	.cbp-spmenu,
+	.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	}
+
+	.navbar-collapse{
+		border-top: 0;
+	}
+	ul.navbar-right{
+		padding-top: 0;
+		float: none;
+	}
+	.navbar-toggle{
+		margin-right: 0;
+	}
+	.navbar-toggle .icon-bar {
+		  position: relative;
+		  transition: all 0.3s linear;
+		  background: #1e4382;
+		  height: 3px;
+	}
+	.glyphicon.glyphicon-remove{font-size: 20px;     color: #015b27;}
+	a.close-menu {    background: #94f0bd !important;}
+	.navbar-toggle.active .icon-bar:nth-of-type(1) {
+		  	top: 6px;
+		    -webkit-transform: rotate(45deg);
+			-moz-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+		  	transform: rotate(45deg);
+	}
+	.navbar-toggle.active .icon-bar:nth-of-type(2) {
+		  background-color: transparent;
+	}
+	.navbar-toggle.active .icon-bar:nth-of-type(3) {
+		  top: -6px;
+		  transform: rotate(-45deg);
+	}
+	ul.navbar-right > li{
+		border-right: 0px;
+		border-bottom: 1px solid #1e4382;
+	}
+	ul.navbar-right > li >a{
+		padding: 15px 10px;
+		background: transparent;
+		margin: 0;
+		font-size: 14px;
+	}
+	ul.navbar-right > li > a:hover{
+		border-bottom: 0px;
+	}
+	ul.navbar-right > li > a::after{background: transparent;}
+	ul.navbar-right{
+		margin: 0;
+	}
+	.nav .open>a, .nav .open>a:hover, .nav .open>a:focus{border-color: transparent;}
+	.navbar-nav .open .dropdown-menu{
+		border-top: 1px solid #1e4382;
+	}
+	ul.navbar-right >li span.glyphicon.glyphicon-menu-down{
+		float: right;
+	    font-size: 20px;
+	    padding-left: 0px;
+	}
+
+
+
+	/*footer*/
+	footer{padding: 50px 0 0;}
+	section.footer_header{margin-bottom: 70px;}
+	footer .col-xs-6{margin: 10px 0;}
+	.facebook_icon{ padding: 0 15px;}
+	.carousel-caption {
+	    bottom: 0;
+	}
+	a.banner_btn{
+		font-size: 10px;
+    	padding: 10px;
+	}
+	a.right.carousel-control, a.left.carousel-control{
+		width: 25px;
+		height: 25px;
+		font-size: 11px;
+	}
+	.facebook_icon a{float: none;}
+
+	/**************  Home page CSS  ***************/
+	header{padding-bottom: 0px;min-height: auto}
+	h1{font-size: 36px;}
+	p{font-size: 17px;}
+	a.brand{width: 245px;}
+	ul.nav-right{margin: 15px 0;}
+	ul.nav-right > li{font-size: 13px;}
+	/*section.book_section{background-image: none;}*/
+	.right_description ul li a{font-size: 15px;}
+	.right_description ul.list-index li{font-size: 15px;}
+	img.blue_hover_img{    left: 114px;}
+	img.blue_bubble{top: -60px; right: -10px;}
+	img.pink_bubble{top: 10px;    left: 59px;}
+
+
+	/**************  book page CSS  ***************/
+	.book_single_cover{padding-bottom: 0px;}
+	.purchase-btn{margin-bottom: 10px;}
+	.book_single_cover{background-size: 230px;}
+
+
+	/**************  Single book page CSS  ***************/
+	.single_book_page{background-size: 175px, 100% ;}
+	.yellow-monster{position: relative; top: 0}
+	.set h5{margin-top: 10px;}
+	img.pp-monster{width: 200px;}
+}
+
+@media(max-width:479px){
+
+	.monster_area{height: 315px;}
+	img.purple_hover_img{width: 170px;}
+	img.purple_bubble{width: 215px;}
+	img.pink_hover_img{width: 133px;}
+	img.pink_bubble{    width: 225px;    top: -15px;    left: 29px;}
+	img.blue_hover_img{width: 133px; left: 75px;}
+	img.blue_bubble{width: 185px;}
+
+
+
+	.book_single_cover{background-size: 130px;}
+
+
+}
