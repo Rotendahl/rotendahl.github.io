@@ -1,0 +1,20 @@
+body {background-color: #3c5d96;
+	 font-family: Georgia, Palatino, serif;
+	 color: #EEE;
+    line-height: 1;
+}
+
+
+#cat{
+	border: 1px solid black;
+	width: intrinsic;
+	margin: auto;
+
+} 
+
+
+
+#text {
+	text-align: center;
+	margin: auto;
+} 

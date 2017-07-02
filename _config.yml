@@ -26,7 +26,7 @@ sass:
     style: compressed
 
 # Comments
-disqus_shortname: rotendahl
+disqus_shortname: rotendahl-dk
 
 # Social
 google:
@@ -36,9 +36,9 @@ google:
     #ad-client:
     #ad-slot:
 #bing-verify:
-#email:
-twitter: rotendahl
-facebook: rotendahl
+email: rotendahl
+#twitter:            rotendahl
+#facebook:           rotendahl
 github-url: rotendahl
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
 linkedin: rotendahl
@@ -75,6 +75,7 @@ exclude:
     [
         README.md,
         Gemfile,
+        postTemplates,
         Gemfile.lock,
         node_modules,
         gulpfile.js,
