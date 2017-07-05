@@ -1,7 +1,6 @@
 # My personal homepage
 
-This is the repo for my personal homepage [rotendahl.dk](rotendahl.dk).
-![screenshot](screenshot.png)
+This is the repo for my personal homepage [rotendahl.dk](http://rotendahl.dk).
 
 I keep a list of blog post, a resume, and a overview of my projects.
 
