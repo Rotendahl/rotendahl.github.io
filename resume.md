@@ -6,94 +6,101 @@ comments: false
 
 Benjamin Rotendahl
 ============
+<figure>
+	<a href="/assets/img/mig.png"><img src="/assets/img/mig.png"></a>
+	<figcaption><a href="/assets/img/mig.png" title="Benjamin Rotendahl">Benjamin Rotendahl</a>.</figcaption>
+</figure>
 
 -----------------------------------------------
-1 MyAddress                       email@example.com
-MyTown 1000                       @twitter_handle
-MyCountry                         1800 my-phone-nr
+
+
+| Østervoldgade 20, V.114 | {{site.email}}
+| 1350 København K | [Github]({https://github.com/rotendahl})
+| Denmark  |  {{site.phone}} |
+
+
+
 -----------------------------------------------
+
 
 Education
 ---------
+2017-2019 (expected)
+:   **Masters, Computer Science**;
+    University of Computer Science
 
-2010-2014 (expected)
-:   **PhD, Computer Science**; Awesome University (MyTown)
 
-    *Thesis title: Deep Learning Approaches to the Self-Awesomeness
-     Estimation Problem*
+2013-2017
+:   **Bachelor, Computer Science**;
+    University of Copenhagen
 
-2007-2010
-:   **BSc, Computer Science and Electrical Engineering**; University of
-    HomeTown (HomeTown)
+2009-2012
+:   **STX, Math A, Kemi A, physics B**
+    Ribe Katedralskole
 
-    *Minor: Awesomeology*
 
-Experience
+Work Experience
 ----------
+**Teaching assistant at DIKU: Feb 2017 - Juli 2017** <br>
+I was a teaching assistant on the first year course _software development_ for
+first year computer science studetens at the university of Copenhagen.
+I thought them software design patterns, good programming practice, how to
+implement it in C# and graded their assignments
 
-**Your Most Recent Work Experience:**
 
-Short text containing the type of work done, results obtained,
-lessons learned and other remarks. Can also include lists and
-links:
+**Student Assistant at Coding Pirates : December 2015 - Jan 2017** <br>
+I worked on the systems we use in [Coding Pirates](http://codingpirates.dk) the
+main project was our CRM that is built in django.
+I also wrote code that automated the administrative processes.
 
-* First item
 
-* Item with [link](http://www.example.com). Links will work both in
-  the html and pdf versions.
+**Student Assistant at the Finsen Laboratory : Juli 2014 - Nov 2015** <br>
+The job consisted of writing small scripts that performed simple data transfer
+tasks, automated setup, and IT-support
 
-**That Other Job You Had**
+**Various Teaching jobs**
+I have had a variety of teaching jobs in the form of one day workshops or short
+courses. I have also had a small class in Københavns Ungdomsskole.
 
-Also with a short description.
 
 Technical Experience
 --------------------
+My work experience has mainly bin in web development, where I have used django.
+I am familiar with moderen web practices such as AJAX, REST, API's, etc.
 
-My Cool Side Project
-:   For items which don't have a clear time ordering, a definition
-    list can be used to have named items.
+For a list of some of the projects I made see either my
+[github](https://github.com/rotendahl) or my [projects page](http://rotendahl.dk/projects/)
 
-    * These items can also contain lists, but you need to mind the
-      indentation levels in the markdown source.
-    * Second item.
+During my studies I have worked in a variety of languages both imperative and
+functional.
 
-Open Source
-:   List open source contributions here, perhaps placing emphasis on
-    the project names, for example the **Linux Kernel**, where you
-    implemented multithreading over a long weekend, or **node.js**
-    (with [link](http://nodejs.org)) which was actually totally
-    your idea...
+* Python
+* C
+* C#
+* C++
+* SML
+* Matlab
+* Java
+* Javascript
 
-Programming Languages
-:   **first-lang:** Here, we have an itemization, where we only want
-    to add descriptions to the first few items, but still want to
-    mention some others together at the end. A format that works well
-    here is a description list where the first few items have their
-    first word emphasized, and the last item contains the final few
-    emphasized terms. Notice the reasonably nice page break in the pdf
-    version, which wouldn't happen if we generated the pdf via html.
 
-:   **second-lang:** Description of your experience with second-lang,
-    perhaps again including a [link] [ref], this time placing the url
-    reference elsewhere in the document to reduce clutter (see source
-    file).
-
-:   **obscure-but-impressive-lang:** We both know this one's pushing
-    it.
-
-:   Basic knowledge of **C**, **x86 assembly**, **forth**, **Common Lisp**
-
-[ref]: https://github.com/githubuser/superlongprojectname
-
-Extra Section, Call it Whatever You Want
+Volunteering and free time
 ----------------------------------------
+* Board of Coding Pirates Denmark
+    I am om the national board of [Codingpirates.dk](http://codingpirates.dk)
+    we have 80 departments across the country where we teach kids programming.
 
-* Human Languages:
+* Tutor at UCPH:
+    We plan and execute activities for new students, including the RUS-trip and
+    other social events.
 
-     * English (native speaker)
-     * ???
-     * This is what a nested list looks like.
+* I received the DIKU students dissemination award for the work me and other  students did for the "gymnasie-tjeneste".
 
-* Random tidbit
 
-* Other sort of impressive-sounding thing you did
+* Almost a ninja since I have the blue belt in karate
+
+
+#### Human Languages
+* Danish (Native)
+* English (Fluent)
+* German (Some)
