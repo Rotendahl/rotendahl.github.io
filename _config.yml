@@ -6,7 +6,7 @@ reading_time: true
 words_per_minute: 200
 logo: "assets/img/logo.png"
 background: "assets/img/background.jpg"
-tiled_bg: false # Set this true if you want to tile your background image, otherwise it will be covered
+tiled_bg: true # Set this true if you want to tile your background image, otherwise it will be covered
 locale: en_US
 url: http://rotendahl.dk
 
@@ -30,35 +30,24 @@ disqus_shortname: rotendahl-dk
 
 # Social
 google:
-    #plus:            #username
+    #plus:          #username
     analytics: UA-101523400-1
     #verify:
     #ad-client:
     #ad-slot:
-#bing-verify:
 email: Benjamin@Rotendahl.dk
-#twitter:            rotendahl
-#facebook:           rotendahl
+phone: 29866771
+#twitter:         rotendahl
+#facebook:        rotendahl
 github-url: rotendahl
-#stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
+#stackoverflow:   123456/username   from a "http://stackoverflow.com/users/123456/username" link
 linkedin: rotendahl
-#xing:              username
-#instagram:          username
-#lastfm:            username
-#tumblr:            username
-#medium:            '@username'
-#pinterest:         username
-#foursquare:        username
-#steam:              username
-#dribbble:          username
-#youtube:            username
-#soundcloud:        username
-#weibo:             username
-#flickr:            username
-#codepen:           username
+#youtube:         rotendahl
+#youtube-channel: rotendahl
+#soundcloud:      username
+#flickr:          username
+#codepen:         username
 keybase: rotendahl
-#xmpp:              username@server.com
-#hackernews:        username
 
 # Gems
 gems:
