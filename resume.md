@@ -96,8 +96,7 @@ Volunteering and free time
 
 * I received the DIKU students dissemination award for the work me and other  students did for the "gymnasie-tjeneste".
 
-
-* Almost a ninja since I have the blue belt in karate
+* I have the blue belt in karate and will gladly use it if you claim emacs is better than vim
 
 
 #### Human Languages
