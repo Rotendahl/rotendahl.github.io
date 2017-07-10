@@ -54,7 +54,7 @@
     {% if page.feature %}
     {% capture feature %}{{ page.feature }}{% endcapture %}
     {% unless feature contains 'http://' or feature contains 'https://' %}{% capture feature %}{{ site.url }}/{{ feature }}{% endcapture %}{% endunless %}
-    <style type="text/css">.feature {background-image:url({{ feature }});}</style>
+    <style type="text/css">.feature {background-image:url({{ feature }}); background-size:cover;}</style>
     {% endif %}
 
       <!-- Safari suuuucks https://stackoverflow.com/questions/8788802/prevent-safari-loading-from-cache-when-back-button-is-clicked -->
