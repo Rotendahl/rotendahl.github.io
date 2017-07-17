@@ -4,12 +4,13 @@ title: Résumé
 comments: false
 ---
 
-Benjamin Rotendahl
-============
 <figure>
 	<a href="/assets/img/mig.png"><img src="/assets/img/mig.png"></a>
-	<figcaption><a href="/assets/img/mig.png" title="Benjamin Rotendahl">Benjamin Rotendahl</a>.</figcaption>
+	<figcaption><a href="/assets/img/mig.png" title="Benjamin Rotendahl"></a>.</figcaption>
 </figure>
+My name is Benjamin Rotendahl and I love programming, teaching and building
+silly things. I live in Copenhagen where I study computer science at [DIKU](http://diku.dk). I spend some of my free time time being a part of [Coding Pirates](http://codingpirates.dk) where I'm both a volunteer
+teacher and on the board.
 
 -----------------------------------------------
 
