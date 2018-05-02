@@ -71,11 +71,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (~> 3.2.1)
+  jekyll
   jekyll-feed
   jekyll-gist
   jekyll-mentions
   jekyll-sitemap
 
 BUNDLED WITH
-   1.14.6
+   1.16.1

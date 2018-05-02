@@ -8,7 +8,7 @@ logo:             'assets/img/logo.png'
 background:       'assets/img/background.jpg'
 tiled_bg:         true
 locale:           en_US
-url:              http://rotendahl.dk
+url:              https://rotendahl.dk
 
 # Jekyll
 permalink:        /:title/

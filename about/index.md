@@ -18,7 +18,7 @@ teacher and on the board.
 
 
 | Østervoldgade 20, V.114 | {{site.email}}
-| 1350 København K | [Github]({https://github.com/rotendahl})
+| 1350 København K | [Github](https://github.com/rotendahl)
 | Denmark  |  {{site.phone}} |
 
 
