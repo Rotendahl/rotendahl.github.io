@@ -16,7 +16,7 @@ the code can be found on [github](https://github.com/Rotendahl/brainGames)
 
 ## About the project
 The project was a freelance job for the university of Copenhagen's School
-Service. It was part of af larger project entitled: "Who controls your brain",
+Service. It was part of a larger project entitled: "Who controls your brain",
 the project was aimed at middle school children with the purpose of teaching
 them about their brains. These games were made as the digital part of the
 project and tasked them with various cognitive tasks.
@@ -24,11 +24,12 @@ project and tasked them with various cognitive tasks.
 
 ## The choice of framework
 The kids were invited to a series of events where they would play them. We did
-not expect them to be able to install apps on their phones (Parental controls etc.) which meant that the games had to be web based.
+not expect them to be able to install apps on their phones (Parental controls
+etc.) which meant that the games had to be web based.
 
-I considered different web-based game engines such as [Phaser]
-(https://phaser.io) but after playing a bit with them they all seemed to
-complex for these simple games. From my work in I knew about
+I considered different web-based game engines such as [Phaser](https://phaser.io)
+but after playing a bit with them they all seemed to complex for these simple games.
+From my work in Coding Pirates I knew about
 [Processing](http://processingjs.org) which is a simple way to create
 interactive drawings.
 
@@ -52,34 +53,35 @@ draw = function() {
 };
 {% endhighlight %}
 
-A programmer armed with the documentation, can start building games and not
-focus on the framework from the start.
+A programmer armed with the documentation, can start building games at once and
+not focus on lengthy  the framework from the .
 
 The downside of processing is that it's mainly made for education purposes and
 interactive art. This gave the following problems:
 
-*  The handling of touch events is not handled in a nice manner, Processing
-has only has a notion of mouse clicks and can't handle multitouch. I solved
-this using a dirty hack where the position of the mouse and not the clicks
-is used, and each frame the postions is reset so a change in position indicates a click. This is the reason that the games does not work
-perfectly on desktop browsers.
+*  The handling of touch events is not handled in a nice manner, Processing only
+has a notion of mouse clicks and can't handle multitouch. I solved this using a
+dirty hack where the position of the mouse and not the clicks is used, and each
+frame the positions is reset so a change in position indicates a click. This is
+the reason the games does not work perfectly on desktop browsers.
 
 * It's hard to get it to work in a responsive manner.
 
 * It's was originally implemented in java and you can tell it's a port and
-not web first. The main problem is the development process a bug is not
+not web first. The main problem is the development process, a bug is not
 reported in any useful way which makes it a pain to debug.
 
 * It's Hard to interact with the DOM.
 
-A way to get around some of these problems is to use this excellent[extension]
-(https://github.com/GildasP/jProcessingJS) which makes it responsive and mobile
-friendly.
+A way to get around some of these problems is to use this excellent
+[extension](https://github.com/GildasP/jProcessingJS) which makes it responsive
+and mobile friendly.
 
 
-Since I built my project the javascript version processing has gotten its
-successor [p5](https://p5js.org) which solves these problems.
 {: .notice}
+Update :
+Since I built my project the javascript version of processing has gotten a
+successor [p5](https://p5js.org) which solves these problems.
 
 
 ## The structure of a game
@@ -95,7 +97,15 @@ loaded. The `setup` and `draw` functions are placed in the file _code.pde_ which
 controls the game's state and the core game logic. Each game has a file
 _game.pde_ that contains the data structures and classes for each game.
 
-The _php_ files are used to send and retrieve the score to a database.
+The _php_ files are used to send and retrieve the score to a database, this is
+done in a stupid way since high score is just set using URL parameters.
+Processing had no way to interact with the DOM so no post request could be made.
+
+{: .notice}
+Update :
+The database is broken, and I can't be bothered to keep it alive, so the
+high-score functionality is broken
+
 
 ### The memory game
 <img src="/games/brain/assets/huske.png" style="width:50%;">
@@ -111,10 +121,10 @@ instead were told to remember the path and notice how they performed better.
 
 
 #### Implementation
-The game's logic stars with creating a grid of a tile class, which holds the
-position an value for each tile, and exposes methods for hiding/showing them and
-drawing the. The game randomly picks tiles corresponding to \\(levelNumber + 2 \\)
-ranks them from \\( [1,levelNumber] \\) and draws them.
+The game's logic starts with creating a grid of a `tile` class, which holds the
+position and value for each tile, it exposes methods for hiding/showing and
+drawing it self. The game randomly picks tiles corresponding to
+\\(levelNumber + 2 \\) ranks them from \\( [1,levelNumber] \\) and draws them.
 
 The state loop in _game.pde_ starts a timer and turns tiles when needed. When
 the player loses they are given the option of posting their score or trying
@@ -126,13 +136,13 @@ again.
 <img src="/games/brain/assets/tabel.png" style="width:50%;">
 This game presents the player with at table that keeps scrolling down, at the
 bottom of the screen is the current "task" for the bottom row. The task can be
-picking the sum of two numbers, picking a number \\(n \\.) such that
-\\( 3 \nmid n  \\), etc. If the player fails a task the row goes red and one
+picking the sum of two numbers, picking a number \\(n \\) such that
+\\( 3 \mid n  \\), etc. If the player fails a task the row goes red and one
 extra row will stay red for the rest of the game.
 
 The goal of the game was to
 have the kids find a way of avoiding doing the actual computation and find a
-pattern that could solve the task, I.e \\( 5 \nmid n  \\) can be solved just
+pattern that could solve the task, I.e \\( 5 \mid n  \\) can be solved just
 by finding a number that ends in 5 or 0.
 
 
