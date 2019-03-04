@@ -121,7 +121,7 @@ Bash is the most common shell, and is most likely what your using now and what
 you'll encounter on every SSH connection you're going to make. I recommend using
 the awesome [oh-my-zsh][oh-zsh] framework for _zsh_.
 To install the shell run the following command:
-{% highlight bash %}    
+{% highlight bash %}
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 {% endhighlight %}
 Enter your password in order to change shell, and enjoy the first step towards
