@@ -232,9 +232,13 @@ combines perfectly with the two utilities [cowsay][cowsay] and [lolcat][lolcat].
 Install all three and place the command `fortune -os | cowsay | lolcat` at the
 bottom of your `.zshrc` for maximum dankness.
 
+* **[trash](https://hasseg.org/trash/):** A mac specific utility that can be
+installed with `brew install trash`. If you have ever mistakenly run `rm` on a
+file, you know that `rm` removes the file immediately. This utility as the name
+suggests moves it to the trash instead. You can alias it to `alias rm="trash"`
+and future you will thank you some day.   
 
 
-----
 That's it, Enjoy your new maxed out terminal!
 If you have questions or run into problems write a comment below, and I might
 get back to you.
