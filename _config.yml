@@ -29,25 +29,19 @@ sass:
 disqus_shortname: rotendahl-dk
 
 # Social
-google:
-    #plus:          #username
-    analytics: UA-101523400-1
-    #verify:
-    #ad-client:
-    #ad-slot:
+github-url: rotendahl
 email: Benjamin@Rotendahl.dk
 phone: 29866771
-#twitter:         rotendahl
-#facebook:        rotendahl
-github-url: rotendahl
-#stackoverflow:   123456/username   from a "http://stackoverflow.com/users/123456/username" link
+twitter: rotendahl
 linkedin: rotendahl
+#facebook:        rotendahl
+#stackoverflow:   123456/username   from a "http://stackoverflow.com/users/123456/username" link
 #youtube:         rotendahl
 #youtube-channel: rotendahl
 #soundcloud:      username
 #flickr:          username
 #codepen:         username
-keybase: rotendahl
+#keybase:          rotendahl
 
 # Gems
 gems:
