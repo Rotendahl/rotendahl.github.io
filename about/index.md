@@ -18,7 +18,6 @@ I teach kids to code.
 I've studied part time for a large part of my time at university, this has
 allowed me to try different development jobs, teaching gigs and side projects.
 
-
 ---
 
 | Østervoldgade 20, V.114 | {{site.email}}
@@ -58,7 +57,6 @@ automated some administrative processes.
 The job consisted of writing small scripts that performed simple data
 transformation tasks, automated setup, and IT-support
 
-
 **Various Teaching jobs**
 I have had a large variety of teaching jobs, I have thought programming to
 people in all age groups, but mostly in the range 7-18 years. I've had paid
@@ -90,13 +88,13 @@ functional.
 -   Board of Coding Pirates Denmark
     I am om the national board of [Codingpirates.dk](http://codingpirates.dk)
     we have 80 departments across the country where we teach kids programming.
-	I helped hire our first full time employe and manage an above 1 million DKK
-	budget.
+    I helped hire our first full time employe and manage an above 1 million DKK
+    budget.
 
-* Board of Coding Pirates Copenhagen(2016-2018)
+*   Board of Coding Pirates Copenhagen (2016-2018):
     I was on the board of [Codingpirates.dk](http://codingpirates.dk)
-	Copenhagen. We went from 5 to 12 chapters during my time and held several
-	events.
+    Copenhagen. We went from 5 to 12 chapters during my time and held several
+    events.
 
 -   Tutor at UCPH:
     We plan and execute activities for new students, including the RUS-trip and
