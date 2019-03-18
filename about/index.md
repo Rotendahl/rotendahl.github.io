@@ -110,13 +110,18 @@ of languages both imperative and functional.
 
 Volunteering, free time, awards
 ----------------------------------------
-* Board of Coding Pirates Denmark(2017-2018)
+* I received the DIKU dissemination award which included a 20.000DKK cash prize.
+
+* Vice Chair of the Board of Coding Pirates Denmark (2019-current):
+    I was elected for a two year term on the board.
+
+* Board of Coding Pirates Denmark (2017-2018):
     I was on the national board of [Codingpirates.dk](http://codingpirates.dk)
     we have 80 departments across the country where we teach kids programming.
 	I helped hire our first full time employe and manage an above 1 million DKK
 	budget.
 
-* Board of Coding Pirates Copenhagen(2016-2018)
+* Board of Coding Pirates Copenhagen (2016-2018):
     I was on the board of [Codingpirates.dk](http://codingpirates.dk)
 	Copenhagen. We went from 5 to 12 chapters during my time and held several
 	events.
@@ -125,8 +130,6 @@ Volunteering, free time, awards
     We plan and execute activities for new students, including the RUS-trip and
     other social events.
 
-
-* I received the DIKU dissemination award which included a 20.000DKK cash prize.
 
 * I have the blue belt in karate and will gladly use it if you claim emacs is
 better than vim
@@ -145,3 +148,4 @@ better than vim
 [djangoLink]: http:/django.com
 [dikuDK]: http://diku.dk
 [cpDK]: https://codingpirates.dk
+[cpAbout]: https://codingpirates.dk/omcodingpirates/
