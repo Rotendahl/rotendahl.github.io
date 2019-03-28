@@ -203,10 +203,10 @@ The utility is meant as a `cat` and `less` replacement it provides syntax
 highlighting when outputting to standard our but, degrades gracefully to cat
 when piped.
 
-* **[cheat](https://github.com/cheat/cheat):** If you type `cheat ls` it will
-show the most common uses for `ls` with a short description. Perfect for when
-you now the command but don't want to search through _man_ pages to find the
-proper flags.
+* **[tldr](https://tldr.sh):** If you type `tldr curl` it will
+show the most common uses for `curl` with a short description. Perfect for when
+you know the name of a command but don't want to search through _man_ pages to find the
+proper usage.
 
 * **[jq](https://stedolan.github.io/jq/):** A _json_ formatter that makes
 dealing with json data in the shell a joy. It has filtering, pretty printing,
