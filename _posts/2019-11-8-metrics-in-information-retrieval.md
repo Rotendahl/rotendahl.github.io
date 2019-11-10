@@ -14,7 +14,8 @@ Information Retrieval is a field of computer science that, as the name suggests,
 is about returning information from a corpus based on context. The context can
 include a query, the user location, time, etc. The result can either be members
 of the corpus or some new document that is a combination of information in the
-corpus.
+corpus. This post uses the problem of **ad-hoc retrieval** to cover different
+metrics that can be used in a variety of classification tasks.
 
 ## Ad-Hoc retrieval
 
@@ -31,8 +32,8 @@ Ad hoc retrieval is the task of taking some query and returning a ranked list
 of relevant documents. The steps of this process is first to convert the query
 to some features based on the text of the query and perhaps also the location,
 time, date, etc. of the query. We must then rank the documents according to the
-query, this ranking can be influenced both the contents of the document and it's  
-metadata for instance how popular the document is or how recent it is.
+query, this ranking can be influenced both the contents of the document and
+it's metadata for instance how popular the document is or how recent it is.
 
 The purpose of this post is not to describe how to design such a system, that
 post can be found here:
@@ -132,12 +133,25 @@ The recall of a system can also be gamed, when given a query we need not read it
 instead we return the entire corpus as our ranking. We know that every relevant
 document is in it and thus have perfect recall.
 
+#### F1 scores
+
 As seen by their formulas and flaws precision and recall are two sides of the
 same coin. On their own they can't guarantee to accurately measure the
 performance of a system. But in combination the two metrics gives a good
 indicator, if both the recall and precision is close to 1, we know that most of
 our ranking contained relevant documents, and that most of the relevant
 documents in the corpus was in the ranking.
+
+The F1 score takes the harmonic mean of precision and recall which is computed
+as:
+
+$$
+  F1(q, R_q) = 2 \frac{recall(q, R_q) \times precsion(q, R_q)}
+  {recall(q, R_q) + precsion(q, R_q)}
+$$
+
+The F1 score is not as easy to interpret as precision or recall, but it matches
+the actual performance of the system better.
 
 ### Order based metrics.
 
