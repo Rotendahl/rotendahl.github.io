@@ -20,8 +20,8 @@ metrics that can be used in a variety of classification tasks.
 ## Ad-Hoc retrieval
 
 <figure>
-<a href="/assets/img/information_retrieval/ir_example.png">
-<img src="/assets/img/information_retrieval/ir_example.png">
+<a href="/assets/img/information_retrieval/IR_example.png">
+<img src="/assets/img/information_retrieval/IR_example.png">
 </a>
 <figcaption>Example of Ad-Hoc retrieval: We present a query to the IR system
 which then retrieves documents from the corpus related to the query.
