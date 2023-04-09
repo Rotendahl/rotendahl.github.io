@@ -1,0 +1,15 @@
+website:
+  title: "Rotendahl's Blog"
+  site-url: https://rotendahl.dk
+  description: "Posts about programming, math and bad jokes"
+  navbar:
+    logo: assets/logo.png
+    search: true
+    collapse: true
+    left:
+      - about.qmd
+    right:
+      - icon: github
+        href: https://github.com/rotendahl/
+      - icon: rss
+        href: index.xml
