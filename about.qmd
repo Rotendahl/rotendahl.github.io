@@ -1,0 +1,87 @@
+---
+title: Benjamin Rotendahl
+image: assets/me.jpg
+number-sections: false
+about:
+  id: formatted
+  template: trestles
+  links:
+    - icon: linkedin
+      href: https://linkedin.com
+    - icon: github
+      href: https://github.com
+    - icon: envelope
+      href: mailto://Benjamin@Rotendahl.dk
+---
+:::{#formatted}
+Hi!
+I'm Benjamin, I love programming, math, and stupid jokes.
+My girlfriend and I live in Copenhagen with our daughter. When not working or
+spending time with my family, I spend some of my free time being part of
+[Coding Pirates](http://codingpirates.dk) where we teach kids to code.
+
+My main interests are in software development and machine learning.
+
+## Education
+
+Masters in Computer Science | University of Copenhagen | Sep 2018 - December 2021
+
+Bachelors in Computer Science  | University of Copenhagen | Sep 2013 - June 2017
+
+:::
+
+
+## Experience
+
+###### Developer at Monthio: 2021-Present
+We build a platform consisting of microservices that together analyse
+transactions, debt records, etc. and bulids a budget used for credit scoring.
+
+
+###### Student Data Scientist at Bolius: 2018-2021
+I worked on a variety projects related to machine learning and data science. From
+initial data collection to building machine learning models and serving them via
+AWS and preseting them in a React frontend.
+We created models that given an address would present the user with risks of
+flooding, Radon, etc. driven by our own models.
+
+###### Backend Developer at CMP: 2017-2018
+We implemented backends for a variety of apps and websites. We worked with
+Elixir and the [Phoenix framework](https://www.phoenixframework.org)
+
+
+###### TA at University of Copenhagen: Feb 2017 - July 2017
+I was a teaching assistant on course _software development_ for computer science
+students at the university of Copenhagen. We thought them software design
+patterns, programming practices, working in C# and using CI/CD.
+
+
+###### Student Assistant at Coding Pirates | (December 2015 - Jan 2017)
+I helped build a custom CRM for [Coding Pirates](http://codingpirates.dk) the code is on [github][CRM]
+
+
+## Volunteering, free time, awards
+* I received a dissemination award from the institute of computer science of Copenhagen.
+* Vice Chair of the Board of Coding Pirates Denmark (2019-2021):
+* Board of Coding Pirates Denmark (2017-2019):
+* Board of Coding Pirates Copenhagen (2016-2018):
+* Tutor and Student assistant at the University of Copenhagen (2015-2019):
+* I have the blue belt in karate and will use it if you claim emacs is better than vim
+
+
+#### Human Languages
+* Danish (Native)
+* English (Fluent)
+* German (Some)
+
+
+### Favorite Programming Languages:
+* Python
+* C#
+* Haskell
+* Elixir
+* F#
+* Julia
+
+<!-- Refs -->
+[CRM]: https://github.com/codingPirates/forenings_medlemmer/

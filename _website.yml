@@ -7,7 +7,8 @@ website:
     search: true
     collapse: true
     left:
-      - about.qmd
+      - text: About
+        file: about.qmd
     right:
       - icon: github
         href: https://github.com/rotendahl/
