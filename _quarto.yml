@@ -6,6 +6,7 @@ project:
 
 format:
   html:
+    smooth-scroll: true
     theme:
       light: litera
       dark: Cyborg
@@ -14,6 +15,7 @@ resource-path:
 
 toc: true
 number-sections: true
+number-depth: 3
 
 metadata-files:
   - _website.yml
