@@ -1,0 +1,277 @@
+---
+title: "Overengineering a start page"
+author: "Benjamin Rotendahl"
+date: "2017-08-13"
+date-modified: "2023-04-17"
+categories: [front-end, code, haskell]
+image: https://github.com/Rotendahl/Start-Page-Generator/raw/master/screenshot.png
+titlegraphic: https://github.com/Rotendahl/Start-Page-Generator/raw/master/screenshot.png
+---
+
+# Introduction
+
+The default start page in my browser of choice (safari) suck. The page looks nice
+but does not sync between devices, and shows a lot of useless information.
+@fig-safari shows the safari start page, the top row is the most usefull with a
+bunch of links to sites I visit frequently. This is followed by links shared with
+me, these "shares" are all from my partner via iMessage and old and was only
+relevant once, but sticks around way to long.
+The bottom row is useful part of the start page, as it allows me to
+access tabs from my iPad and iPhone, but this has been superseded by the
+[tab group feature in safari][tab-groups].
+
+::: {.panel-tabset}
+
+## Bad Safari start page
+
+![Safari's bad startpage](safari.png){#fig-safari}
+
+## Awesome generated start page
+
+![My Generated webpage](https://github.com/Rotendahl/Start-Page-Generator/blob/gh-pages/example.png?raw=true){#fig-generated}
+
+:::
+
+## The solution
+
+A start page should present the configured links in a grid with the same layout
+on all devices. The links should be static to ensure "muscle memory". The
+themeing should switch between light and dark mode depending on the system
+configuration. A design that meets these simple requirements can also be seen in
+in figure @fig-safari.
+
+Implementing this design is can be done with the following html and css:
+
+::: {.panel-tabset}
+
+## HTML
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Start Page</title>
+    <link rel="stylesheet" href="variables.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <a href="https://site-a.com">
+        <img src="https://logo-a.png" />
+        <p>Site A</p>
+      </a>
+
+      <a href="https://site-b.com">
+        <img src="https://logo-b.png" />
+        <p>Site B</p>
+      </a>
+
+      <a href="https://site-c.com">
+        <img src="https://logo-c.png" />
+        <p>Site C</p>
+      </a>
+    </div>
+  </body>
+</html>
+```
+
+## variables.css
+
+```css
+:root {
+  --dark-mode-text: #f8f8f3;
+  --dark-mode-bg: #282a36;
+  --dark-mode-shadow: #3e404b;
+
+  --light-mode-text: #111111;
+  --light-mode-bg: #fdf6e3;
+  --light-mode-shadow: #606060;
+
+  --text: var(--light-mode-text);
+  --bg: var(--light-mode-bg);
+  --shadow: var(--light-mode-shadow);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: var(--dark-mode-text);
+    --bg: var(--dark-mode-bg);
+    --shadow: var(--dark-mode-shadow);
+  }
+}
+```
+
+## style.css
+
+```css
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  max-width: 1024px;
+  margin: auto;
+}
+
+img:hover {
+  box-shadow: 7px 7px var(--shadow);
+}
+
+img {
+  max-width: 100%;
+  border-radius: 100px;
+  max-height: 100%;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px;
+  display: inline-block;
+}
+```
+
+:::
+
+### Setting it up
+
+The `div` container above is targettet by CSS that makes it _responsive_ in the
+sense that a flex box will make it wrap nicely. The color theme is controlled with
+CSS variables that respect the system wide dark/light-mode.
+
+Setting up the start page requires adding `<a>` tags with name, logo and link
+for each site. Customzing the colors can be done by updating the values in the
+`variables.css` file.
+
+# Overengineering the solution
+
+While the above solution of manually adding the `<a>` tags would be fast and easy
+it's no fun. Instead we are going to overengineer a tool that will do this for us,
+While stretching our haskell muscles. We will create a custom data format, a
+parser and a template engine to generate the html above.
+data format below and generates the html above using a template.
+
+## Defining the favorite sites.
+
+The sites to show are listed in the format
+
+```txt
+some arbitrary text
+* youtube.com/feed/subscriptions/ <- <logo-url>
+* Github.com
+* Data Science -> towardsdatascience.com
+* Sentry.io
+* Azure DevOps -> dev.azure.com <- <logo-url>
+```
+
+In essence a links file can contain two types of text lines, comments and favorites.
+A comment is any line that does not start with a `*` and a favorites is any line that
+does. A favorite must have a url, the url can be preceded by a display name and
+an arrow `->`. The display name can contain any characters except `->` after the
+url an optional logo url can be added. The logo url must be preceded by `<-`.
+This gives us the following context free grammar:
+
+```txt
+  favorites ::=  * favorite \n favorites | ε
+  favorite ::= display-name -> site | site
+  display-name ::= <text>
+  site ::= url | url <- logo
+  url ::= <text>
+  logo ::= <text>
+```
+
+Where `<text>` is any string of characters that does not contain `->` or `<-` or
+newlines.
+
+While the grammar is simple it does require some lookahed i.e when parsing a
+display name you don't know if it's indeed a display name or a url.
+
+See my current list of favorites below.
+
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flinks.txt&style=default&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+
+## Haskell up in here, up in here.
+
+To setup our haskell project we use [cabal][cabal] and initialize the project
+with
+
+```bash
+cabal init
+```
+
+This will create a [start-page-generator.cabal](https://github.com/Rotendahl/Start-Page-Generator/blob/master/Start-Page-Generator.cabal)
+file along with lib and test folders.
+
+### Defining the types.
+
+The next step is to define the types we'll use for our parser and template engine,
+A site in the start page is defined by three properties:
+
+- The url of the site
+- The name of the site
+- The logo of the site
+
+The last two are optional, if no name is given we'll use the hostname and if no
+logo is provided we use `logo.clearbit.com//<hostname>` which gives us a logo.
+
+We use the Maybe monad to represent the optional values and map from the
+`ParsedSite` to the `Site` type with the above logic.
+
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flib%2FSiteTypes.hs&style=default&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+
+### Parsing the links file
+
+Haskell is excelent for writing parsers, instead of writing clunky regexes that
+are hard to read and maintain we can use the parser combinator library: [parsec][parsec].
+
+The main idea behind parser combinators is that you can build a parser for each
+part of the grammar and then combine them to build a parser for the entire grammar.
+For parsing a site we need to parse a '\*' character, an optional display name,
+followed by an url and an optional logo url.
+This gives us the parser
+
+```haskell
+parseSite :: Parser ParsedSite
+parseSite = do
+  _ <- string "*"
+  whiteSpace
+  name <- optionMaybe $ try parseDisplayName
+  url <- parseUrl
+  logo <- optionMaybe $ try parseLogo
+  return (name, url, logo)
+```
+
+Which is much easier to read than a regex. See the full parser below.
+
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flib%2FFavoritesParser.hs&style=default&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+
+### Generating the html
+
+We read the sample file use the mapper and then generate the html.
+
+### Testing
+
+Functional code is easy to test, thus we must do so. This is done using the
+exceptional [hspec](https://hspec.github.io/) library which uses the behavior
+driven development style of testing.
+
+## DevOps
+
+Seting up a simple CI/CD pipeline using github actions, was done by setting
+an action that lints and test all commits.
+
+Any commit to the master branch will trigger a build and deploy to github pages. Github pages is used as it's free and easy to setup.
+
+[linksFile]: https://github.com/Rotendahl/StartPageGenerator/blob/master/links.txt
+[tab-groups]: https://support.apple.com/en-gb/guide/safari/ibrwa2d73908/mac
+[favorites]: https://github.com/Rotendahl/Start-Page-Generator/blob/a8a2dced57325b0f0084d7dc009570b501826ee0/links.txt
+[cabal]: https://www.haskell.org/cabal/
+[parsec]: https://hackage.haskell.org/package/parsec
