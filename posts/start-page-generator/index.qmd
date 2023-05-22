@@ -1,24 +1,25 @@
 ---
 title: "Overengineering a start page"
 author: "Benjamin Rotendahl"
-date: "2017-08-13"
+date: "2023-08-13"
 date-modified: "2023-04-17"
 categories: [front-end, code, haskell]
-image: https://github.com/Rotendahl/Start-Page-Generator/raw/master/screenshot.png
-titlegraphic: https://github.com/Rotendahl/Start-Page-Generator/raw/master/screenshot.png
+image: https://github.com/Rotendahl/Start-Page-Generator/blob/gh-pages/example.png?raw=true
+titlegraphic: https://github.com/Rotendahl/Start-Page-Generator/blob/gh-pages/example.png?raw=true
 ---
 
 # Introduction
 
 The default start page in my browser of choice (safari) suck. The page looks nice
 but does not sync between devices, and shows a lot of useless information.
-@fig-safari shows the safari start page, the top row is the most usefull with a
-bunch of links to sites I visit frequently. This is followed by links shared with
-me, these "shares" are all from my partner via iMessage and old and was only
-relevant once, but sticks around way to long.
-The bottom row is useful part of the start page, as it allows me to
-access tabs from my iPad and iPhone, but this has been superseded by the
-[tab group feature in safari][tab-groups].
+@fig-safari shows the safari start page. The "favorites" section is a copy of
+the links in my favorites bar, which is already visible in the browser. The
+"Shared with you" section is a list of links that my partner has shared with me
+they are all old and was never really relevant. I don't use the reading list in
+safari, the entries are all old and read or was added by mistake.
+The bottom row is useful part of the start page, as it allows me to access tabs
+from my iPad and iPhone, but the [tab group feature in safari][tab-groups]
+superseeds this.
 
 ::: {.panel-tabset}
 
@@ -32,13 +33,13 @@ access tabs from my iPad and iPhone, but this has been superseded by the
 
 :::
 
-## The solution
+# The solution
 
-A start page should present the configured links in a grid with the same layout
-on all devices. The links should be static to ensure "muscle memory". The
-themeing should switch between light and dark mode depending on the system
-configuration. A design that meets these simple requirements can also be seen in
-in figure @fig-safari.
+I would like my start page to present the configured links in a grid with the
+same layout on all devices. The links should be static to ensure "muscle memory" of
+their placement, similar to app placement on my phone home screen. The themeing
+should switch between light and dark mode depending on the system configuration.
+A design that meets these simple requirements can also be seen in in figure @fig-safari.
 
 Implementing this design is can be done with the following html and css:
 
@@ -77,87 +78,37 @@ Implementing this design is can be done with the following html and css:
 </html>
 ```
 
-## variables.css
-
-```css
-:root {
-  --dark-mode-text: #f8f8f3;
-  --dark-mode-bg: #282a36;
-  --dark-mode-shadow: #3e404b;
-
-  --light-mode-text: #111111;
-  --light-mode-bg: #fdf6e3;
-  --light-mode-shadow: #606060;
-
-  --text: var(--light-mode-text);
-  --bg: var(--light-mode-bg);
-  --shadow: var(--light-mode-shadow);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: var(--dark-mode-text);
-    --bg: var(--dark-mode-bg);
-    --shadow: var(--dark-mode-shadow);
-  }
-}
-```
-
 ## style.css
 
-```css
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  max-width: 1024px;
-  margin: auto;
-}
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Fout%2Fstyle.css&style=github-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
-img:hover {
-  box-shadow: 7px 7px var(--shadow);
-}
+## variables.css
 
-img {
-  max-width: 100%;
-  border-radius: 100px;
-  max-height: 100%;
-}
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Fout%2Fvariables.css&style=github-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
-#container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-a {
-  text-decoration: none;
-  color: var(--text);
-  border-radius: 10px;
-  text-align: center;
-  margin: 10px;
-  display: inline-block;
-}
-```
 
 :::
 
-### Setting it up
+To make the start page "responsive" we add a flexbox to the container div and
+set each link with a fixed max width this along with the `flex-wrap: wrap` property
+ensures that the links flow nicely to the next row when the screen is too small
+making it work on phones and smaller browser windows.
 
-The `div` container above is targettet by CSS that makes it _responsive_ in the
-sense that a flex box will make it wrap nicely. The color theme is controlled with
-CSS variables that respect the system wide dark/light-mode.
+## Configuring the start page
+To make the above html fit your taste requires:
+* Setting your color theme in the `variables.css` file.
+* Adding `<a>` tags with each site you want to include.
 
-Setting up the start page requires adding `<a>` tags with name, logo and link
-for each site. Customzing the colors can be done by updating the values in the
-`variables.css` file.
+This last point is a bit tedious, but could be done in a few minutes, but that's
+no fun.
 
 # Overengineering the solution
 
-While the above solution of manually adding the `<a>` tags would be fast and easy
-it's no fun. Instead we are going to overengineer a tool that will do this for us,
-While stretching our haskell muscles. We will create a custom data format, a
-parser and a template engine to generate the html above.
-data format below and generates the html above using a template.
+The above solution of manually adding the `<a>` tags would be the smart way to
+proceed. Instead we are going to overengineer a tool that will do this for us,
+while stretching our haskell muscles. We will create a custom data format, a
+parser and a template engine to generate the html above, lastly we will setup a
+CI/CD pipeline to automatically deploy the start page to github pages.
 
 ## Defining the favorite sites.
 
