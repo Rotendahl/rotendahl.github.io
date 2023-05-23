@@ -110,50 +110,55 @@ while stretching our haskell muscles. We will create a custom data format, a
 parser and a template engine to generate the html above, lastly we will setup a
 CI/CD pipeline to automatically deploy the start page to github pages.
 
-## Defining the favorite sites.
+## Defining the favorite sites grammar.
 
-The sites to show are listed in the format
+A favorite consists of a url, a display name and a logo, the last two are optional.
+We could have used a format such as json or csv as the configuration file format,
+but instead we create our own format, @lst-grammar-example shows an example of
+the format. The idea of the grammar is to have the non optional url in the center
+of a line, if there is a display name it precedes the url and _points_`->`
+to the url. A logo optionally succeeds the url and _points_ back `<-` to the url.
 
-```txt
+```{#lst-grammar-example .txt lst-cap="Example grammar instance"}
 some arbitrary text
-* youtube.com/feed/subscriptions/ <- <logo-url>
+* youtube.com/feed/subscriptions <- <logo-url>
 * Github.com
 * Data Science -> towardsdatascience.com
 * Sentry.io
 * Azure DevOps -> dev.azure.com <- <logo-url>
 ```
 
-In essence a links file can contain two types of text lines, comments and favorites.
-A comment is any line that does not start with a `*` and a favorites is any line that
-does. A favorite must have a url, the url can be preceded by a display name and
-an arrow `->`. The display name can contain any characters except `->` after the
-url an optional logo url can be added. The logo url must be preceded by `<-`.
-This gives us the following context free grammar:
 
-```txt
-  favorites ::=  * favorite \n favorites | ε
-  favorite ::= display-name -> site | site
+
+A links file can contain two types of text lines: comments and favorites.
+A comment is any line that does not start with a `*` and a favorite is any line
+that does. A favorite must have a url, but can optionally have a display name and
+a logo as specified above. The grammar for the favorite sites file can be seen
+in [BNF][bnf] form in @lst-grammar-bnf.
+
+```{#lst-grammar-bnf .txt lst-cap="The favorite sites grammar in BNF form"}
+  favorites ::= * <favorite> \n <favorites> | ε
+  favorite ::= <display-name> -> <site> | <site>
   display-name ::= <text>
-  site ::= url | url <- logo
-  url ::= <text>
-  logo ::= <text>
+  site ::= <url> | <url> <- <url>
+  url ::= <url-spec>
 ```
-
 Where `<text>` is any string of characters that does not contain `->` or `<-` or
-newlines.
+newlines and `<url-spec>` is any valid url. The grammar follows the [lexeme][lexeme]
+convention of parsing, where we allow arbitrary whitespace between tokens, and
+treat any lines not prefixed with a `*` as whitespace.
 
-While the grammar is simple it does require some lookahed i.e when parsing a
-display name you don't know if it's indeed a display name or a url.
+The grammar is non left recursive, non ambiguous requiring no precedence rules,
+the only downside of the grammar is that it requires lookahead for display names.
+When reading the lexeme following a `*` we don't know if it is a display name or
+url until we observe a `->` or the lack of it. Since the display name is are
+short this will not be a problem in practice[^1].
 
-See my current list of favorites below.
+### Full grammer file
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flinks.txt&style=github-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on&"></script>
 
-<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flinks.txt&style=default&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
-
-## Haskell up in here, up in here.
-
-To setup our haskell project we use [cabal][cabal] and initialize the project
-with
-
+## Creating the project
+To setup our haskell project we use [cabal][cabal] and initialize the project with
 ```bash
 cabal init
 ```
@@ -161,29 +166,32 @@ cabal init
 This will create a [start-page-generator.cabal](https://github.com/Rotendahl/Start-Page-Generator/blob/master/Start-Page-Generator.cabal)
 file along with lib and test folders.
 
-### Defining the types.
+In typical haskell fashion we start by creating the types we need for our
+parser/(template engine). The types can be seen below:
 
-The next step is to define the types we'll use for our parser and template engine,
-A site in the start page is defined by three properties:
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flib%2FSiteTypes.hs&style=github-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
-- The url of the site
-- The name of the site
-- The logo of the site
+Note that the logo type is simply a type alias for the url. The `ParsedSite` type
+has the optional display name and logo url via the maybe monad. Our template
+engine will map between the `ParsedSite` and `Site` types filling in the optional
+fields. For the display name we use the hostname of the url if no display name is
+present. A missing logo url is filled in with `logo.clearbit.com//<hostname>`
+which provides a logo for most sites.
 
-The last two are optional, if no name is given we'll use the hostname and if no
-logo is provided we use `logo.clearbit.com//<hostname>` which gives us a logo.
+### Testing
+Being a functional langauge Haskell has many great testing libaries from
+simple [unit testing][hunit] to [property based testing][quickcheck]. For this
+project we use the BDD style [hspec][hspec] library. The tests are simple
+assertions that given the specific input the code produces the expected output.
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Ftest%2FTemplateEngineSpec.hs&style=github-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
-We use the Maybe monad to represent the optional values and map from the
-`ParsedSite` to the `Site` type with the above logic.
 
-<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flib%2FSiteTypes.hs&style=default&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+## Parsing the links file
 
-### Parsing the links file
+Haskell is excellent for writing parsers, instead of writing clunky regexes that
+are hard to read and maintain we use the parser combinator library: [parsec][parsec].
 
-Haskell is excelent for writing parsers, instead of writing clunky regexes that
-are hard to read and maintain we can use the parser combinator library: [parsec][parsec].
-
-The main idea behind parser combinators is that you can build a parser for each
+The main idea behind parser combinators is that you build a parser for each
 part of the grammar and then combine them to build a parser for the entire grammar.
 For parsing a site we need to parse a '\*' character, an optional display name,
 followed by an url and an optional logo url.
@@ -204,25 +212,35 @@ Which is much easier to read than a regex. See the full parser below.
 
 <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flib%2FFavoritesParser.hs&style=default&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
-### Generating the html
+## Generating the html
+To map from the parsed we map from the parsed sites to the site type and replace
+the template tag in the html with the generated html.
 
-We read the sample file use the mapper and then generate the html.
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flib%2FTemplateEngine.hs&style=github-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
-### Testing
 
-Functional code is easy to test, thus we must do so. This is done using the
-exceptional [hspec](https://hspec.github.io/) library which uses the behavior
-driven development style of testing.
 
-## DevOps
+# Deploying the site
+For deploying static html githubs pages is the obvious choice. Prior to setting
+up a deployment pipeline we first setup a testings pipeline. The testing pipeline
+uses the [Setup haskell](https://github.com/haskell/actions) action which gives
+us a ghc environment. The test pipeline runs the tests and runs the [hlint](https://github.com/ndmitchell/hlint)
+utility which ensures that the code is idiomatic haskell.
 
-Seting up a simple CI/CD pipeline using github actions, was done by setting
-an action that lints and test all commits.
+For the deploy pipeline it builds the code saves the output to a branch called
+gh-pages and deploys the site to github pages. Both pipelines can be found at
+https://github.com/Rotendahl/Start-Page-Generator/tree/master/.github/workflows
+and the deployed code can be found at https://rotendahl.dk/Start-Page-Generator/
 
-Any commit to the master branch will trigger a build and deploy to github pages. Github pages is used as it's free and easy to setup.
 
 [linksFile]: https://github.com/Rotendahl/StartPageGenerator/blob/master/links.txt
 [tab-groups]: https://support.apple.com/en-gb/guide/safari/ibrwa2d73908/mac
 [favorites]: https://github.com/Rotendahl/Start-Page-Generator/blob/a8a2dced57325b0f0084d7dc009570b501826ee0/links.txt
 [cabal]: https://www.haskell.org/cabal/
 [parsec]: https://hackage.haskell.org/package/parsec
+[bnf]: https://en.wikipedia.org/wiki/Backus–Naur_form
+[lexeme]: https://hackage.haskell.org/package/parsec-3.1.3/docs/Text-Parsec-Token.html#v%3alexeme
+[quickcheck]: https://hackage.haskell.org/package/QuickCheck
+[hunit]: https://hackage.haskell.org/package/HUnit
+
+[^1]: I'm not overengineering my grammer for my overengineered project.
