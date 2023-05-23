@@ -1,9 +1,9 @@
 on: [workflow_dispatch, push]
 
-name: Quarto Publish
+name: Quarto test build
 
 jobs:
-  build-deploy:
+  build-test:
     runs-on: ubuntu-latest
     permissions:
       contents: write
