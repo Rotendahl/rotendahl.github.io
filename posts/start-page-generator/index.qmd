@@ -1,8 +1,8 @@
 ---
 title: "Overengineering a start page"
 author: "Benjamin Rotendahl"
-date: "2023-08-13"
-date-modified: "2023-04-17"
+date: "2023-05-13"
+date-modified: "2023-05-23"
 categories: [front-end, code, haskell]
 image: https://github.com/Rotendahl/Start-Page-Generator/blob/gh-pages/example.png?raw=true
 titlegraphic: https://github.com/Rotendahl/Start-Page-Generator/blob/gh-pages/example.png?raw=true
@@ -13,13 +13,12 @@ titlegraphic: https://github.com/Rotendahl/Start-Page-Generator/blob/gh-pages/ex
 The default start page in my browser of choice (safari) suck. The page looks nice
 but does not sync between devices, and shows a lot of useless information.
 @fig-safari shows the safari start page. The "favorites" section is a copy of
-the links in my favorites bar, which is already visible in the browser. The
-"Shared with you" section is a list of links that my partner has shared with me
-they are all old and was never really relevant. I don't use the reading list in
-safari, the entries are all old and read or was added by mistake.
-The bottom row is useful part of the start page, as it allows me to access tabs
-from my iPad and iPhone, but the [tab group feature in safari][tab-groups]
-superseeds this.
+the links in my favorites bar, which are already visible in the browser. The
+"Shared with you" section is a list of links that my partner has shared with me,
+they are all old and was never relevant. I don't use the reading list in safari,
+the entries are all read or added by mistake. The bottom row is the most useful
+part, as it allows me to access tabs from my iPad and iPhone, but the
+[tab group feature in safari][tab-groups] superseeds this feature.
 
 ::: {.panel-tabset}
 
@@ -39,7 +38,7 @@ I would like my start page to present the configured links in a grid with the
 same layout on all devices. The links should be static to ensure "muscle memory" of
 their placement, similar to app placement on my phone home screen. The themeing
 should switch between light and dark mode depending on the system configuration.
-A design that meets these simple requirements can also be seen in in figure @fig-safari.
+A design that meets these simple requirements can also be seen in figure @fig-safari.
 
 Implementing this design is can be done with the following html and css:
 
@@ -90,12 +89,13 @@ Implementing this design is can be done with the following html and css:
 :::
 
 To make the start page "responsive" we add a flexbox to the container div and
-set each link with a fixed max width this along with the `flex-wrap: wrap` property
-ensures that the links flow nicely to the next row when the screen is too small
-making it work on phones and smaller browser windows.
+set each link with a fixed max width.  Adding the `flex-wrap: wrap` property
+ensures that the links flow nicely to the next row when making it work on phones
+and smaller browser windows as well.
 
 ## Configuring the start page
 To make the above html fit your taste requires:
+
 * Setting your color theme in the `variables.css` file.
 * Adding `<a>` tags with each site you want to include.
 
@@ -107,17 +107,18 @@ no fun.
 The above solution of manually adding the `<a>` tags would be the smart way to
 proceed. Instead we are going to overengineer a tool that will do this for us,
 while stretching our haskell muscles. We will create a custom data format, a
-parser and a template engine to generate the html above, lastly we will setup a
+parser and a template engine to generate the html above. Lastly we will setup a
 CI/CD pipeline to automatically deploy the start page to github pages.
 
 ## Defining the favorite sites grammar.
 
-A favorite consists of a url, a display name and a logo, the last two are optional.
+A favorite site consists of a url, a display name and a logo, the last two are optional.
 We could have used a format such as json or csv as the configuration file format,
-but instead we create our own format, @lst-grammar-example shows an example of
+but instead we create our own format. @lst-grammar-example shows an example of
 the format. The idea of the grammar is to have the non optional url in the center
 of a line, if there is a display name it precedes the url and _points_`->`
-to the url. A logo optionally succeeds the url and _points_ back `<-` to the url.
+to the url defining the favorite. A logo optionally succeeds the url and
+_points_ back `<-` to it.
 
 ```{#lst-grammar-example .txt lst-cap="Example grammar instance"}
 some arbitrary text
@@ -134,7 +135,7 @@ A links file can contain two types of text lines: comments and favorites.
 A comment is any line that does not start with a `*` and a favorite is any line
 that does. A favorite must have a url, but can optionally have a display name and
 a logo as specified above. The grammar for the favorite sites file can be seen
-in [BNF][bnf] form in @lst-grammar-bnf.
+in [BNF][bnf] in @lst-grammar-bnf.
 
 ```{#lst-grammar-bnf .txt lst-cap="The favorite sites grammar in BNF form"}
   favorites ::= * <favorite> \n <favorites> | ε
@@ -151,7 +152,7 @@ treat any lines not prefixed with a `*` as whitespace.
 The grammar is non left recursive, non ambiguous requiring no precedence rules,
 the only downside of the grammar is that it requires lookahead for display names.
 When reading the lexeme following a `*` we don't know if it is a display name or
-url until we observe a `->` or the lack of it. Since the display name is are
+url until we observe a `->` or the lack of it. Since the display names are
 short this will not be a problem in practice[^1].
 
 ### Full grammer file
@@ -164,14 +165,14 @@ cabal init
 ```
 
 This will create a [start-page-generator.cabal](https://github.com/Rotendahl/Start-Page-Generator/blob/master/Start-Page-Generator.cabal)
-file along with lib and test folders.
+file along with _lib_ and _test_ folders.
 
 In typical haskell fashion we start by creating the types we need for our
 parser/(template engine). The types can be seen below:
 
 <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2FRotendahl%2FStart-Page-Generator%2Fblob%2Fmaster%2Flib%2FSiteTypes.hs&style=github-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
-Note that the logo type is simply a type alias for the url. The `ParsedSite` type
+Note that the logo type is a type alias for the url. The `ParsedSite` type
 has the optional display name and logo url via the maybe monad. Our template
 engine will map between the `ParsedSite` and `Site` types filling in the optional
 fields. For the display name we use the hostname of the url if no display name is
@@ -222,15 +223,15 @@ the template tag in the html with the generated html.
 
 # Deploying the site
 For deploying static html githubs pages is the obvious choice. Prior to setting
-up a deployment pipeline we first setup a testings pipeline. The testing pipeline
+up a deployment pipeline we first setup a testing pipeline. The testing pipeline
 uses the [Setup haskell](https://github.com/haskell/actions) action which gives
 us a ghc environment. The test pipeline runs the tests and runs the [hlint](https://github.com/ndmitchell/hlint)
 utility which ensures that the code is idiomatic haskell.
 
-For the deploy pipeline it builds the code saves the output to a branch called
-gh-pages and deploys the site to github pages. Both pipelines can be found at
-https://github.com/Rotendahl/Start-Page-Generator/tree/master/.github/workflows
-and the deployed code can be found at https://rotendahl.dk/Start-Page-Generator/
+For the deploy pipeline it builds the code, persists the output to a branch called
+gh-pages and deploys the site to github pages. Both pipelines can be found on
+[github](https://github.com/Rotendahl/Start-Page-Generator/tree/master/.github/workflows)
+and the deployed code can be found at [rotendahl.dk/Start-Page-Generator/](https://rotendahl.dk/Start-Page-Generator/)
 
 
 [linksFile]: https://github.com/Rotendahl/StartPageGenerator/blob/master/links.txt
@@ -242,5 +243,6 @@ and the deployed code can be found at https://rotendahl.dk/Start-Page-Generator/
 [lexeme]: https://hackage.haskell.org/package/parsec-3.1.3/docs/Text-Parsec-Token.html#v%3alexeme
 [quickcheck]: https://hackage.haskell.org/package/QuickCheck
 [hunit]: https://hackage.haskell.org/package/HUnit
+[hspec]: https://hspec.github.io/
 
 [^1]: I'm not overengineering my grammer for my overengineered project.
