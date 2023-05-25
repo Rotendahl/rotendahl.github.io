@@ -1,3 +1,2 @@
-_site/
-/.quarto/
-/_*.local
+_site
+.quarto
