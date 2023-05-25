@@ -4,5 +4,5 @@ title: Page Not Found
 You've reached my 404 page. I'm not sure what you were looking for, but it's
 not here. Sorry about that.
 
-If I've sent you a here via a link plz [inform me](mailto:benjamin@rotendahl.dk),
+If I've sent you here via a link plz [inform me](mailto:benjamin@rotendahl.dk),
 and get a beer as a reward.
