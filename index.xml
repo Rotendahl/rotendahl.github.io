@@ -9,7 +9,7 @@
 <link>https://rotendahl.dk/index.html</link>
 <atom:link href="https://rotendahl.dk/index.xml" rel="self" type="application/rss+xml"/>
 <description>Posts about programming, math and bad jokes</description>
-<generator>quarto-1.3.353</generator>
+<generator>quarto-1.3.433</generator>
 <lastBuildDate>Sat, 13 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Overengineering a start page</title>
