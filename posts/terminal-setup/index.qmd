@@ -13,16 +13,16 @@ titlegraphic: window.png
 # Introduction
 
 Back at university the first programming course was taught using emacs in a
-terminal, none of that fancy GUI editores. My TA strongly encouraged everyone to
+terminal, none of that fancy GUI editors. My TA strongly encouraged everyone to
 follow their mantra of:
 
 > If it can be done in the terminal, it should be done in the terminal
 
-I took this to heart and have spent way to much time playing around and customizing
-my shell. In this post I will describe how my shell configuration and how the
-individual parts work. I'll assume that you have some knowledge of how the shell
-works and not focus on specific workflows. My setup is for MacOS, but most should
-apply to linux/WSL as well.
+I took this to heart and have spent way to much time over the years playing
+around and customizing my shell. In this post I will describe how my shell is
+configured and how the individual parts work. I'll assume that you have some
+familiarity with the shell and not focus on specific workflows. My setup is for
+MacOS, but most should apply to linux/WSL as well.
 
 # Picking a terminal emulator
 
@@ -183,7 +183,7 @@ For the choice of shell the three common options are [bash][bash], [zsh](https:/
 and [fish](https://fishshell.com). I've used all three at one point in time and
 settled on fish. Its the most modern of the three, nice syntax, good autocompletion
 and documentation. The only downside is that it's not POSIX compliant, which means
-that scripts are not portable. In these devOps, infrastructure as code times I've
+that scripts are not portable. In these devOps, infrastructure as code, times I've
 found it to be a non issue. In fish everything is a function, aliases are functions,
 completions are functions, etc. This limits the arcane concepts to learn and
 makes it easy to extend. I.e you don't need to configure `$PS1` to get a nice
@@ -191,9 +191,9 @@ prompt, just create a `fish_prompt` function.
 
 ## Configuration
 Where _bash_ and _zsh_ shells have an `.rc` file for configuration, fish has a
-directory `.config/fish` file. This is where you put your functions, completions
-etc. Configuration in fish works differently than in _bash_ and _zsh_, instead of
-setting variables and path eachs time on start. I.e in `.zshrc` you would have a
+directory `.config/fish`. This is where you put your functions, completions etc.
+Configuration in fish works differently than in _bash_ and _zsh_, instead of
+setting variables and path each time on start, I.e in `.zshrc` you would have a
 lot of lines of the form:
 ```bash
 export PATH="/Users/rotendahl/Tools:"$PATH
@@ -203,42 +203,44 @@ export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export VISUAL=vim
 export EDITOR="$VISUAL"
 ```
-This would then be executed each time you start a new shell. In fish you instead
-use `set -u <varname> <value>` to set a variable or `fish_add_path <path>`.
-This only need to be run once and then the variable is set for all future shells.
-via the `fish_variables` file. I set my values wia the [install script](https://github.com/Rotendahl/dotfiles/blob/master/install.sh) in my config repo. While this approach
+This would then be executed each time you start a new shell.
+In fish you instead use `set -u <varname> <value>` to set a variable or
+`fish_add_path <path>`. This only need to be run once and the variable is set
+for all future shells. This is achieved via the `fish_variables` file. I set my
+values wia the [install script][install] in my config repo. While this approach
 feels more clean in that you only need to set a variable once, it can be tricky
 if you want to remove/delete a variable, as it's not clear where it's set besides
-the `fish_variables` file. Other fish speciffic configuration is adding alias and
-abbreviations. [Abbreviations](file:///opt/homebrew/Cellar/fish/3.6.1/share/doc/fish/cmds/abbr.html) are a way to shorten commands, i.e `k` for `kubectl` but
-have it expand, i really like this feature. You don't have to type the full command
-but still get the knowledge of what the command is. For instance I have set and
-abbrieviation for `abbr --add rm trash` this means that when I type `rm` it will
-replace it with trash which is a tool that moves stuff to the trash instead of
-deleting it immediately. This way I still get my muscle memory of typing `rm` but
+the `fish_variables` file. Other fish specific configuration is adding aliases and
+abbreviations. [Abbreviations](https://fishshell.com/docs/current/cmds/abbr.html)
+are a way to shorten commands, i.e `k` for `kubectl` but have it expand, I like
+this feature. You don't have to type the full command but still get the knowledge
+of what is actually happining. I have set an abbreviation for `abbr --add rm trash`
+this means that when I type `rm` it will replace it with `trash` which is a tool
+that moves entities to the trash instead of deleting them immediately. By using
+an abbreviation instead of an alias I still get my muscle memory of typing `rm` but
 it's clear that I'm not actually deleting the file. Had I instead just set an alias
-for `rm` to `trash` it would not be clear what going on.
+for `rm` to `trash` it would not be clear what's going on.
 
 
 ## Setting up completions
-Fish has awesome autocompletion, it's fast and works out of the box, it uses man
-pages for utilities to get the list of options and arguments which gives decent
-completions for most utilities with zero configuration. Typing a partial command
-and pressing tab starts the autocomplete, if you press {{< kbd shift-tab >}} it
-searches the description of flags and arguments. I.e if i want to go back to a
-previous revions of a deploy via helm I can search for it with `helm <shift-tab> (revions)`.
-to give me the following:
+Fish has awesome autocompletion, it's fast and works out of the box, it uses _man_
+pages to get a list of options and arguments which gives decent completions for
+most cli's with zero configuration. Typing a partial command and pressing
+{{< kbd tab >}} starts the autocomplete, if you press {{< kbd shift-tab >}} it
+searches the description of flags and arguments. As an example if I want to go
+back to a previous revions of a deploy via helm I can search for it with
+`helm <shift-tab> (revions)` to give me the following:
 
 
 ![Searching through completions](helm.png)
 
 As mentioned all completions are functions which mean they can be as complex as
 the implementer wants. The `kubectl` autocompletions is a good example of this,
-it picking a deployment pressing tab will have it get the current ones from the
+when picking a deployment pressing tab will fetch current deployments from the
 cluster and present it. These dynamic completions are very powerfull and can be
-hard to go without once you've gotten used to them.
-Setting up these completions are typically done via the tool itself. For instance
-`kubectl` has a command `kubectl completion fish` which outputs the completions.
+hard to go without once you've gotten used to them. Setting up these completions
+are typically done via the tool itself. For instance `kubectl` has a command
+`kubectl completion fish` which outputs the completions.
 My [install file](https://github.com/Rotendahl/dotfiles/blob/master/install.sh#L4)
 adds these completions for the tools I use.
 
@@ -246,13 +248,15 @@ adds these completions for the tools I use.
 Fish makes it easy to write custom functions, my functions can be found in the
 [config repo](https://github.com/Rotendahl/dotfiles/tree/master/fish/functions).
 The functions are all fairly simple and small quality of life improvements. For
-instance, there is a custom cat function that uses imgcat to display images when
-catting them, bat if it's interacative otherwise jsut the normal cat. There is
-a function for opening a google search with the args i.e
-```
+instance, there is a custom cat function that uses
+[imgcat](https://github.com/eddieantonio/imgcat) to display images when catting
+them, [bat](https://github.com/sharkdp/bat) if it's interactive, otherwise just
+the normal cat. There is a function for opening a google search with the args i.e
+
+```bash
   google how to quit vim?
 ```
-open a browser with the search results.
+opens a browser with the search results.
 The only non custom function is the `fish_greeting.fish` which is a special
 function that is run on shell startup.
 
@@ -267,38 +271,41 @@ powerlevel and exit code. Oh-my-posh is extremly customizable and can be a time
 sink, for my config see [oh-my-posh.yaml](https://github.com/Rotendahl/dotfiles/blob/master/oh-my-posh.yaml)
 
 
-## Cool stuff
-In this section I'll list a bunch of tools that I like and makes my life easier.
+# 1password CLI
+The [1password CLI](https://developer.1password.com/docs/cli/) allows me to use
+my password manager in my shell. It can be used in three different ways:
+
+* Injecting secrets into a process: Runing this command:
+  ```bash
+  op run $API_KEY=DevVault/serviceA/testKey/-- python main.py
+  ```
+  will inject the secret `testKey` from the vault `serviceA` into the process as
+  the environment variable `API_KEY`. Any output to stdout containing the key will
+  be concealed.
+
+* As an SSH agent: My SSH key is stored in 1password and not in `~/.ssh` getting
+ the key is now just a matter of running a command and placing my finger on the
+ touch id sensor, this key is used for ssh access, authenticating git and signing commits.
+
+* As a CLI wrapper:  [The github cli (gh)](https://cli.github.com) the `gh` cli
+  plugin normally saves a file with a token in `~/.config/gh/`. This token gives
+  access to my github account. Instead I use the
+  [1password cli plugin for gh](https://developer.1password.com/docs/cli/shell-plugins/github),
+  this way no token is written to disk.
+
+The 1password cli provides several security benefits it while still being easy to
+use and in some cases increasing usability. For instance injecting secrets means
+I don't have to create a bunch of `.env.local` files or similar. I can just clone a
+repo, inject the secrets into the process and run the code.
+The only downside to the CLI is that you need to authenticate many times. If you
+don't have a bio-metric sensor such as touch ID, your milage may vary on the
+usability.
 
 
-### GH cli
-The github cli is a value tool, the main commands I use are
-gh dash
-gh pr checkout
-GH: Act, Dash, POI
 
-gh status
-
-
-### 1password CLI
-The 1password CLI is a command line interface for 1password, which is just
-fantastic. The first use case is for injection secrets into processes, i.e I can
-say `op run $API_KEY=DevVault/serviceA/testKey/-- python main.py` and it will
-inject the secrets into the process.
-The second use case is as an SSH agent, my SSH key is stored in 1password and
-not in `~/.ssh` getting the key is now just a matter of running a command and
-placing my finger on the touch id sensor, this key is used for ssh access, and
-authenticatringin git and signing commits.
-
-The last use case is for wrapping utilities via their shell plugins, for instance
-the `gh` cli plugin would normally save a file with a token in `~/.config/gh/` but
-using their plugin no sensetive data is stored on disk and the token is instead
-injected into the process.
-
-While the 1password cli obviously gives a lot of security benefits it also makes
-development easier, I don't have to remember or look up secrets or replace them
-and I don't have to create a bunch of `.env.local` files or similar. I can just
-inject the secrets into the process and be done with it.
+# Conclusion
+Hope you found this interesting, and make a cool terminal setup of your own.
+k, thx, bye.
 
 
 <!--  References -->
@@ -310,6 +317,7 @@ inject the secrets into the process and be done with it.
 [nf]: https://nerdfonts.com
 [auto-switch]: https://iterm2.com/documentation-automatic-profile-switching
 [trigger]: https://iterm2.com/documentation-triggers.html
+[install]: https://github.com/Rotendahl/dotfiles/blob/master/install.sh
 
 [^unicode]: The begining part is the unicode number for the kubernetes icon of
 the nerd font.
