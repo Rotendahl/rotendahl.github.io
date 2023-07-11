@@ -10,7 +10,297 @@
 <atom:link href="https://rotendahl.dk/index.xml" rel="self" type="application/rss+xml"/>
 <description>Posts about programming, math and bad jokes</description>
 <generator>quarto-1.3.433</generator>
-<lastBuildDate>Sat, 13 May 2023 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 07 Jul 2023 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Kick-ass terminal setup</title>
+  <dc:creator>Benjamin Rotendahl</dc:creator>
+  <link>https://rotendahl.dk/posts/terminal-setup/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rotendahl.dk/posts/terminal-setup/https:/imgs.xkcd.com/comics/borrow_your_laptop.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">https://xkcd.com/1806</figcaption>
+</figure>
+</div>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Back at university the first programming course was taught using emacs in a terminal, none of that fancy GUI editors. My TA strongly encouraged everyone to follow their mantra of:</p>
+<blockquote class="blockquote">
+<p>If it can be done in the terminal, it should be done in the terminal</p>
+</blockquote>
+<p>I took this to heart and have spent way to much time over the years playing around and customizing my shell. In this post I will describe how my shell is configured and how the individual parts work. I’ll assume that you have some familiarity with the shell and not focus on specific workflows. My setup is for MacOS, but most should apply to linux/WSL as well.</p>
+</section>
+<section id="picking-a-terminal-emulator" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Picking a terminal emulator</h1>
+<p>The first step is to pick a program for our OS to display a terminal window. Your OS comes with one built in, for MacOs it’s the aptly named Terminal.app. The built in app is <em>fine</em> but has a limited feature set. I use <a href="https://iterm2.com">iterm2</a>, and have done so for almost a decade. Iterm is Mac only, if you want a cross platform emulator I’ve heard good things about the electron based <a href="https://hyper.is/">hyper.is</a>.</p>
+<section id="setting-up-iterm2" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="setting-up-iterm2"><span class="header-section-number">2.1</span> Setting up Iterm2</h2>
+<p>First install Iterm2 either via the download link on their <a href="https://iterm2.com">website</a> or via brew as described in Section&nbsp;3.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb1-1">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> install iterm2</span></code></pre></div>
+<p>Iterm2 has an almost comical amount of configuration options and features. For a full list see their <a href="https://iterm2.com/documentation.html">documentation</a> and <a href="https://iterm2.com/features.html">feature overview</a>. I’ll go over the most important parts.</p>
+</section>
+<section id="fonts" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="fonts"><span class="header-section-number">2.2</span> Fonts</h2>
+<p>Fonts are becoming a more integral part of the terminal experience. Fonts are no longer just how letters are rendered. Via ligatures, icons, and powerline glyphs fonts affect how the terminal looks and functions. The <a href="https://nerdfonts.com">Nerd fonts</a> project is a collection of programmer friendly fonts with all the features above enabled. To get them on your mac you can use brew:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> tap homebrew/cask-fonts</span>
+<span id="cb2-2">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> install font-hack-nerd-font</span></code></pre></div>
+<p>I prefer the <a href="https://github.com/tonsky/FiraCode">Fira code</a> font, but all the nerd fonts are quite nice. In iterm you have to set the font for each profile you use and enable ligatures. For a better powerline/glyph experience don’t use the monospaced version of the fonts as the icons will be to small.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rotendahl.dk/posts/terminal-setup/sample-font.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Some Haskell code in the Fira Code font, with ligatures</figcaption>
+</figure>
+</div>
+</section>
+<section id="profiles-and-themes" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="profiles-and-themes"><span class="header-section-number">2.3</span> Profiles and themes</h2>
+<p>I have the following three profiles in iterm:</p>
+<ul>
+<li><strong>Free floating:</strong> My default profile used for new windows (<kbd>Cmd-n</kbd>).</li>
+<li><strong>Hotkey window:</strong> Pressing (<kbd>Ctrl-Ctrl</kbd>), drops down a window in “visor mode” from the top of the screen. Once you get used to always having a shell a quick double tap away it’s hard to go back.</li>
+<li><strong>Danger Zone:</strong> A profile automatically trigged for when my K8s context is my non default.</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" aria-controls="tabset-1-1" aria-selected="true">Free Floating</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" aria-controls="tabset-1-2" aria-selected="false">Hot key window</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" aria-controls="tabset-1-3" aria-selected="false">Danger Zone</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" aria-labelledby="tabset-1-1-tab">
+<div id="fig-profile" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://rotendahl.dk/posts/terminal-setup/free.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: The default “floating” window profile</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" aria-labelledby="tabset-1-2-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><video src="visor.mp4" class="img-fluid" controls=""><a href="visor.mp4">Video</a></video></p>
+<figcaption class="figure-caption">Visor drop down mode</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" aria-labelledby="tabset-1-3-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rotendahl.dk/posts/terminal-setup/danger-zone.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Theme automatically activated, once I’m in a non local k8s context</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<section id="automatic-profile-switching" class="level4">
+<h4 class="anchored" data-anchor-id="automatic-profile-switching">Automatic profile switching</h4>
+<p>At my current job each developer has their own kubernetes cluster and we often use each other’s or switch to the staging/test cluster. I’ve setup that any non default cluster activates the <em>danger zone</em> profile. Having a clear visual distinction between default and non default contexts makes me more comfortable running commands such as <code>helm rollback</code>.</p>
+<p>The feature to <a href="https://iterm2.com/documentation-automatic-profile-switching">automatically switch profile</a> in Iterm is not made for k8s. Instead it listens to username and hosts which works for ssh based workflows. My workaround has been to add a <a href="https://iterm2.com/documentation-triggers.html">trigger</a> to all my profiles that report the username and host as <code>prod@prod</code> whenever the regEx <code>\udb84\udcfe (?!brotual)</code><sup>1</sup> does not match my prompt.</p>
+</section>
+</section>
+<section id="theme" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="theme"><span class="header-section-number">2.4</span> Theme</h2>
+<p>Besides the <em>eye catching</em> <a href="https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Unikitty.itermcolors">Unikitty</a> theme used for the Danger Zone profile my theme of choice is the is the awesome <a href="https://draculatheme.com">dracula theme</a>. Besides beeing pretty but not to flashy, there are implementations for almost any tool.</p>
+<section id="embracing-the-light" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="embracing-the-light"><span class="header-section-number">2.4.1</span> Embracing the light</h3>
+<p>Like a true programmer I prefer dark mode but from time to time I use a light theme for programming. Another benifit is the ability to quickly switch to a light theme, during a presentation/screencast to help you viewers see the code.</p>
+<p>For the times when I’m in the mood for a light theme I use the light version of the <a href="https://ethanschoonover.com/solarized/">Solarized theme</a>. This is built in to Iterm. I’ve setup custom functions to quickly switch my entire computer between light and dark via the terminal.</p>
+</section>
+</section>
+<section id="cool-iterm-features" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="cool-iterm-features"><span class="header-section-number">2.5</span> Cool Iterm features</h2>
+<ul>
+<li><kbd>cmd-⌥b</kbd> activates instant replay allowing you to scroll back through the output of the terminal. This is usefull when you want to go back to a point of time in an interactive tool such as <a href="https://k9scli.io">k9s</a></li>
+<li><kbd>cmd-shift-m</kbd> Sets a <em>mark</em> in the shell allowing you to jump back to the mark with <kbd>cmd-shift-j</kbd>. Usefull for when you want to be able to quickly go back to specific part of a build output or training run.</li>
+<li><kbd>cmd-⌥v</kbd> opens the advanced paste menu, allowing you to format your clipboard before entering it. Usefull for stripping newlines or escape sequences.</li>
+<li>Split panes with <kbd>cmd-d</kbd> and <kbd>cmd-shift-d</kbd></li>
+<li><kbd>cmd-shift-c</kbd> enters a vim like copy mode, usefull for making a selection without touching the mouse.</li>
+<li>If you have the <a href="https://iterm2.com/documentation-shell-integration.html">shell integration</a> you can setup a shortcut to show the most recently used directories allowing you to quickly enter a directory you’ve been in recently.</li>
+</ul>
+</section>
+<section id="meta-and-option" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="meta-and-option"><span class="header-section-number">2.6</span> Meta and option</h2>
+<p>Shells have the concept of a <em>meta</em> <kbd>M</kbd> key, which when pressed with some letter key triggers some action. For instance in fish <kbd>M-e</kbd> does not mean type a special “é” but open the current line in the <code>$EDITOR</code>. This is a problem for us programmers plebs that use a non us keyboard layout. In Denmark we don’t have keys for <code>|,{},[]</code> instead they are written with some combination of <code>opt, shift, ctrl</code> and other keys. This means that we can’t use the meta key for it’s intended purpose directly. Iterm does not have a nice way of solving this, it can be setup such that the left option key is meta and the right one for special characters. This sucks, instead I made a small hack and added key sequences for the most common special characters. That and mapping caps lock to control gives a nice keyboard experience.</p>
+</section>
+<section id="saving-and-restoring-configurations" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="saving-and-restoring-configurations"><span class="header-section-number">2.7</span> Saving and restoring configurations</h2>
+<p>All configuration in iterm2 is saved in a plist file. This is a xml file where configuration changes can be automatically saved and tracked. This makes it’s easy to set up a new machine when required and it’s easy to share a setup where the recipient only has to make minimal changes to get up and running.</p>
+<p><a href="https://github.com/Rotendahl/dotfiles/blob/master/com.googlecode.iterm2.plist">My setup</a> is available on github. In the settings for iterm2 there is a section called “General” where you can load in the file above to get my config.</p>
+</section>
+</section>
+<section id="sec-packagemanger" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Package manager</h1>
+<p>Mac does not come with a package manager out of the box, luckily <a href="https://brew.sh">homebrew</a> exists. It’s an awesome package manager capable of installing cli tools, gui apps and even fonts. Common use case are:</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> install mono <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Installs mono</span></span>
+<span id="cb3-2">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> search node <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Searches after all packages that has node in its name</span></span>
+<span id="cb3-3">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> update <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Updates brews list of packages</span></span>
+<span id="cb3-4">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> upgrade <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Upgrades all installed packages to their newest version</span></span>
+<span id="cb3-5">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">brew</span> doctor <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Built in troubleshooting, if you ever have problems run this</span></span></code></pre></div>
+</section>
+<section id="picking-a-shell" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Picking a Shell</h1>
+<p>For the choice of shell the three common options are <a href="https://www.gnu.org/software/bash/">bash</a>, <a href="https://www.zsh.org">zsh</a> and <a href="https://fishshell.com">fish</a>. I’ve used all three at one point in time and settled on fish. Its the most modern of the three, nice syntax, good autocompletion and documentation. The only downside is that it’s not POSIX compliant, which means that scripts are not portable. In these devOps, infrastructure as code, times I’ve found it to be a non issue. In fish everything is a function, aliases are functions, completions are functions, etc. This limits the arcane concepts to learn and makes it easy to extend. I.e you don’t need to configure <code>$PS1</code> to get a nice prompt, just create a <code>fish_prompt</code> function.</p>
+<section id="configuration" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="configuration"><span class="header-section-number">4.1</span> Configuration</h2>
+<p>Where <em>bash</em> and <em>zsh</em> shells have an <code>.rc</code> file for configuration, fish has a directory <code>.config/fish</code>. This is where you put your functions, completions etc. Configuration in fish works differently than in <em>bash</em> and <em>zsh</em>, instead of setting variables and path each time on start, I.e in <code>.zshrc</code> you would have a lot of lines of the form:</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">PATH</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/Users/rotendahl/Tools:"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$PATH</span></span>
+<span id="cb4-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">PATH</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$PATH</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">:/Users/rotendahl/.dotnet/tools"</span></span>
+<span id="cb4-3"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">PATH</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$HOME</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/.cabal/bin:</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$HOME</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/.ghcup/bin:</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$PATH</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb4-4"></span>
+<span id="cb4-5"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">VISUAL</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>vim</span>
+<span id="cb4-6"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">EDITOR</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$VISUAL</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span></code></pre></div>
+<p>This would then be executed each time you start a new shell. In fish you instead use <code>set -u &lt;varname&gt; &lt;value&gt;</code> to set a variable or <code>fish_add_path &lt;path&gt;</code>. This only need to be run once and the variable is set for all future shells. This is achieved via the <code>fish_variables</code> file. I set my values wia the <a href="https://github.com/Rotendahl/dotfiles/blob/master/install.sh">install script</a> in my config repo. While this approach feels more clean in that you only need to set a variable once, it can be tricky if you want to remove/delete a variable, as it’s not clear where it’s set besides the <code>fish_variables</code> file. Other fish specific configuration is adding aliases and abbreviations. <a href="https://fishshell.com/docs/current/cmds/abbr.html">Abbreviations</a> are a way to shorten commands, i.e <code>k</code> for <code>kubectl</code> but have it expand, I like this feature. You don’t have to type the full command but still get the knowledge of what is actually happining. I have set an abbreviation for <code>abbr --add rm trash</code> this means that when I type <code>rm</code> it will replace it with <code>trash</code> which is a tool that moves entities to the trash instead of deleting them immediately. By using an abbreviation instead of an alias I still get my muscle memory of typing <code>rm</code> but it’s clear that I’m not actually deleting the file. Had I instead just set an alias for <code>rm</code> to <code>trash</code> it would not be clear what’s going on.</p>
+</section>
+<section id="setting-up-completions" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="setting-up-completions"><span class="header-section-number">4.2</span> Setting up completions</h2>
+<p>Fish has awesome autocompletion, it’s fast and works out of the box, it uses <em>man</em> pages to get a list of options and arguments which gives decent completions for most cli’s with zero configuration. Typing a partial command and pressing <kbd>tab</kbd> starts the autocomplete, if you press <kbd>shift-tab</kbd> it searches the description of flags and arguments. As an example if I want to go back to a previous revions of a deploy via helm I can search for it with <code>helm &lt;shift-tab&gt; (revions)</code> to give me the following:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rotendahl.dk/posts/terminal-setup/helm.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Searching through completions</figcaption>
+</figure>
+</div>
+<p>As mentioned all completions are functions which mean they can be as complex as the implementer wants. The <code>kubectl</code> autocompletions is a good example of this, when picking a deployment pressing tab will fetch current deployments from the cluster and present it. These dynamic completions are very powerfull and can be hard to go without once you’ve gotten used to them. Setting up these completions are typically done via the tool itself. For instance <code>kubectl</code> has a command <code>kubectl completion fish</code> which outputs the completions. My <a href="https://github.com/Rotendahl/dotfiles/blob/master/install.sh#L4">install file</a> adds these completions for the tools I use.</p>
+</section>
+<section id="custom-functions" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="custom-functions"><span class="header-section-number">4.3</span> Custom Functions</h2>
+<p>Fish makes it easy to write custom functions, my functions can be found in the <a href="https://github.com/Rotendahl/dotfiles/tree/master/fish/functions">config repo</a>. The functions are all fairly simple and small quality of life improvements. For instance, there is a custom cat function that uses <a href="https://github.com/eddieantonio/imgcat">imgcat</a> to display images when catting them, <a href="https://github.com/sharkdp/bat">bat</a> if it’s interactive, otherwise just the normal cat. There is a function for opening a google search with the args i.e</p>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1">  <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">google</span> how to quit vim<span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">?</span></span></code></pre></div>
+<p>opens a browser with the search results. The only non custom function is the <code>fish_greeting.fish</code> which is a special function that is run on shell startup.</p>
+</section>
+<section id="oh-my-posh" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="oh-my-posh"><span class="header-section-number">4.4</span> Oh my Posh</h2>
+<p>The last part of my setup is the prompt, beeing fish the prompt is also a function and not just a string saved as <code>$PS1</code>. The prompt is setup via <a href="https://ohmyposh.dev">oh my posh</a> which is a framework for bulding prompts via a yaml file. My prompt shows the current directory, git branch, if there are uncommited changes, the version of relevant libraries (i.e net7, etc) and the current kubernetes context, powerlevel and exit code. Oh-my-posh is extremly customizable and can be a time sink, for my config see <a href="https://github.com/Rotendahl/dotfiles/blob/master/oh-my-posh.yaml">oh-my-posh.yaml</a></p>
+</section>
+</section>
+<section id="password-cli" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 1password CLI</h1>
+<p>The <a href="https://developer.1password.com/docs/cli/">1password CLI</a> allows me to use my password manager in my shell. It can be used in three different ways:</p>
+<ul>
+<li><p>Injecting secrets into a process: Runing this command:</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">op</span> run <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$API_KEY</span>=DevVault/serviceA/testKey/-- python main.py</span></code></pre></div>
+<p>will inject the secret <code>testKey</code> from the vault <code>serviceA</code> into the process as the environment variable <code>API_KEY</code>. Any output to stdout containing the key will be concealed.</p></li>
+<li><p>As an SSH agent: My SSH key is stored in 1password and not in <code>~/.ssh</code> getting the key is now just a matter of running a command and placing my finger on the touch id sensor, this key is used for ssh access, authenticating git and signing commits.</p></li>
+<li><p>As a CLI wrapper: <a href="https://cli.github.com">The github cli (gh)</a> the <code>gh</code> cli plugin normally saves a file with a token in <code>~/.config/gh/</code>. This token gives access to my github account. Instead I use the <a href="https://developer.1password.com/docs/cli/shell-plugins/github">1password cli plugin for gh</a>, this way no token is written to disk.</p></li>
+</ul>
+<p>The 1password cli provides several security benefits it while still being easy to use and in some cases increasing usability. For instance injecting secrets means I don’t have to create a bunch of <code>.env.local</code> files or similar. I can just clone a repo, inject the secrets into the process and run the code. The only downside to the CLI is that you need to authenticate many times. If you don’t have a bio-metric sensor such as touch ID, your milage may vary on the usability.</p>
+</section>
+<section id="conclusion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<p>Hope you found this interesting, and make a cool terminal setup of your own. k, thx, bye.</p>
+<!--  References -->
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The begining part is the unicode number for the kubernetes icon of the nerd font.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>terminal</category>
+  <category>setup</category>
+  <guid>https://rotendahl.dk/posts/terminal-setup/index.html</guid>
+  <pubDate>Fri, 07 Jul 2023 00:00:00 GMT</pubDate>
+  <media:content url="https://rotendahl.dk/posts/terminal-setup/window.png" medium="image" type="image/png" height="117" width="144"/>
+</item>
 <item>
   <title>Overengineering a start page</title>
   <dc:creator>Benjamin Rotendahl</dc:creator>

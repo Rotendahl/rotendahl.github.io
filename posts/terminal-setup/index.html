@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Benjamin Rotendahl">
+<meta name="dcterms.date" content="2023-07-07">
+
+<title>Rotendahl’s Blog - Kick-ass terminal setup</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Rotendahl’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/rotendahl/" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Kick-ass terminal setup</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">terminal</div>
+                <div class="quarto-category">setup</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Benjamin Rotendahl </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 7, 2023</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">July 7, 2023</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#picking-a-terminal-emulator" id="toc-picking-a-terminal-emulator" class="nav-link" data-scroll-target="#picking-a-terminal-emulator"><span class="header-section-number">2</span> Picking a terminal emulator</a>
+  <ul class="collapse">
+  <li><a href="#setting-up-iterm2" id="toc-setting-up-iterm2" class="nav-link" data-scroll-target="#setting-up-iterm2"><span class="header-section-number">2.1</span> Setting up Iterm2</a></li>
+  <li><a href="#fonts" id="toc-fonts" class="nav-link" data-scroll-target="#fonts"><span class="header-section-number">2.2</span> Fonts</a></li>
+  <li><a href="#profiles-and-themes" id="toc-profiles-and-themes" class="nav-link" data-scroll-target="#profiles-and-themes"><span class="header-section-number">2.3</span> Profiles and themes</a></li>
+  <li><a href="#theme" id="toc-theme" class="nav-link" data-scroll-target="#theme"><span class="header-section-number">2.4</span> Theme</a>
+  <ul class="collapse">
+  <li><a href="#embracing-the-light" id="toc-embracing-the-light" class="nav-link" data-scroll-target="#embracing-the-light"><span class="header-section-number">2.4.1</span> Embracing the light</a></li>
+  </ul></li>
+  <li><a href="#cool-iterm-features" id="toc-cool-iterm-features" class="nav-link" data-scroll-target="#cool-iterm-features"><span class="header-section-number">2.5</span> Cool Iterm features</a></li>
+  <li><a href="#meta-and-option" id="toc-meta-and-option" class="nav-link" data-scroll-target="#meta-and-option"><span class="header-section-number">2.6</span> Meta and option</a></li>
+  <li><a href="#saving-and-restoring-configurations" id="toc-saving-and-restoring-configurations" class="nav-link" data-scroll-target="#saving-and-restoring-configurations"><span class="header-section-number">2.7</span> Saving and restoring configurations</a></li>
+  </ul></li>
+  <li><a href="#sec-packagemanger" id="toc-sec-packagemanger" class="nav-link" data-scroll-target="#sec-packagemanger"><span class="header-section-number">3</span> Package manager</a></li>
+  <li><a href="#picking-a-shell" id="toc-picking-a-shell" class="nav-link" data-scroll-target="#picking-a-shell"><span class="header-section-number">4</span> Picking a Shell</a>
+  <ul class="collapse">
+  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration"><span class="header-section-number">4.1</span> Configuration</a></li>
+  <li><a href="#setting-up-completions" id="toc-setting-up-completions" class="nav-link" data-scroll-target="#setting-up-completions"><span class="header-section-number">4.2</span> Setting up completions</a></li>
+  <li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions"><span class="header-section-number">4.3</span> Custom Functions</a></li>
+  <li><a href="#oh-my-posh" id="toc-oh-my-posh" class="nav-link" data-scroll-target="#oh-my-posh"><span class="header-section-number">4.4</span> Oh my Posh</a></li>
+  </ul></li>
+  <li><a href="#password-cli" id="toc-password-cli" class="nav-link" data-scroll-target="#password-cli"><span class="header-section-number">5</span> 1password CLI</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://imgs.xkcd.com/comics/borrow_your_laptop.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">https://xkcd.com/1806</figcaption>
+</figure>
+</div>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Back at university the first programming course was taught using emacs in a terminal, none of that fancy GUI editors. My TA strongly encouraged everyone to follow their mantra of:</p>
+<blockquote class="blockquote">
+<p>If it can be done in the terminal, it should be done in the terminal</p>
+</blockquote>
+<p>I took this to heart and have spent way to much time over the years playing around and customizing my shell. In this post I will describe how my shell is configured and how the individual parts work. I’ll assume that you have some familiarity with the shell and not focus on specific workflows. My setup is for MacOS, but most should apply to linux/WSL as well.</p>
+</section>
+<section id="picking-a-terminal-emulator" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Picking a terminal emulator</h1>
+<p>The first step is to pick a program for our OS to display a terminal window. Your OS comes with one built in, for MacOs it’s the aptly named Terminal.app. The built in app is <em>fine</em> but has a limited feature set. I use <a href="https://iterm2.com">iterm2</a>, and have done so for almost a decade. Iterm is Mac only, if you want a cross platform emulator I’ve heard good things about the electron based <a href="https://hyper.is/">hyper.is</a>.</p>
+<section id="setting-up-iterm2" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="setting-up-iterm2"><span class="header-section-number">2.1</span> Setting up Iterm2</h2>
+<p>First install Iterm2 either via the download link on their <a href="https://iterm2.com">website</a> or via brew as described in <a href="#sec-packagemanger">Section&nbsp;3</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> install iterm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Iterm2 has an almost comical amount of configuration options and features. For a full list see their <a href="https://iterm2.com/documentation.html">documentation</a> and <a href="https://iterm2.com/features.html">feature overview</a>. I’ll go over the most important parts.</p>
+</section>
+<section id="fonts" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="fonts"><span class="header-section-number">2.2</span> Fonts</h2>
+<p>Fonts are becoming a more integral part of the terminal experience. Fonts are no longer just how letters are rendered. Via ligatures, icons, and powerline glyphs fonts affect how the terminal looks and functions. The <a href="https://nerdfonts.com">Nerd fonts</a> project is a collection of programmer friendly fonts with all the features above enabled. To get them on your mac you can use brew:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> tap homebrew/cask-fonts</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> install font-hack-nerd-font</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I prefer the <a href="https://github.com/tonsky/FiraCode">Fira code</a> font, but all the nerd fonts are quite nice. In iterm you have to set the font for each profile you use and enable ligatures. For a better powerline/glyph experience don’t use the monospaced version of the fonts as the icons will be to small.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="sample-font.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Some Haskell code in the Fira Code font, with ligatures</figcaption>
+</figure>
+</div>
+</section>
+<section id="profiles-and-themes" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="profiles-and-themes"><span class="header-section-number">2.3</span> Profiles and themes</h2>
+<p>I have the following three profiles in iterm:</p>
+<ul>
+<li><strong>Free floating:</strong> My default profile used for new windows (<kbd>Cmd-n</kbd>).</li>
+<li><strong>Hotkey window:</strong> Pressing (<kbd>Ctrl-Ctrl</kbd>), drops down a window in “visor mode” from the top of the screen. Once you get used to always having a shell a quick double tap away it’s hard to go back.</li>
+<li><strong>Danger Zone:</strong> A profile automatically trigged for when my K8s context is my non default.</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Free Floating</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Hot key window</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Danger Zone</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="fig-profile" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="free.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: The default “floating” window profile</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><video src="visor.mp4" class="img-fluid" controls=""><a href="visor.mp4">Video</a></video></p>
+<figcaption class="figure-caption">Visor drop down mode</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="danger-zone.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Theme automatically activated, once I’m in a non local k8s context</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<section id="automatic-profile-switching" class="level4">
+<h4 class="anchored" data-anchor-id="automatic-profile-switching">Automatic profile switching</h4>
+<p>At my current job each developer has their own kubernetes cluster and we often use each other’s or switch to the staging/test cluster. I’ve setup that any non default cluster activates the <em>danger zone</em> profile. Having a clear visual distinction between default and non default contexts makes me more comfortable running commands such as <code>helm rollback</code>.</p>
+<p>The feature to <a href="https://iterm2.com/documentation-automatic-profile-switching">automatically switch profile</a> in Iterm is not made for k8s. Instead it listens to username and hosts which works for ssh based workflows. My workaround has been to add a <a href="https://iterm2.com/documentation-triggers.html">trigger</a> to all my profiles that report the username and host as <code>prod@prod</code> whenever the regEx <code>\udb84\udcfe (?!brotual)</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> does not match my prompt.</p>
+</section>
+</section>
+<section id="theme" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="theme"><span class="header-section-number">2.4</span> Theme</h2>
+<p>Besides the <em>eye catching</em> <a href="https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Unikitty.itermcolors">Unikitty</a> theme used for the Danger Zone profile my theme of choice is the is the awesome <a href="https://draculatheme.com">dracula theme</a>. Besides beeing pretty but not to flashy, there are implementations for almost any tool.</p>
+<section id="embracing-the-light" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="embracing-the-light"><span class="header-section-number">2.4.1</span> Embracing the light</h3>
+<p>Like a true programmer I prefer dark mode but from time to time I use a light theme for programming. Another benifit is the ability to quickly switch to a light theme, during a presentation/screencast to help you viewers see the code.</p>
+<p>For the times when I’m in the mood for a light theme I use the light version of the <a href="https://ethanschoonover.com/solarized/">Solarized theme</a>. This is built in to Iterm. I’ve setup custom functions to quickly switch my entire computer between light and dark via the terminal.</p>
+</section>
+</section>
+<section id="cool-iterm-features" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="cool-iterm-features"><span class="header-section-number">2.5</span> Cool Iterm features</h2>
+<ul>
+<li><kbd>cmd-⌥b</kbd> activates instant replay allowing you to scroll back through the output of the terminal. This is usefull when you want to go back to a point of time in an interactive tool such as <a href="https://k9scli.io">k9s</a></li>
+<li><kbd>cmd-shift-m</kbd> Sets a <em>mark</em> in the shell allowing you to jump back to the mark with <kbd>cmd-shift-j</kbd>. Usefull for when you want to be able to quickly go back to specific part of a build output or training run.</li>
+<li><kbd>cmd-⌥v</kbd> opens the advanced paste menu, allowing you to format your clipboard before entering it. Usefull for stripping newlines or escape sequences.</li>
+<li>Split panes with <kbd>cmd-d</kbd> and <kbd>cmd-shift-d</kbd></li>
+<li><kbd>cmd-shift-c</kbd> enters a vim like copy mode, usefull for making a selection without touching the mouse.</li>
+<li>If you have the <a href="https://iterm2.com/documentation-shell-integration.html">shell integration</a> you can setup a shortcut to show the most recently used directories allowing you to quickly enter a directory you’ve been in recently.</li>
+</ul>
+</section>
+<section id="meta-and-option" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="meta-and-option"><span class="header-section-number">2.6</span> Meta and option</h2>
+<p>Shells have the concept of a <em>meta</em> <kbd>M</kbd> key, which when pressed with some letter key triggers some action. For instance in fish <kbd>M-e</kbd> does not mean type a special “é” but open the current line in the <code>$EDITOR</code>. This is a problem for us programmers plebs that use a non us keyboard layout. In Denmark we don’t have keys for <code>|,{},[]</code> instead they are written with some combination of <code>opt, shift, ctrl</code> and other keys. This means that we can’t use the meta key for it’s intended purpose directly. Iterm does not have a nice way of solving this, it can be setup such that the left option key is meta and the right one for special characters. This sucks, instead I made a small hack and added key sequences for the most common special characters. That and mapping caps lock to control gives a nice keyboard experience.</p>
+</section>
+<section id="saving-and-restoring-configurations" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="saving-and-restoring-configurations"><span class="header-section-number">2.7</span> Saving and restoring configurations</h2>
+<p>All configuration in iterm2 is saved in a plist file. This is a xml file where configuration changes can be automatically saved and tracked. This makes it’s easy to set up a new machine when required and it’s easy to share a setup where the recipient only has to make minimal changes to get up and running.</p>
+<p><a href="https://github.com/Rotendahl/dotfiles/blob/master/com.googlecode.iterm2.plist">My setup</a> is available on github. In the settings for iterm2 there is a section called “General” where you can load in the file above to get my config.</p>
+</section>
+</section>
+<section id="sec-packagemanger" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Package manager</h1>
+<p>Mac does not come with a package manager out of the box, luckily <a href="https://brew.sh">homebrew</a> exists. It’s an awesome package manager capable of installing cli tools, gui apps and even fonts. Common use case are:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> install mono <span class="co"># Installs mono</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> search node <span class="co"># Searches after all packages that has node in its name</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> update <span class="co"># Updates brews list of packages</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> upgrade <span class="co"># Upgrades all installed packages to their newest version</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> doctor <span class="co"># Built in troubleshooting, if you ever have problems run this</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="picking-a-shell" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Picking a Shell</h1>
+<p>For the choice of shell the three common options are <a href="https://www.gnu.org/software/bash/">bash</a>, <a href="https://www.zsh.org">zsh</a> and <a href="https://fishshell.com">fish</a>. I’ve used all three at one point in time and settled on fish. Its the most modern of the three, nice syntax, good autocompletion and documentation. The only downside is that it’s not POSIX compliant, which means that scripts are not portable. In these devOps, infrastructure as code, times I’ve found it to be a non issue. In fish everything is a function, aliases are functions, completions are functions, etc. This limits the arcane concepts to learn and makes it easy to extend. I.e you don’t need to configure <code>$PS1</code> to get a nice prompt, just create a <code>fish_prompt</code> function.</p>
+<section id="configuration" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="configuration"><span class="header-section-number">4.1</span> Configuration</h2>
+<p>Where <em>bash</em> and <em>zsh</em> shells have an <code>.rc</code> file for configuration, fish has a directory <code>.config/fish</code>. This is where you put your functions, completions etc. Configuration in fish works differently than in <em>bash</em> and <em>zsh</em>, instead of setting variables and path each time on start, I.e in <code>.zshrc</code> you would have a lot of lines of the form:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"/Users/rotendahl/Tools:"</span><span class="va">$PATH</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">$PATH</span><span class="st">:/Users/rotendahl/.dotnet/tools"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">$HOME</span><span class="st">/.cabal/bin:</span><span class="va">$HOME</span><span class="st">/.ghcup/bin:</span><span class="va">$PATH</span><span class="st">"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">VISUAL</span><span class="op">=</span>vim</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">EDITOR</span><span class="op">=</span><span class="st">"</span><span class="va">$VISUAL</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This would then be executed each time you start a new shell. In fish you instead use <code>set -u &lt;varname&gt; &lt;value&gt;</code> to set a variable or <code>fish_add_path &lt;path&gt;</code>. This only need to be run once and the variable is set for all future shells. This is achieved via the <code>fish_variables</code> file. I set my values wia the <a href="https://github.com/Rotendahl/dotfiles/blob/master/install.sh">install script</a> in my config repo. While this approach feels more clean in that you only need to set a variable once, it can be tricky if you want to remove/delete a variable, as it’s not clear where it’s set besides the <code>fish_variables</code> file. Other fish specific configuration is adding aliases and abbreviations. <a href="https://fishshell.com/docs/current/cmds/abbr.html">Abbreviations</a> are a way to shorten commands, i.e <code>k</code> for <code>kubectl</code> but have it expand, I like this feature. You don’t have to type the full command but still get the knowledge of what is actually happining. I have set an abbreviation for <code>abbr --add rm trash</code> this means that when I type <code>rm</code> it will replace it with <code>trash</code> which is a tool that moves entities to the trash instead of deleting them immediately. By using an abbreviation instead of an alias I still get my muscle memory of typing <code>rm</code> but it’s clear that I’m not actually deleting the file. Had I instead just set an alias for <code>rm</code> to <code>trash</code> it would not be clear what’s going on.</p>
+</section>
+<section id="setting-up-completions" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="setting-up-completions"><span class="header-section-number">4.2</span> Setting up completions</h2>
+<p>Fish has awesome autocompletion, it’s fast and works out of the box, it uses <em>man</em> pages to get a list of options and arguments which gives decent completions for most cli’s with zero configuration. Typing a partial command and pressing <kbd>tab</kbd> starts the autocomplete, if you press <kbd>shift-tab</kbd> it searches the description of flags and arguments. As an example if I want to go back to a previous revions of a deploy via helm I can search for it with <code>helm &lt;shift-tab&gt; (revions)</code> to give me the following:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="helm.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Searching through completions</figcaption>
+</figure>
+</div>
+<p>As mentioned all completions are functions which mean they can be as complex as the implementer wants. The <code>kubectl</code> autocompletions is a good example of this, when picking a deployment pressing tab will fetch current deployments from the cluster and present it. These dynamic completions are very powerfull and can be hard to go without once you’ve gotten used to them. Setting up these completions are typically done via the tool itself. For instance <code>kubectl</code> has a command <code>kubectl completion fish</code> which outputs the completions. My <a href="https://github.com/Rotendahl/dotfiles/blob/master/install.sh#L4">install file</a> adds these completions for the tools I use.</p>
+</section>
+<section id="custom-functions" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="custom-functions"><span class="header-section-number">4.3</span> Custom Functions</h2>
+<p>Fish makes it easy to write custom functions, my functions can be found in the <a href="https://github.com/Rotendahl/dotfiles/tree/master/fish/functions">config repo</a>. The functions are all fairly simple and small quality of life improvements. For instance, there is a custom cat function that uses <a href="https://github.com/eddieantonio/imgcat">imgcat</a> to display images when catting them, <a href="https://github.com/sharkdp/bat">bat</a> if it’s interactive, otherwise just the normal cat. There is a function for opening a google search with the args i.e</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">google</span> how to quit vim<span class="pp">?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>opens a browser with the search results. The only non custom function is the <code>fish_greeting.fish</code> which is a special function that is run on shell startup.</p>
+</section>
+<section id="oh-my-posh" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="oh-my-posh"><span class="header-section-number">4.4</span> Oh my Posh</h2>
+<p>The last part of my setup is the prompt, beeing fish the prompt is also a function and not just a string saved as <code>$PS1</code>. The prompt is setup via <a href="https://ohmyposh.dev">oh my posh</a> which is a framework for bulding prompts via a yaml file. My prompt shows the current directory, git branch, if there are uncommited changes, the version of relevant libraries (i.e net7, etc) and the current kubernetes context, powerlevel and exit code. Oh-my-posh is extremly customizable and can be a time sink, for my config see <a href="https://github.com/Rotendahl/dotfiles/blob/master/oh-my-posh.yaml">oh-my-posh.yaml</a></p>
+</section>
+</section>
+<section id="password-cli" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 1password CLI</h1>
+<p>The <a href="https://developer.1password.com/docs/cli/">1password CLI</a> allows me to use my password manager in my shell. It can be used in three different ways:</p>
+<ul>
+<li><p>Injecting secrets into a process: Runing this command:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">op</span> run <span class="va">$API_KEY</span>=DevVault/serviceA/testKey/-- python main.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>will inject the secret <code>testKey</code> from the vault <code>serviceA</code> into the process as the environment variable <code>API_KEY</code>. Any output to stdout containing the key will be concealed.</p></li>
+<li><p>As an SSH agent: My SSH key is stored in 1password and not in <code>~/.ssh</code> getting the key is now just a matter of running a command and placing my finger on the touch id sensor, this key is used for ssh access, authenticating git and signing commits.</p></li>
+<li><p>As a CLI wrapper: <a href="https://cli.github.com">The github cli (gh)</a> the <code>gh</code> cli plugin normally saves a file with a token in <code>~/.config/gh/</code>. This token gives access to my github account. Instead I use the <a href="https://developer.1password.com/docs/cli/shell-plugins/github">1password cli plugin for gh</a>, this way no token is written to disk.</p></li>
+</ul>
+<p>The 1password cli provides several security benefits it while still being easy to use and in some cases increasing usability. For instance injecting secrets means I don’t have to create a bunch of <code>.env.local</code> files or similar. I can just clone a repo, inject the secrets into the process and run the code. The only downside to the CLI is that you need to authenticate many times. If you don’t have a bio-metric sensor such as touch ID, your milage may vary on the usability.</p>
+</section>
+<section id="conclusion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<p>Hope you found this interesting, and make a cool terminal setup of your own. k, thx, bye.</p>
+<!--  References -->
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The begining part is the unicode number for the kubernetes icon of the nerd font.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

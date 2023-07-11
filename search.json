@@ -46,7 +46,98 @@
     "href": "index.html",
     "title": "Rotendahls Blog",
     "section": "",
-    "text": "Overengineering a start page\n\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\nhaskell\n\n\n\n\n\n\n\n\n\n\n\nMay 13, 2023\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n  \n\n\n\n\nMobile first games in processing\n\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\ngames\n\n\n\n\n\n\n\n\n\n\n\nJul 13, 2017\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\nNo matching items"
+    "text": "Kick-ass terminal setup\n\n\n\n\n\n\n\nterminal\n\n\nsetup\n\n\n\n\n\n\n\n\n\n\n\nJul 7, 2023\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n  \n\n\n\n\nOverengineering a start page\n\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\nhaskell\n\n\n\n\n\n\n\n\n\n\n\nMay 13, 2023\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n  \n\n\n\n\nMobile first games in processing\n\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\ngames\n\n\n\n\n\n\n\n\n\n\n\nJul 13, 2017\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html",
+    "href": "posts/terminal-setup/index.html",
+    "title": "Kick-ass terminal setup",
+    "section": "",
+    "text": "https://xkcd.com/1806"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#setting-up-iterm2",
+    "href": "posts/terminal-setup/index.html#setting-up-iterm2",
+    "title": "Kick-ass terminal setup",
+    "section": "2.1 Setting up Iterm2",
+    "text": "2.1 Setting up Iterm2\nFirst install Iterm2 either via the download link on their website or via brew as described in Section 3.\n  brew install iterm2\nIterm2 has an almost comical amount of configuration options and features. For a full list see their documentation and feature overview. I’ll go over the most important parts."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#fonts",
+    "href": "posts/terminal-setup/index.html#fonts",
+    "title": "Kick-ass terminal setup",
+    "section": "2.2 Fonts",
+    "text": "2.2 Fonts\nFonts are becoming a more integral part of the terminal experience. Fonts are no longer just how letters are rendered. Via ligatures, icons, and powerline glyphs fonts affect how the terminal looks and functions. The Nerd fonts project is a collection of programmer friendly fonts with all the features above enabled. To get them on your mac you can use brew:\n  brew tap homebrew/cask-fonts\n  brew install font-hack-nerd-font\nI prefer the Fira code font, but all the nerd fonts are quite nice. In iterm you have to set the font for each profile you use and enable ligatures. For a better powerline/glyph experience don’t use the monospaced version of the fonts as the icons will be to small.\n\n\n\nSome Haskell code in the Fira Code font, with ligatures"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#profiles-and-themes",
+    "href": "posts/terminal-setup/index.html#profiles-and-themes",
+    "title": "Kick-ass terminal setup",
+    "section": "2.3 Profiles and themes",
+    "text": "2.3 Profiles and themes\nI have the following three profiles in iterm:\n\nFree floating: My default profile used for new windows (Cmd-n).\nHotkey window: Pressing (Ctrl-Ctrl), drops down a window in “visor mode” from the top of the screen. Once you get used to always having a shell a quick double tap away it’s hard to go back.\nDanger Zone: A profile automatically trigged for when my K8s context is my non default.\n\n\nFree FloatingHot key windowDanger Zone\n\n\n\n\n\nFigure 1: The default “floating” window profile\n\n\n\n\n\n\nVideo\nVisor drop down mode\n\n\n\n\n\n\n\nTheme automatically activated, once I’m in a non local k8s context\n\n\n\n\n\n\nAutomatic profile switching\nAt my current job each developer has their own kubernetes cluster and we often use each other’s or switch to the staging/test cluster. I’ve setup that any non default cluster activates the danger zone profile. Having a clear visual distinction between default and non default contexts makes me more comfortable running commands such as helm rollback.\nThe feature to automatically switch profile in Iterm is not made for k8s. Instead it listens to username and hosts which works for ssh based workflows. My workaround has been to add a trigger to all my profiles that report the username and host as prod@prod whenever the regEx \\udb84\\udcfe (?!brotual)1 does not match my prompt."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#theme",
+    "href": "posts/terminal-setup/index.html#theme",
+    "title": "Kick-ass terminal setup",
+    "section": "2.4 Theme",
+    "text": "2.4 Theme\nBesides the eye catching Unikitty theme used for the Danger Zone profile my theme of choice is the is the awesome dracula theme. Besides beeing pretty but not to flashy, there are implementations for almost any tool.\n\n2.4.1 Embracing the light\nLike a true programmer I prefer dark mode but from time to time I use a light theme for programming. Another benifit is the ability to quickly switch to a light theme, during a presentation/screencast to help you viewers see the code.\nFor the times when I’m in the mood for a light theme I use the light version of the Solarized theme. This is built in to Iterm. I’ve setup custom functions to quickly switch my entire computer between light and dark via the terminal."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#cool-iterm-features",
+    "href": "posts/terminal-setup/index.html#cool-iterm-features",
+    "title": "Kick-ass terminal setup",
+    "section": "2.5 Cool Iterm features",
+    "text": "2.5 Cool Iterm features\n\ncmd-⌥b activates instant replay allowing you to scroll back through the output of the terminal. This is usefull when you want to go back to a point of time in an interactive tool such as k9s\ncmd-shift-m Sets a mark in the shell allowing you to jump back to the mark with cmd-shift-j. Usefull for when you want to be able to quickly go back to specific part of a build output or training run.\ncmd-⌥v opens the advanced paste menu, allowing you to format your clipboard before entering it. Usefull for stripping newlines or escape sequences.\nSplit panes with cmd-d and cmd-shift-d\ncmd-shift-c enters a vim like copy mode, usefull for making a selection without touching the mouse.\nIf you have the shell integration you can setup a shortcut to show the most recently used directories allowing you to quickly enter a directory you’ve been in recently."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#meta-and-option",
+    "href": "posts/terminal-setup/index.html#meta-and-option",
+    "title": "Kick-ass terminal setup",
+    "section": "2.6 Meta and option",
+    "text": "2.6 Meta and option\nShells have the concept of a meta M key, which when pressed with some letter key triggers some action. For instance in fish M-e does not mean type a special “é” but open the current line in the $EDITOR. This is a problem for us programmers plebs that use a non us keyboard layout. In Denmark we don’t have keys for |,{},[] instead they are written with some combination of opt, shift, ctrl and other keys. This means that we can’t use the meta key for it’s intended purpose directly. Iterm does not have a nice way of solving this, it can be setup such that the left option key is meta and the right one for special characters. This sucks, instead I made a small hack and added key sequences for the most common special characters. That and mapping caps lock to control gives a nice keyboard experience."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#saving-and-restoring-configurations",
+    "href": "posts/terminal-setup/index.html#saving-and-restoring-configurations",
+    "title": "Kick-ass terminal setup",
+    "section": "2.7 Saving and restoring configurations",
+    "text": "2.7 Saving and restoring configurations\nAll configuration in iterm2 is saved in a plist file. This is a xml file where configuration changes can be automatically saved and tracked. This makes it’s easy to set up a new machine when required and it’s easy to share a setup where the recipient only has to make minimal changes to get up and running.\nMy setup is available on github. In the settings for iterm2 there is a section called “General” where you can load in the file above to get my config."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#configuration",
+    "href": "posts/terminal-setup/index.html#configuration",
+    "title": "Kick-ass terminal setup",
+    "section": "4.1 Configuration",
+    "text": "4.1 Configuration\nWhere bash and zsh shells have an .rc file for configuration, fish has a directory .config/fish. This is where you put your functions, completions etc. Configuration in fish works differently than in bash and zsh, instead of setting variables and path each time on start, I.e in .zshrc you would have a lot of lines of the form:\nexport PATH=\"/Users/rotendahl/Tools:\"$PATH\nexport PATH=\"$PATH:/Users/rotendahl/.dotnet/tools\"\nexport PATH=\"$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH\"\n\nexport VISUAL=vim\nexport EDITOR=\"$VISUAL\"\nThis would then be executed each time you start a new shell. In fish you instead use set -u &lt;varname&gt; &lt;value&gt; to set a variable or fish_add_path &lt;path&gt;. This only need to be run once and the variable is set for all future shells. This is achieved via the fish_variables file. I set my values wia the install script in my config repo. While this approach feels more clean in that you only need to set a variable once, it can be tricky if you want to remove/delete a variable, as it’s not clear where it’s set besides the fish_variables file. Other fish specific configuration is adding aliases and abbreviations. Abbreviations are a way to shorten commands, i.e k for kubectl but have it expand, I like this feature. You don’t have to type the full command but still get the knowledge of what is actually happining. I have set an abbreviation for abbr --add rm trash this means that when I type rm it will replace it with trash which is a tool that moves entities to the trash instead of deleting them immediately. By using an abbreviation instead of an alias I still get my muscle memory of typing rm but it’s clear that I’m not actually deleting the file. Had I instead just set an alias for rm to trash it would not be clear what’s going on."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#setting-up-completions",
+    "href": "posts/terminal-setup/index.html#setting-up-completions",
+    "title": "Kick-ass terminal setup",
+    "section": "4.2 Setting up completions",
+    "text": "4.2 Setting up completions\nFish has awesome autocompletion, it’s fast and works out of the box, it uses man pages to get a list of options and arguments which gives decent completions for most cli’s with zero configuration. Typing a partial command and pressing tab starts the autocomplete, if you press shift-tab it searches the description of flags and arguments. As an example if I want to go back to a previous revions of a deploy via helm I can search for it with helm &lt;shift-tab&gt; (revions) to give me the following:\n\n\n\nSearching through completions\n\n\nAs mentioned all completions are functions which mean they can be as complex as the implementer wants. The kubectl autocompletions is a good example of this, when picking a deployment pressing tab will fetch current deployments from the cluster and present it. These dynamic completions are very powerfull and can be hard to go without once you’ve gotten used to them. Setting up these completions are typically done via the tool itself. For instance kubectl has a command kubectl completion fish which outputs the completions. My install file adds these completions for the tools I use."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#custom-functions",
+    "href": "posts/terminal-setup/index.html#custom-functions",
+    "title": "Kick-ass terminal setup",
+    "section": "4.3 Custom Functions",
+    "text": "4.3 Custom Functions\nFish makes it easy to write custom functions, my functions can be found in the config repo. The functions are all fairly simple and small quality of life improvements. For instance, there is a custom cat function that uses imgcat to display images when catting them, bat if it’s interactive, otherwise just the normal cat. There is a function for opening a google search with the args i.e\n  google how to quit vim?\nopens a browser with the search results. The only non custom function is the fish_greeting.fish which is a special function that is run on shell startup."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#oh-my-posh",
+    "href": "posts/terminal-setup/index.html#oh-my-posh",
+    "title": "Kick-ass terminal setup",
+    "section": "4.4 Oh my Posh",
+    "text": "4.4 Oh my Posh\nThe last part of my setup is the prompt, beeing fish the prompt is also a function and not just a string saved as $PS1. The prompt is setup via oh my posh which is a framework for bulding prompts via a yaml file. My prompt shows the current directory, git branch, if there are uncommited changes, the version of relevant libraries (i.e net7, etc) and the current kubernetes context, powerlevel and exit code. Oh-my-posh is extremly customizable and can be a time sink, for my config see oh-my-posh.yaml"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#footnotes",
+    "href": "posts/terminal-setup/index.html#footnotes",
+    "title": "Kick-ass terminal setup",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThe begining part is the unicode number for the kubernetes icon of the nerd font.↩︎"
   },
   {
     "objectID": "posts/start-page-generator/index.html",

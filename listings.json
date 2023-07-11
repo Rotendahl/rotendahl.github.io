@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/terminal-setup/index.html",
       "/posts/start-page-generator/index.html",
       "/posts/games-with-processing/games-with-processing.html"
     ]
