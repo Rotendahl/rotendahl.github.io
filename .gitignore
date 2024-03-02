@@ -1,4 +1,7 @@
 _site
 .quarto
-
+__pycache__
+.jupyter_cache
 /.quarto/
+/.luarc.json
+_freeze

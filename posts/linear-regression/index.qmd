@@ -1,0 +1,199 @@
+---
+title: "Linear Regression in Julia"
+author: "Benjamin Rotendahl"
+date: 2023-02-25
+format:
+  html:
+    toc: true
+    number-sections: true
+    anchor-sections: true
+    smooth-scroll: true
+    link-external-icon: true
+code-fold: true
+code-line-numbers: true
+---
+
+# Introduction
+The goal of this post is to learn some math and some [Julia](https://julialang.org).
+We will accomplish this be implementing a linear regression model from scratch
+for data in arbitrary dimensions.
+
+:::{.callout-note}
+This post formed the basis for a talk I gave targeting first year university
+students and assumes rudimentary knowledge of programming and high school level
+calculus.
+:::
+
+# The problem
+The basic problem of linear regression is to fit a linear model to a set of points.
+In the two dimensional we can write the linear model as
+$$
+  y = ax + b
+$$
+where $a$ is the slope and $b$ is the intercept. The goal of linear regression is
+to find values for $a$ and $b$ such that the line fits the data as well as possible.
+Looking at the 2 dimensional plot in @fig-scatter we can eyeball that the
+intercept is around $5$ and the slope is around $2$. Our goal is to find exact
+values for these parameters systematically and extend this to arbitrary dimensions.
+Before we can do this we need to answer the following questions:
+* What is a line in higher dimensions?
+* How is the _best_ line defined?
+* How do we find it?
+
+We'll look at these questions in the following sections, both the math and the
+code for it
+
+## Defining a line
+
+<!-- Rewrite this and is the hyperplane formula used later? -->
+Given a set of data points $x \in \mathbb{R}^n$ the goal of linear regression is
+to find an [affine hyperplane][hyper], that matches the data. A hyperplane is
+defined as the subspace of dimension $n-1$ that divides the space into two parts.
+I.e a line splits the two dimensional space into two parts, just as a plane splits
+the three dimensional space into two parts.
+For the general case an affine hyperplane is defined as:
+$$
+  w_1 x_1 + w_2 x_2 + \dots + w_n x_n = b
+$$
+
+For the familiar $y = ax + b$ from two dimensions we can set $w = [-a, -1, b]$  to
+get the form above. The benefit of the form above is that we can treat the entire
+sum as the dot product of two vectors. By doing this we dip our toes into linear
+algebra. Our paramters $W$ is in $\mathbb{R}^{n+1$}$ and out data points are in
+$\mathbb{R}^{n}$, to be able to do the dot product we use a common trick and a
+dummy value $x_0 = 1$ that matches the bias term $b$ in the hyperplane.
+$$
+  W \cdot X = 0
+$$
+
+This works for any number of dimensions, but for the rest of this post we will
+focus on the two dimensional case for simplicity.
+
+
+### Generating data
+The next step is to generate data to fit, we do this in the general case such
+that we can test our implementation in arbitrary dimensions. Our data will be
+a list of data points[^notation] $X \in \mathcal{R}^n$
+$$
+  \mathcal{D} = \{ X_1, X_2, \dots,  X_n\}
+$$
+This can be viewed as a matrix where each row is a data point and each column is
+a dimension leaving us with our data matrix $\mathbf{X}$ with dimensions $n \times d$.
+
+To generate data to later fit we first decide on which hyperplane we'll later try
+to approximate. We then sample random points from the space some gaussian
+noise to the output. Our data generation function is parametrized by
+except that $\mu=0$ so only the standard deviation $\sigma$ is needed.
+
+* $n$ the number of data points to generate.
+* $w$ the true hyperplane that we will later fit.
+* $\sigma$ the standard deviation of the gaussian noise.
+and returns a matrix consisting of the data points.
+
+
+##### Implementing the data generation function
+Instead of samlpling systematically along a mesh we will sample randomly from
+the space of input points in the range $[-50, 50]$.
+
+```{julia}
+# | label: data-generator
+# | code-fold: false
+# | fig-cap: "Code to generate points along an arbitrary hyperplane."
+
+using Distributions, Plots, Random
+
+function GenerateData(θ, n=100, σ=5)
+  points = rand(Uniform(-50, 50), (n, length(θ)))        # <1>
+  points[:, 1] .= 1                              # <2>
+  ys = points * θ                                        # <3>
+  ys += rand(Normal(0, σ), size(ys))             # <4>
+  (points, ys)
+end;
+```
+1. From a uniform distribution with range $[-50, 50]$ sample $n$ points in same
+ dimension as the hyperplane $\theta$, giving us one more dimension than the
+ datapoints require.
+2. Set the _extra_ dimension to $1$ to match the bias term in $\theta$
+3. Compute the dotproduct of the points and $\theta$, use the extra dimension to store the output values.
+4. Add gaussian noise to the output values with mean $0$ and standard deviation $\sigma$.
+
+::: {.panel-tabset}
+## $x \in \mathbb{R}^2 \quad \sigma = 5$
+```{julia}
+# | label: fig-scatter
+# | fig-cap: "A scatter plot of the generated data."
+plotly()
+θ = [2, 5]
+(xs, ys) = GenerateData(θ)
+scatter(xs[:, 2], ys, label=nothing)
+```
+
+## $x \in \mathbb{R}^2 \quad \sigma = 2$
+```{julia}
+θ = [2, 5]
+(xs, ys) = GenerateData(θ, 50, 2)
+scatter(xs[:, 2], ys, label=nothing)
+```
+
+## $x \in \mathbb{R}^3$
+```{julia}
+t = [3, 6, -2]
+(xs1, ys1) = GenerateData(t)
+scatter(xs1[:, 2], xs1[:, 3], ys1, label=nothing)
+```
+:::
+
+As seen we are able to generate data along an arbitrary hyperplane in arbitrary
+dimensions. The next step is to find the correct hyperplane given the data.
+
+<!-- below -->
+
+## Fitting the line.
+
+The first step in finding the correct line is to define what _correct_ means.
+To quantify the correctness/wrongness of a line we define an error function
+$E(\theta, \mathbf{X})$ that given parameters $\theta$ and data $\mathbf{X}$ will
+score how good the line is. For a line to be good it must place as many points
+on the line as possible.
+$$
+  E(\theta, \mathbf{X}) = \sum_{x \in \mathbf{X}}  \left (f(\theta, x) - \hat{y} \right)^2 \frac{1}{n}
+$$
+The reason we square the residuals is to make sure that the error is always
+positive, this could have made it easier to intepret the residuals but makes it
+harder to compute the gradient of the error function.
+
+To visualize the error function we can plot it as a function of the slope and the
+intercept in two dimensions. We create some data with noise for a line with slope
+$2$ and intercept $5$ and plot the error function in @fig-error-function.
+
+```{julia}
+# using Plots; pythonplot();
+function Error(θ, xs, ys)
+  sum((xs * θ .- ys) .^ 2) / length(xs)
+end;
+
+θ = [2, 5]
+(data, dataY) = GenerateData(θ, 50, 2)
+
+err1(x, y) = Error([x, y], data, dataY)
+
+xs = range(-10, 10, length=10)
+ys = range(-10, 10, length=10)
+
+zs = @. err1(xs', ys)
+
+zs
+
+# contour(xs, ys, zs, fill=true)
+# f(x, y) = (3x + y^2) * abs(sin(x) + cos(y))
+
+# x = range(0, 5, length=100)
+# y = range(0, 3, length=50)
+# z = @. f(x', y)
+# contour(x, y, z)
+```
+
+<!-- Refs  -->
+[hyper]: https://en.wikipedia.org/wiki/Hyperplane#Affine_hyperplanes
+[^notation]: Capital $X_1$ refers to the first data point and $x_1$ refers to
+the first value of it's vector.

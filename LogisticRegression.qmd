@@ -1,0 +1,258 @@
+---
+title: "Logistic Regression"
+author: "Benjamin Rotendahl"
+date: 2023-02-25
+format:
+  html:
+    toc: true
+    number-sections: true
+    anchor-sections: true
+    smooth-scroll: true
+    link-external-icon: true
+code-fold: true
+code-line-numbers: true
+---
+# Logistic Regression
+Logistic regression is a method for classification, it takes in data points and
+assigns them one of discrete number of a labels. Logistic regression has the
+benifit of interpretability, each assigned label has a score of how "sure" the
+model is of the label. Formally for the case of a binary classifier, we write
+our inputs as
+$$
+	\mathcal{D} = (x_1, y_1), \dots, (x_n, y_n),
+		\quad x \in \mathbb{R}^n,
+		\quad y \in  \{0,-1\}
+$$
+
+After the model has trained on the data it can take a fresh $x_i$ and produce a
+new label $y_i$, being either the class $1$ or $0$.
+
+## The model
+The model is a linear combination of the input and the vector
+$\theta \in \mathbb{R}^n$ given an input $x \in \mathbb{R}^n$ we compute:
+$$
+	f(\theta, x) = \theta_0 + \sum_{i=1}^n \theta_i x_i
+$$
+As seen the model $\theta$ determines the model. Given a model output we
+construct a label by taking the sign.
+$$
+	\begin{aligned}
+		sign(n) &= \begin{cases}
+								1 & n \geq 0 \\
+								0 & n < 0
+							 \end{cases}\\
+		y &= sign(f(\theta, x))
+	\end{aligned}
+$$
+
+To compare two choices of $\theta$ we use the _empirical loss_ determined by:
+$$
+	L(\theta)  = \frac{1}{|\mathcal{D}|} \sum_{i=1}^n
+	\Bigl{[} sign(f(\theta,x_i)) \neq y_i \Bigr{]}
+$$
+Where $a \neq b$  equals $1$ if true and $0$ if false.
+
+
+## Determining $\theta$
+Determining $\theta$ is where the _logistic_ part of name comes from. A logistic
+function is an _S_ curve of the form
+$$
+	l(x) = \frac{L}{1+\exp \left(-k (x-c ) \right)}
+$$
+The affect of the parameters are:
+
+* $L$ the maxima and minima of the curve.
+* $c$ where on the $x$  axis the midpoint of the curve will fall
+* $k$ how step the curve is.
+
+We set these parameters to the values of the sigmoid function.
+$$
+	\sigma(x) = \frac{1}{1+ \exp(-x)}
+$$
+
+```{julia}
+#| code-summary: Plotting the sigmoid function
+#| fig-cap: "The sigmoid function"
+
+	using Plots
+	sigmoid(x) = 1/(1+exp(-x))
+	plot(sigmoid, -5, 5)
+```
+
+
+#inProgress
+It holds that
+
+$$
+1 - \sigma(x) = \sigma(-x)
+$$
+
+We have that:
+
+$$
+P(Y=y | X=x) = \sigma(y \cdot f_\theta(x))
+$$
+
+The magnitude of $f_\theta$ determines how "confident" our model is,
+
+and the sign of it determines which class it belives it should be in, note that the
+
+sign is flipped.
+
+
+
+This gives us the problem that to get a good model we must minimize the probability
+
+that we make a mistake.
+
+To combine the probabilities we assume that each data set is independent and thus
+
+mulitply them together, we could have maximised:
+
+$$
+
+L(\theta) = \prod_{i=1}^n P(Y=y_i | X=x_i)
+
+$$
+
+If our model was perfect this would be $1$ and if we got everything wrong we would
+
+get $0$. And randomly guessing should gives us $(\frac{1}{2})^n$.
+
+
+
+Instead of optimizing we change it to a minimization problem so we insted let it be
+
+$$
+
+L(\theta) = -\prod_{i=1}^n P(Y=y_i | X=x_i)
+
+$$
+
+So a perfect score is $-1$ and the worst score is $0$.
+
+To compute the probability we use our model
+
+$$
+
+L(\theta) = -\prod_{i=1}^n \sigma(y_i \cdot f_\theta(x_i))
+
+$$
+
+If we insert into our sigmoid function we get:
+
+$$
+
+L(\theta) = -\prod_{i=1}^n \frac{1}{1 + \exp(y_i \cdot f_\theta(x_i))}
+
+$$
+
+To make it easier to compute we take the log of the function.
+
+Since the log function is also continues it does not change the parameter to
+
+minimize the function, and it makes our computation easier since we can change
+
+the product to a sum:
+
+$$
+
+\begin{aligned}
+
+L(\theta) &= -\log \left(\prod_{i=1}^n \frac{1}{1 + \exp(y_i \cdot f_\theta(x_i))}\right) \\
+
+&=\sum_{i=1}^n -\log \left( \frac{1}{1 + \exp(y_i \cdot f_\theta(x_i))}\right)
+
+\end{aligned}
+
+$$
+
+The $-\log p$ for the propability $p$ is equvilant to $1-p$ we use that for the sigmoid $1 - \sigma(x) = \sigma(-x)$ and flip the sign of one input, $y$ in this case as it does not mess with our model.
+
+$$
+
+L(\theta)= \sum_{i=1}^n \log \left( \frac{1}{1 + \exp(-y_i \cdot f_\theta(x_i))}\right)
+
+$$
+
+The last step is to remove the fraction. Since we don't care about the actual result of the right side,
+
+only the value that minimizes it, we can strip the fraction since it dosn't change the minimizing value.
+
+$$
+
+L(\theta)= \sum_{i=1}^n \log \left(1 + \exp(-y_i \cdot f_\theta(x_i))\right)
+
+$$
+
+Our goal is thus to find the value of $\theta$ that minimizes the above value on our data set.
+
+
+
+
+## Regularized logistic Regression:
+
+When $n$ is small compared we risk overfitting, if $n$ is smaller than the number of features there will
+
+always be some complex overfitting possible that does not generalize.
+
+
+
+To solve this we add a reqularization term to our objective function.
+
+This term is typically defined by a [norm](Norms) of $\theta$ for the $||\theta||_1$ and $||\theta||_2$
+
+norms and the weight between the two is determined by $\lambda$
+
+$$
+
+\begin{aligned}
+
+L_1(\theta) &= L(\theta) + \lambda \sum_{i=1}^d |\theta_i| \\
+
+L_2(\theta) &= L(\theta) + \lambda \sum_{i=1}^d \theta_i^2
+
+\end{aligned}
+
+$$
+
+The one norm is not continous at zero.
+
+$$
+
+L(\theta) + \lambda \sum_{j=1}^n |\theta_j|
+
+$$
+
+To solve this we split each $\theta = w^{+}_j -w^{-}_j$ such that if that specific $w$ is negative
+
+we set $w^+$ to zero, and vice versa. Thus we can write it as:
+
+$$
+
+L((\theta_0, w_1^+ - w_1^-, w_2^+ - w_2^-, \dots, w_n^+ - w_n^- ) + \lambda \sum_{j=1}^n |w^+_j - w_j^-|
+
+$$
+
+We have that for any two values it holds that $|a-b| \leq |a| + |b|$ since we know that both $w^+ \geq 0 \land w^- \geq 0$ we can drop the absuloute value and write:
+
+$$
+
+L((\theta_0, w_1^+ - w_1^-, w_2^+ - w_2^-, \dots, w_n^+ - w_n^- ) +
+
+\lambda \sum_{j=1}^n w^+_j
+
++
+
+\lambda \sum_{j=1}^n w^-_j
+
+$$
+
+This expression has a defined derivative and thus we can optimize the error with using a one norm.
+
+
+## Multiclass Logistic Regression
+
+
+## Continuous vs discreate variables
+
