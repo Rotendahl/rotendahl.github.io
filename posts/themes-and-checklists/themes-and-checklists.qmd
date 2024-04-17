@@ -10,34 +10,37 @@ titlegraphic: assets/checklist.jpeg
 ![](/assets/checklist.jpeg)
 
 # Checklists & templates
-For the last couple or years, mainly after reading the books [Atomic Habits] and
-[Checklist Manifesto], I've use checklist manged by templates.
-
-Template based checklists can both work to change habits and behaviors, and avoid
-mistakes.
+For the last couple of years, mainly after reading the books [Atomic Habits]
+and [Checklist Manifesto], I've used templates based checklists, such lists can
+change habits, behaviors, and of course avoid mistakes.
 
 As an example of the latter, imagine you are on a trip/vacation and realize you
 forgot to pack some item your favorite sunglasses, phone charger, or something
 else. What action can you take to avoid this?
 
-By maintaining a _to pack_ checklist you can add the missing item to this list
+By maintaining a _trip packing_ checklist you can add the missing item to this list
 and be confident that you will not forget it again.
 
 For the behavior change part, I've add actions such as `read an article/chapter`
 when I wanted to read more, and added `plan exercise` to my weekly review checklist
-to help me exercise more.
+to help me exercise more. Each day I would invoke my daily checklist template
+and run through it over the course of the day.
 
 ## Enter daily themes
-As the current daily checklist has grown, and grown it's become harder and
-harder to consistently complete it. To solve this I've instead split it out to
-a base checklist with core actions such as `Clean unread emails` that should be completed every day and a
+As the current daily checklist has grown, and grown it's become harder to
+consistently complete it. I take this a sign that the checklist has worked and
+more actions just kept creeping in.
+
+To solve this creep I've instead split it out to a base checklist with core
+actions such as `Clean unread emails` that should be completed every day and a
 variety of _themed_ checklist.
 My current themes are:
+
 * Health: Exercise, relax, and sleep well.
 * Project: Work on a side project, build something fun.
 * Learning: Learn something new.
 * Social: Connect with friends and family.
-* Admin: Handle bills, emails, and other administrative tasks.
+* Admin: Handle laundry, emails, and other administrative tasks/chores.
 
 To my weekly review checklist, I've added a task to plan the themes for the
 upcoming week. Not every theme gets a day, I might not have an _admin_ day every
@@ -46,8 +49,8 @@ the weekend.
 
 
 ## Setting up the tech for checklists
-On the question of how to manage the checklists templates and the logic of
-choosing which theme to activate, and executing potential side effects I.e
+I've set up a system that can manage the checklists templates and handle the
+logic of choosing which theme to invoke. It can also execute side effects I.e
 logging the choice of template to a sheet etc.
 The requirements for the tech stack are:
 
@@ -84,18 +87,19 @@ all files are present
 ### Log of all themes
 Only activating a checklist would be fine if all i wanted was a prompt asking
 which theme I want. I prefer setting all the weeks themes in my calendar and
-having the system pick the right one. To achive this I've created a new calender
+having the system pick the right one. To achieve this I've created a new calender
 delegation called daily themes and added all day events with a selected theme for
 each day. This works amazingly well with the calendar sets of [fantastical].
 This means I can use my calendar as a way to select themes.
 
 I've also created a sheet in [apple numbers] to log which theme was selected and
-when if it was completed. This enabled me to see distrution of themes over time
+when it was completed. This enabled me to see distrution of themes over time
 and if I'm completing the themes I've set.
 
 
 ## The daily checklist script
 The actions performed by the script are:
+
 * Invoke the base checklist
 * Check if my work calendar has any events and if so invoke the _work checklist_
 * Get theme from calendar, if no theme is set, ask for one and set it in the calendar
@@ -104,11 +108,6 @@ The actions performed by the script are:
 A shortcut that performs the above actions can seen in figure @fig-shortcuts.
 
 ![Script/shortcut for my daily checklist](/assets/daily-theme-script.png){#fig-shortcuts}
-
-
-
-
-
 
 
 
