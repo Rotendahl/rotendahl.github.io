@@ -1,0 +1,121 @@
+---
+title: "Themes & checklists"
+author: "Benjamin Rotendahl"
+date: "2024-03-02"
+categories: [productivity]
+image: assets/checklist.jpeg
+titlegraphic: assets/checklist.jpeg
+
+---
+![](/assets/checklist.jpeg)
+
+# Checklists & templates
+For the last couple of years, mainly after reading the books [Atomic Habits]
+and [Checklist Manifesto], I've used templates based checklists, such lists can
+change habits, behaviors, and of course avoid mistakes.
+
+As an example of the latter, imagine you are on a trip/vacation and realize you
+forgot to pack some item your favorite sunglasses, phone charger, or something
+else. What action can you take to avoid this?
+
+By maintaining a _trip packing_ checklist you can add the missing item to this list
+and be confident that you will not forget it again.
+
+For the behavior change part, I've add actions such as `read an article/chapter`
+when I wanted to read more, and added `plan exercise` to my weekly review checklist
+to help me exercise more. Each day I would invoke my daily checklist template
+and run through it over the course of the day.
+
+## Enter daily themes
+As the current daily checklist has grown, and grown it's become harder to
+consistently complete it. I take this a sign that the checklist has worked and
+more actions just kept creeping in.
+
+To solve this creep I've instead split it out to a base checklist with core
+actions such as `Clean unread emails` that should be completed every day and a
+variety of _themed_ checklist.
+My current themes are:
+
+* Health: Exercise, relax, and sleep well.
+* Project: Work on a side project, build something fun.
+* Learning: Learn something new.
+* Social: Connect with friends and family.
+* Admin: Handle laundry, emails, and other administrative tasks/chores.
+
+To my weekly review checklist, I've added a task to plan the themes for the
+upcoming week. Not every theme gets a day, I might not have an _admin_ day every
+week, opting instead for an extra project/health day and two social days over
+the weekend.
+
+
+## Setting up the tech for checklists
+I've set up a system that can manage the checklists templates and handle the
+logic of choosing which theme to invoke. It can also execute side effects I.e
+logging the choice of template to a sheet etc.
+The requirements for the tech stack are:
+
+- I should be able to easily active the template from anywhere.
+    - This means that I should be able to activate it from at least my phone, if
+      it required access to my mac that would suck. It would also be nice if I
+      was still able to active it from my mac, iPad, etc. So I don’t need to get
+      out my phone if I’m already at my mac.
+- It should be easy to update templates and add new ones.
+- It should be stable and require as little maintenance as possible.
+
+Given the above requirements, there obvious choice for orchestrating the actions
+fell on The *Shortcuts* app for apple’s platforms. This allows me to activate the
+template from any of my devices, meeting the first requirement.
+
+I did consider making my own backend in Haskell/Rust and getting the templates
+via an API call from shortcuts. While this could be super fun project, it would
+require more maintenance than I would like, having to run a server and keep code
+up to date.
+
+Instead I'll manage templates via a folder in ICloud Drive, since the templates
+are plain text in [task paper] format I can update from all my devices, and it
+will be easy to move somewhere else if I ever want to.
+
+A problem I found after setting this up is that the shortcut “Get File” action
+fails if the file is not downloaded from ICloud drive. This is super annoying as
+the fix is to open the files app, find the folder, click download and run the
+action again.
+I hope this get’s fixed by running the shortcut often enough that iCloud drives
+never decides to offload it from local to remote storage. For now I've moved all
+file reading to the top of the script to ensure it side effects are only run if
+all files are present
+
+### Log of all themes
+Only activating a checklist would be fine if all i wanted was a prompt asking
+which theme I want. I prefer setting all the weeks themes in my calendar and
+having the system pick the right one. To achieve this I've created a new calender
+delegation called daily themes and added all day events with a selected theme for
+each day. This works amazingly well with the calendar sets of [fantastical].
+This means I can use my calendar as a way to select themes.
+
+I've also created a sheet in [apple numbers] to log which theme was selected and
+when it was completed. This enabled me to see distrution of themes over time
+and if I'm completing the themes I've set.
+
+
+## The daily checklist script
+The actions performed by the script are:
+
+* Invoke the base checklist
+* Check if my work calendar has any events and if so invoke the _work checklist_
+* Get theme from calendar, if no theme is set, ask for one and set it in the calendar
+* Invoke the theme checklist
+
+A shortcut that performs the above actions can seen in figure @fig-shortcuts.
+
+![Script/shortcut for my daily checklist](/assets/daily-theme-script.png){#fig-shortcuts}
+
+
+
+
+<!-- References -->
+[atomic habits]: https://jamesclear.com/atomic-habits
+[checklist manifesto]: https://atulgawande.com/book/the-checklist-manifesto/
+[task paper]: https://guide.taskpaper.com/getting-started/
+[omnifocus]: https://www.omnigroup.com/omnifocus/
+[fantastical]: https://flexibits.com/fantastical-ios/help/calendar-sets
+[apple numbers]: https://www.apple.com/numbers/
