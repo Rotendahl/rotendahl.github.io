@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -85,7 +85,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -94,6 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -107,10 +114,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../assets/logo.png" alt="" class="navbar-logo">
     </a>
@@ -125,26 +132,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/rotendahl/" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/rotendahl/"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -228,10 +235,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://imgs.xkcd.com/comics/borrow_your_laptop.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">https://xkcd.com/1806</figcaption>
+<figcaption>https://xkcd.com/1806</figcaption>
 </figure>
 </div>
 <section id="introduction" class="level1" data-number="1">
@@ -247,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The first step is to pick a program for our OS to display a terminal window. Your OS comes with one built in, for MacOs it’s the aptly named Terminal.app. The built in app is <em>fine</em> but has a limited feature set. I use <a href="https://iterm2.com">iterm2</a>, and have done so for almost a decade. Iterm is Mac only, if you want a cross platform emulator I’ve heard good things about the electron based <a href="https://hyper.is/">hyper.is</a>.</p>
 <section id="setting-up-iterm2" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="setting-up-iterm2"><span class="header-section-number">2.1</span> Setting up Iterm2</h2>
-<p>First install Iterm2 either via the download link on their <a href="https://iterm2.com">website</a> or via brew as described in <a href="#sec-packagemanger">Section&nbsp;3</a>.</p>
+<p>First install Iterm2 either via the download link on their <a href="https://iterm2.com">website</a> or via brew as described in <a href="#sec-packagemanger" class="quarto-xref">Section&nbsp;3</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">brew</span> install iterm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Iterm2 has an almost comical amount of configuration options and features. For a full list see their <a href="https://iterm2.com/documentation.html">documentation</a> and <a href="https://iterm2.com/features.html">feature overview</a>. I’ll go over the most important parts.</p>
 </section>
@@ -260,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="sample-font.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Some Haskell code in the Fira Code font, with ligatures</figcaption>
+<figcaption>Some Haskell code in the Fira Code font, with ligatures</figcaption>
 </figure>
 </div>
 </section>
@@ -268,18 +276,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2.3" class="anchored" data-anchor-id="profiles-and-themes"><span class="header-section-number">2.3</span> Profiles and themes</h2>
 <p>I have the following three profiles in iterm:</p>
 <ul>
-<li><strong>Free floating:</strong> My default profile used for new windows (<kbd>Cmd-n</kbd>).</li>
-<li><strong>Hotkey window:</strong> Pressing (<kbd>Ctrl-Ctrl</kbd>), drops down a window in “visor mode” from the top of the screen. Once you get used to always having a shell a quick double tap away it’s hard to go back.</li>
+<li><strong>Free floating:</strong> My default profile used for new windows (<kbd aria-hidden="true">Cmd-n</kbd><span class="visually-hidden">Cmd-n</span>).</li>
+<li><strong>Hotkey window:</strong> Pressing (<kbd aria-hidden="true">Ctrl-Ctrl</kbd><span class="visually-hidden">Ctrl-Ctrl</span>), drops down a window in “visor mode” from the top of the screen. Once you get used to always having a shell a quick double tap away it’s hard to go back.</li>
 <li><strong>Danger Zone:</strong> A profile automatically trigged for when my K8s context is my non default.</li>
 </ul>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Free Floating</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Hot key window</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Danger Zone</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="fig-profile" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="free.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: The default “floating” window profile</figcaption>
+<div id="fig-profile" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-profile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="free.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-profile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The default “floating” window profile
+</figcaption>
 </figure>
 </div>
 </div>
@@ -287,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><video src="visor.mp4" class="img-fluid" controls=""><a href="visor.mp4">Video</a></video></p>
-<figcaption class="figure-caption">Visor drop down mode</figcaption>
+<figcaption>Visor drop down mode</figcaption>
 </figure>
 </div>
 </div>
@@ -295,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="danger-zone.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Theme automatically activated, once I’m in a non local k8s context</figcaption>
+<figcaption>Theme automatically activated, once I’m in a non local k8s context</figcaption>
 </figure>
 </div>
 </div>
@@ -319,17 +331,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="cool-iterm-features" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="cool-iterm-features"><span class="header-section-number">2.5</span> Cool Iterm features</h2>
 <ul>
-<li><kbd>cmd-⌥b</kbd> activates instant replay allowing you to scroll back through the output of the terminal. This is usefull when you want to go back to a point of time in an interactive tool such as <a href="https://k9scli.io">k9s</a></li>
-<li><kbd>cmd-shift-m</kbd> Sets a <em>mark</em> in the shell allowing you to jump back to the mark with <kbd>cmd-shift-j</kbd>. Usefull for when you want to be able to quickly go back to specific part of a build output or training run.</li>
-<li><kbd>cmd-⌥v</kbd> opens the advanced paste menu, allowing you to format your clipboard before entering it. Usefull for stripping newlines or escape sequences.</li>
-<li>Split panes with <kbd>cmd-d</kbd> and <kbd>cmd-shift-d</kbd></li>
-<li><kbd>cmd-shift-c</kbd> enters a vim like copy mode, usefull for making a selection without touching the mouse.</li>
+<li><kbd aria-hidden="true">cmd-⌥b</kbd><span class="visually-hidden">cmd-⌥b</span> activates instant replay allowing you to scroll back through the output of the terminal. This is usefull when you want to go back to a point of time in an interactive tool such as <a href="https://k9scli.io">k9s</a></li>
+<li><kbd aria-hidden="true">cmd-shift-m</kbd><span class="visually-hidden">cmd-shift-m</span> Sets a <em>mark</em> in the shell allowing you to jump back to the mark with <kbd aria-hidden="true">cmd-shift-j</kbd><span class="visually-hidden">cmd-shift-j</span>. Usefull for when you want to be able to quickly go back to specific part of a build output or training run.</li>
+<li><kbd aria-hidden="true">cmd-⌥v</kbd><span class="visually-hidden">cmd-⌥v</span> opens the advanced paste menu, allowing you to format your clipboard before entering it. Usefull for stripping newlines or escape sequences.</li>
+<li>Split panes with <kbd aria-hidden="true">cmd-d</kbd><span class="visually-hidden">cmd-d</span> and <kbd aria-hidden="true">cmd-shift-d</kbd><span class="visually-hidden">cmd-shift-d</span></li>
+<li><kbd aria-hidden="true">cmd-shift-c</kbd><span class="visually-hidden">cmd-shift-c</span> enters a vim like copy mode, usefull for making a selection without touching the mouse.</li>
 <li>If you have the <a href="https://iterm2.com/documentation-shell-integration.html">shell integration</a> you can setup a shortcut to show the most recently used directories allowing you to quickly enter a directory you’ve been in recently.</li>
 </ul>
 </section>
 <section id="meta-and-option" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="meta-and-option"><span class="header-section-number">2.6</span> Meta and option</h2>
-<p>Shells have the concept of a <em>meta</em> <kbd>M</kbd> key, which when pressed with some letter key triggers some action. For instance in fish <kbd>M-e</kbd> does not mean type a special “é” but open the current line in the <code>$EDITOR</code>. This is a problem for us programmers plebs that use a non us keyboard layout. In Denmark we don’t have keys for <code>|,{},[]</code> instead they are written with some combination of <code>opt, shift, ctrl</code> and other keys. This means that we can’t use the meta key for it’s intended purpose directly. Iterm does not have a nice way of solving this, it can be setup such that the left option key is meta and the right one for special characters. This sucks, instead I made a small hack and added key sequences for the most common special characters. That and mapping caps lock to control gives a nice keyboard experience.</p>
+<p>Shells have the concept of a <em>meta</em> <kbd aria-hidden="true">M</kbd><span class="visually-hidden">M</span> key, which when pressed with some letter key triggers some action. For instance in fish <kbd aria-hidden="true">M-e</kbd><span class="visually-hidden">M-e</span> does not mean type a special “é” but open the current line in the <code>$EDITOR</code>. This is a problem for us programmers plebs that use a non us keyboard layout. In Denmark we don’t have keys for <code>|,{},[]</code> instead they are written with some combination of <code>opt, shift, ctrl</code> and other keys. This means that we can’t use the meta key for it’s intended purpose directly. Iterm does not have a nice way of solving this, it can be setup such that the left option key is meta and the right one for special characters. This sucks, instead I made a small hack and added key sequences for the most common special characters. That and mapping caps lock to control gives a nice keyboard experience.</p>
 </section>
 <section id="saving-and-restoring-configurations" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="saving-and-restoring-configurations"><span class="header-section-number">2.7</span> Saving and restoring configurations</h2>
@@ -362,11 +374,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setting-up-completions" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="setting-up-completions"><span class="header-section-number">4.2</span> Setting up completions</h2>
-<p>Fish has awesome autocompletion, it’s fast and works out of the box, it uses <em>man</em> pages to get a list of options and arguments which gives decent completions for most cli’s with zero configuration. Typing a partial command and pressing <kbd>tab</kbd> starts the autocomplete, if you press <kbd>shift-tab</kbd> it searches the description of flags and arguments. As an example if I want to go back to a previous revions of a deploy via helm I can search for it with <code>helm &lt;shift-tab&gt; (revions)</code> to give me the following:</p>
+<p>Fish has awesome autocompletion, it’s fast and works out of the box, it uses <em>man</em> pages to get a list of options and arguments which gives decent completions for most cli’s with zero configuration. Typing a partial command and pressing <kbd aria-hidden="true">tab</kbd><span class="visually-hidden">tab</span> starts the autocomplete, if you press <kbd aria-hidden="true">shift-tab</kbd><span class="visually-hidden">shift-tab</span> it searches the description of flags and arguments. As an example if I want to go back to a previous revions of a deploy via helm I can search for it with <code>helm &lt;shift-tab&gt; (revions)</code> to give me the following:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="helm.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Searching through completions</figcaption>
+<figcaption>Searching through completions</figcaption>
 </figure>
 </div>
 <p>As mentioned all completions are functions which mean they can be as complex as the implementer wants. The <code>kubectl</code> autocompletions is a good example of this, when picking a deployment pressing tab will fetch current deployments from the cluster and present it. These dynamic completions are very powerfull and can be hard to go without once you’ve gotten used to them. Setting up these completions are typically done via the tool itself. For instance <code>kubectl</code> has a command <code>kubectl completion fish</code> which outputs the completions. My <a href="https://github.com/Rotendahl/dotfiles/blob/master/install.sh#L4">install file</a> adds these completions for the tools I use.</p>
@@ -452,6 +464,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -518,13 +557,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -603,10 +644,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/rotendahl\.dk");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -616,8 +674,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -629,7 +696,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -673,6 +863,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -698,6 +889,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -758,6 +975,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

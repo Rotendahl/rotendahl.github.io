@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rotendahl.dk/about.html</loc>
-    <lastmod>2023-07-11T20:15:46.144Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rotendahl.dk/posts/games-with-processing/games-with-processing.html</loc>
-    <lastmod>2023-07-11T20:15:44.544Z</lastmod>
-  </url>
-  <url>
     <loc>https://rotendahl.dk/index.html</loc>
-    <lastmod>2023-07-11T20:15:40.228Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rotendahl.dk/posts/terminal-setup/index.html</loc>
-    <lastmod>2023-07-11T20:15:43.576Z</lastmod>
+    <lastmod>2024-04-17T18:41:20.797Z</lastmod>
   </url>
   <url>
     <loc>https://rotendahl.dk/posts/start-page-generator/index.html</loc>
-    <lastmod>2023-07-11T20:15:45.624Z</lastmod>
+    <lastmod>2024-04-17T18:41:20.797Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rotendahl.dk/posts/terminal-setup/index.html</loc>
+    <lastmod>2024-04-17T18:41:20.813Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rotendahl.dk/about.html</loc>
+    <lastmod>2024-04-17T18:41:20.781Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rotendahl.dk/posts/games-with-processing/games-with-processing.html</loc>
+    <lastmod>2024-04-17T18:41:20.797Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rotendahl.dk/posts/themes-and-checklists/themes-and-checklists.html</loc>
+    <lastmod>2024-04-17T18:41:20.825Z</lastmod>
   </url>
 </urlset>

@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Benjamin Rotendahl">
-<meta name="dcterms.date" content="2017-07-13">
+<meta name="dcterms.date" content="2024-03-02">
 
-<title>Rotendahl’s Blog - Mobile first games in processing</title>
+<title>Rotendahl’s Blog - Themes &amp; checklists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -106,35 +72,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -186,11 +123,9 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Mobile first games in processing</h1>
+      <h1 class="title">Themes &amp; checklists</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">front-end</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">games</div>
+                <div class="quarto-category">productivity</div>
               </div>
                   </div>
   </div>
@@ -208,16 +143,10 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">July 13, 2017</p>
+        <p class="date">March 2, 2024</p>
       </div>
     </div>
     
-      <div>
-      <div class="quarto-title-meta-heading">Modified</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date-modified">April 12, 2023</p>
-      </div>
-    </div>
       
     </div>
     
@@ -230,18 +159,14 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <li><a href="#checklists-templates" id="toc-checklists-templates" class="nav-link active" data-scroll-target="#checklists-templates"><span class="header-section-number">1</span> Checklists &amp; templates</a>
   <ul class="collapse">
-  <li><a href="#about-the-project" id="toc-about-the-project" class="nav-link" data-scroll-target="#about-the-project"><span class="header-section-number">1.1</span> About the project</a>
+  <li><a href="#enter-daily-themes" id="toc-enter-daily-themes" class="nav-link" data-scroll-target="#enter-daily-themes"><span class="header-section-number">1.1</span> Enter daily themes</a></li>
+  <li><a href="#setting-up-the-tech-for-checklists" id="toc-setting-up-the-tech-for-checklists" class="nav-link" data-scroll-target="#setting-up-the-tech-for-checklists"><span class="header-section-number">1.2</span> Setting up the tech for checklists</a>
   <ul class="collapse">
-  <li><a href="#the-choice-of-framework" id="toc-the-choice-of-framework" class="nav-link" data-scroll-target="#the-choice-of-framework"><span class="header-section-number">1.1.1</span> The choice of framework</a></li>
+  <li><a href="#log-of-all-themes" id="toc-log-of-all-themes" class="nav-link" data-scroll-target="#log-of-all-themes"><span class="header-section-number">1.2.1</span> Log of all themes</a></li>
   </ul></li>
-  <li><a href="#the-structure-of-a-game" id="toc-the-structure-of-a-game" class="nav-link" data-scroll-target="#the-structure-of-a-game"><span class="header-section-number">1.2</span> The structure of a game</a>
-  <ul class="collapse">
-  <li><a href="#the-memory-game" id="toc-the-memory-game" class="nav-link" data-scroll-target="#the-memory-game"><span class="header-section-number">1.2.1</span> The memory game</a></li>
-  <li><a href="#the-tabel-game" id="toc-the-tabel-game" class="nav-link" data-scroll-target="#the-tabel-game"><span class="header-section-number">1.2.2</span> The “tabel” game</a></li>
-  <li><a href="#the-reaction-game" id="toc-the-reaction-game" class="nav-link" data-scroll-target="#the-reaction-game"><span class="header-section-number">1.2.3</span> The reaction game</a></li>
-  </ul></li>
+  <li><a href="#the-daily-checklist-script" id="toc-the-daily-checklist-script" class="nav-link" data-scroll-target="#the-daily-checklist-script"><span class="header-section-number">1.3</span> The daily checklist script</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -253,97 +178,70 @@ window.Quarto = {
 
 
 
-<p><img src="https://github.com/Rotendahl/brainGames/raw/master/screenshot.png" class="img-fluid"></p>
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>This post describes the implementation of three mobile-first web games created using Processing, a simple tool for building interactive drawings. The games were designed to be played on smartphones and were part of a larger campaign called “Who Controls Your Brain,” directed at middle school children to teach them about the brain. The digital games were a part of this educational effort and tasked the children with various cognitive tasks. The project was paid for by the school service of the University of Copenhagen.</p>
-<p>The games works best on smartphones and can be played here: <a href="https://rotendahl.dk/brainGames/">https://rotendahl.dk/brainGames/</a> and the code is on <a href="https://github.com/Rotendahl/brainGames">github</a></p>
-<section id="about-the-project" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="about-the-project"><span class="header-section-number">1.1</span> About the project</h2>
-<p>The project was a freelance job for the university of Copenhagen’s School Service. It was part of a larger campaign called “Who controls your brain”, the campaign was directed at middle school children with the purpose of teaching them about their brains. These games were the digital part of the project and tasked them with various cognitive tasks.</p>
-<section id="the-choice-of-framework" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="the-choice-of-framework"><span class="header-section-number">1.1.1</span> The choice of framework</h3>
-<p>The kids were invited to a series of events where they would play them. We did not expect them to be able to install apps on their phones (Parental controls etc.) which meant that the games had to be web based. From my work in Coding Pirates I knew about <a href="http://processingjs.org">Processing</a> which is a simple way to create interactive drawings. A quick look at the <a href="http://processingjs.org/reference/">documentation</a> for processing reveals its main strength, the functions are few and basic enough that the learning curve is almost nonexistent. As an example the following snippet creates small circles in different colors based on the position of the mouse.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>setup <span class="op">=</span> <span class="kw">function</span>(){</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">size</span>(<span class="dv">400</span><span class="op">,</span> <span class="dv">400</span>)<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">framerate</span>(<span class="dv">30</span>)<span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">background</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>draw <span class="op">=</span> <span class="kw">function</span>() {</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fill</span>(mouseX<span class="op">,</span> mouseY<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ellipse</span>(mouseX<span class="op">,</span> mouseY<span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">50</span>)<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A programmer armed with the documentation can start building games at once and not focus on lengthy tutorials. The downside of processing is that it’s mainly made for educational purposes and interactive art. This gave the following problems:</p>
+<p><img src="../../assets/checklist.jpeg" class="img-fluid"></p>
+<section id="checklists-templates" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Checklists &amp; templates</h1>
+<p>For the last couple of years, mainly after reading the books <a href="https://jamesclear.com/atomic-habits">Atomic Habits</a> and <a href="https://atulgawande.com/book/the-checklist-manifesto/">Checklist Manifesto</a>, I’ve used templates based checklists, such lists can change habits, behaviors, and of course avoid mistakes.</p>
+<p>As an example of the latter, imagine you are on a trip/vacation and realize you forgot to pack some item your favorite sunglasses, phone charger, or something else. What action can you take to avoid this?</p>
+<p>By maintaining a <em>trip packing</em> checklist you can add the missing item to this list and be confident that you will not forget it again.</p>
+<p>For the behavior change part, I’ve add actions such as <code>read an article/chapter</code> when I wanted to read more, and added <code>plan exercise</code> to my weekly review checklist to help me exercise more. Each day I would invoke my daily checklist template and run through it over the course of the day.</p>
+<section id="enter-daily-themes" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="enter-daily-themes"><span class="header-section-number">1.1</span> Enter daily themes</h2>
+<p>As the current daily checklist has grown, and grown it’s become harder to consistently complete it. I take this a sign that the checklist has worked and more actions just kept creeping in.</p>
+<p>To solve this creep I’ve instead split it out to a base checklist with core actions such as <code>Clean unread emails</code> that should be completed every day and a variety of <em>themed</em> checklist. My current themes are:</p>
 <ul>
-<li><p>Touch events are not natively supported, procressing only supports mouse clicks and can’t handle multitouch. This was mitigated by using the position of the <em>mouse</em>, for each frame the mouse position is reset so a change in position indicates a click. This is</p></li>
-<li><p>It’s hard to get it to work in a responsive manner.</p></li>
-<li><p>Processing was originally implemented in java and the port is not web first, leading to bad errors.</p></li>
-<li><p>It’s Hard to interact with the DOM.</p></li>
+<li>Health: Exercise, relax, and sleep well.</li>
+<li>Project: Work on a side project, build something fun.</li>
+<li>Learning: Learn something new.</li>
+<li>Social: Connect with friends and family.</li>
+<li>Admin: Handle laundry, emails, and other administrative tasks/chores.</li>
 </ul>
-<p>A way to get around some of these problems is to use this excellent <a href="https://github.com/GildasP/jProcessingJS">extension</a> which makes it responsive and mobile friendly.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Since I built my project the javascript version of processing has gotten a successor <a href="https://p5js.org">p5</a> which solves these problems.</p>
-</div>
-</div>
+<p>To my weekly review checklist, I’ve added a task to plan the themes for the upcoming week. Not every theme gets a day, I might not have an <em>admin</em> day every week, opting instead for an extra project/health day and two social days over the weekend.</p>
+</section>
+<section id="setting-up-the-tech-for-checklists" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="setting-up-the-tech-for-checklists"><span class="header-section-number">1.2</span> Setting up the tech for checklists</h2>
+<p>I’ve set up a system that can manage the checklists templates and handle the logic of choosing which theme to invoke. It can also execute side effects I.e logging the choice of template to a sheet etc. The requirements for the tech stack are:</p>
+<ul>
+<li>I should be able to easily active the template from anywhere.
+<ul>
+<li>This means that I should be able to activate it from at least my phone, if it required access to my mac that would suck. It would also be nice if I was still able to active it from my mac, iPad, etc. So I don’t need to get out my phone if I’m already at my mac.</li>
+</ul></li>
+<li>It should be easy to update templates and add new ones.</li>
+<li>It should be stable and require as little maintenance as possible.</li>
+</ul>
+<p>Given the above requirements, there obvious choice for orchestrating the actions fell on The <em>Shortcuts</em> app for apple’s platforms. This allows me to activate the template from any of my devices, meeting the first requirement.</p>
+<p>I did consider making my own backend in Haskell/Rust and getting the templates via an API call from shortcuts. While this could be super fun project, it would require more maintenance than I would like, having to run a server and keep code up to date.</p>
+<p>Instead I’ll manage templates via a folder in ICloud Drive, since the templates are plain text in <a href="https://guide.taskpaper.com/getting-started/">task paper</a> format I can update from all my devices, and it will be easy to move somewhere else if I ever want to.</p>
+<p>A problem I found after setting this up is that the shortcut “Get File” action fails if the file is not downloaded from ICloud drive. This is super annoying as the fix is to open the files app, find the folder, click download and run the action again. I hope this get’s fixed by running the shortcut often enough that iCloud drives never decides to offload it from local to remote storage. For now I’ve moved all file reading to the top of the script to ensure it side effects are only run if all files are present</p>
+<section id="log-of-all-themes" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="log-of-all-themes"><span class="header-section-number">1.2.1</span> Log of all themes</h3>
+<p>Only activating a checklist would be fine if all i wanted was a prompt asking which theme I want. I prefer setting all the weeks themes in my calendar and having the system pick the right one. To achieve this I’ve created a new calender delegation called daily themes and added all day events with a selected theme for each day. This works amazingly well with the calendar sets of <a href="https://flexibits.com/fantastical-ios/help/calendar-sets">fantastical</a>. This means I can use my calendar as a way to select themes.</p>
+<p>I’ve also created a sheet in <a href="https://www.apple.com/numbers/">apple numbers</a> to log which theme was selected and when it was completed. This enabled me to see distrution of themes over time and if I’m completing the themes I’ve set.</p>
 </section>
 </section>
-<section id="the-structure-of-a-game" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="the-structure-of-a-game"><span class="header-section-number">1.2</span> The structure of a game</h2>
-<p>Each game starts with a html file that loads the framework and the css required to make it responsive, lastly it loads <em>.pde</em> files and creates a canvas</p>
-<p>The next step is to load the images required using the preprocessing directive &gt; <code>/* @pjs preload="image1.jpg"; */</code></p>
-<p>Using these directives it’s simple to create a loading screen and scale the images once they are loaded. The <code>setup</code> and <code>draw</code> functions are placed in the file <em>code.pde</em> which controls the game’s state and the core game logic. Each game has a file <em>game.pde</em> that contains the data structures and classes for each game.</p>
-<section id="the-memory-game" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-memory-game"><span class="header-section-number">1.2.1</span> The memory game</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/Rotendahl/brainGames/raw/master/assets/huske.png" class="quarto-figure quarto-figure-center figure-img" height="500"></p>
+<section id="the-daily-checklist-script" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="the-daily-checklist-script"><span class="header-section-number">1.3</span> The daily checklist script</h2>
+<p>The actions performed by the script are:</p>
+<ul>
+<li>Invoke the base checklist</li>
+<li>Check if my work calendar has any events and if so invoke the <em>work checklist</em></li>
+<li>Get theme from calendar, if no theme is set, ask for one and set it in the calendar</li>
+<li>Invoke the theme checklist</li>
+</ul>
+<p>A shortcut that performs the above actions can seen in figure <a href="#fig-shortcuts" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-shortcuts" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-shortcuts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/daily-theme-script.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shortcuts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Script/shortcut for my daily checklist
+</figcaption>
 </figure>
 </div>
-<p>This game task the player to remember an ever increasing sequence of tiles. In the first level the user is shown three tiles numbered from one to three. After the timer runs out the numbers are hidden and the player must remember their order.</p>
-<p>The game was made to show that we can “trick” our mind into remembering more information by storing it efficiently. First the kids had to check how they performed when trying to remember the positions of each tile. Afterwards they instead were told to remember the path and notice how their performance increased.</p>
-<section id="implementation" class="level4">
-<h4 class="anchored" data-anchor-id="implementation">Implementation</h4>
-<p>The game’s logic starts with creating a grid of a <code>tile</code> class, which holds the position and value for each tile, it exposes methods for hiding/showing and drawing it self. The game randomly picks tiles corresponding to <span class="math inline">\(levelNumber + 2\)</span> ranks them from <span class="math inline">\([1,levelNumber]\)</span> and draws them.</p>
-<p>The state loop in <em>game.pde</em> starts a timer and turns tiles when needed. When the player loses they are given the option of posting their score or trying again.</p>
-</section>
-</section>
-<section id="the-tabel-game" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="the-tabel-game"><span class="header-section-number">1.2.2</span> The “tabel” game</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/Rotendahl/brainGames/raw/master/assets/tabel.png" class="quarto-figure quarto-figure-center figure-img" height="500"></p>
-</figure>
-</div>
-<p>This game presents the player with at table that keeps scrolling down, at the bottom of the screen is the current “task” for the bottom row. The task can be picking the sum of two numbers, picking a number <span class="math inline">\(n\)</span> such that <span class="math inline">\(3 \mid n\)</span>, etc. If the player fails a task the row goes red and one extra row will stay red for the rest of the game.</p>
-<p>The goal of the game was to have the kids find a way of avoiding doing the actual computation and find a pattern that could solve the task, I.e <span class="math inline">\(5 \mid n\)</span> can be solved by finding a number that ends in 5 or 0.</p>
-<section id="implementation-1" class="level4">
-<h4 class="anchored" data-anchor-id="implementation-1">Implementation</h4>
-<p>The game creates 5 rows containing 6 instances of the tile class. The rows scroll down and when they hit the bottom of the screen they are moved to the top again. When a row is “reset” the numbers on the tile are changed so they continue the sequence from the row nearest the top that isn’t red. The non red row closets to the bottom is the active one that the current task should be performed on. If a task is completed the row turns blue and active row and current task is changed.</p>
-</section>
-</section>
-<section id="the-reaction-game" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="the-reaction-game"><span class="header-section-number">1.2.3</span> The reaction game</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/Rotendahl/brainGames/raw/master/assets/reaktion.png" class="quarto-figure quarto-figure-center figure-img" height="600"></p>
-</figure>
-</div>
-<p>This game tests the players reactions and ability to perform simple cognitive tasks. It was inspired by the <a href="http://www.batak.com">Batak board</a></p>
-<p>The player has to hit a specified number of nodes in the graph, before the time runs out.</p>
+<!-- References -->
 
 
-</section>
 </section>
 </section>
 

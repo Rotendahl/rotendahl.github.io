@@ -1,5 +1,152 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Rotendahls Blog",
+    "section": "",
+    "text": "Themes & checklists\n\n\n\n\n\n\nproductivity\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n\n\n\n\n\n\nKick-ass terminal setup\n\n\n\n\n\n\nterminal\n\n\nsetup\n\n\n\n\n\n\n\n\n\nJul 7, 2023\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n\n\n\n\n\n\nOverengineering a start page\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\nhaskell\n\n\n\n\n\n\n\n\n\nMay 13, 2023\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n\n\n\n\n\n\nMobile first games in processing\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\ngames\n\n\n\n\n\n\n\n\n\nJul 13, 2017\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/start-page-generator/index.html",
+    "href": "posts/start-page-generator/index.html",
+    "title": "Overengineering a start page",
+    "section": "",
+    "text": "The default start page in my browser of choice (safari) suck. The page looks nice but does not sync between devices, and shows a lot of useless information. Figure 1 shows the safari start page. The “favorites” section is a copy of the links in my favorites bar, which are already visible in the browser. The “Shared with you” section is a list of links that my partner has shared with me, they are all old and was never relevant. I don’t use the reading list in safari, the entries are all read or added by mistake. The bottom row is the most useful part, as it allows me to access tabs from my iPad and iPhone, but the tab group feature in safari superseeds this feature.\n\nBad Safari start pageAwesome generated start page\n\n\n\n\n\n\n\n\nFigure 1: Safari’s bad startpage\n\n\n\n\n\n\n\n\n\n\n\nFigure 2: My Generated webpage"
+  },
+  {
+    "objectID": "posts/start-page-generator/index.html#configuring-the-start-page",
+    "href": "posts/start-page-generator/index.html#configuring-the-start-page",
+    "title": "Overengineering a start page",
+    "section": "2.1 Configuring the start page",
+    "text": "2.1 Configuring the start page\nTo make the above html fit your taste requires:\n\nSetting your color theme in the variables.css file.\nAdding &lt;a&gt; tags with each site you want to include.\n\nThis last point is a bit tedious, but could be done in a few minutes, but that’s no fun."
+  },
+  {
+    "objectID": "posts/start-page-generator/index.html#defining-the-favorite-sites-grammar.",
+    "href": "posts/start-page-generator/index.html#defining-the-favorite-sites-grammar.",
+    "title": "Overengineering a start page",
+    "section": "3.1 Defining the favorite sites grammar.",
+    "text": "3.1 Defining the favorite sites grammar.\nA favorite site consists of a url, a display name and a logo, the last two are optional. We could have used a format such as json or csv as the configuration file format, but instead we create our own format. Listing 1 shows an example of the format. The idea of the grammar is to have the non optional url in the center of a line, if there is a display name it precedes the url and points-&gt; to the url defining the favorite. A logo optionally succeeds the url and points back &lt;- to it.\n\n\n\nListing 1: Example grammar instance\n\n\nsome arbitrary text\n* youtube.com/feed/subscriptions &lt;- &lt;logo-url&gt;\n* Github.com\n* Data Science -&gt; towardsdatascience.com\n* Sentry.io\n* Azure DevOps -&gt; dev.azure.com &lt;- &lt;logo-url&gt;\n\n\n\nA links file can contain two types of text lines: comments and favorites. A comment is any line that does not start with a * and a favorite is any line that does. A favorite must have a url, but can optionally have a display name and a logo as specified above. The grammar for the favorite sites file can be seen in BNF in Listing 2.\n\n\n\nListing 2: The favorite sites grammar in BNF form\n\n\n  favorites ::= * &lt;favorite&gt; \\n &lt;favorites&gt; | ε\n  favorite ::= &lt;display-name&gt; -&gt; &lt;site&gt; | &lt;site&gt;\n  display-name ::= &lt;text&gt;\n  site ::= &lt;url&gt; | &lt;url&gt; &lt;- &lt;url&gt;\n  url ::= &lt;url-spec&gt;\n\n\n\nWhere &lt;text&gt; is any string of characters that does not contain -&gt; or &lt;- or newlines and &lt;url-spec&gt; is any valid url. The grammar follows the lexeme convention of parsing, where we allow arbitrary whitespace between tokens, and treat any lines not prefixed with a * as whitespace.\nThe grammar is non left recursive, non ambiguous requiring no precedence rules, the only downside of the grammar is that it requires lookahead for display names. When reading the lexeme following a * we don’t know if it is a display name or url until we observe a -&gt; or the lack of it. Since the display names are short this will not be a problem in practice1.\n\n3.1.1 Full grammer file"
+  },
+  {
+    "objectID": "posts/start-page-generator/index.html#creating-the-project",
+    "href": "posts/start-page-generator/index.html#creating-the-project",
+    "title": "Overengineering a start page",
+    "section": "3.2 Creating the project",
+    "text": "3.2 Creating the project\nTo setup our haskell project we use cabal and initialize the project with\ncabal init\nThis will create a start-page-generator.cabal file along with lib and test folders.\nIn typical haskell fashion we start by creating the types we need for our parser/(template engine). The types can be seen below:\n\nNote that the logo type is a type alias for the url. The ParsedSite type has the optional display name and logo url via the maybe monad. Our template engine will map between the ParsedSite and Site types filling in the optional fields. For the display name we use the hostname of the url if no display name is present. A missing logo url is filled in with logo.clearbit.com//&lt;hostname&gt; which provides a logo for most sites.\n\n3.2.1 Testing\nBeing a functional langauge Haskell has many great testing libaries from simple unit testing to property based testing. For this project we use the BDD style hspec library. The tests are simple assertions that given the specific input the code produces the expected output."
+  },
+  {
+    "objectID": "posts/start-page-generator/index.html#parsing-the-links-file",
+    "href": "posts/start-page-generator/index.html#parsing-the-links-file",
+    "title": "Overengineering a start page",
+    "section": "3.3 Parsing the links file",
+    "text": "3.3 Parsing the links file\nHaskell is excellent for writing parsers, instead of writing clunky regexes that are hard to read and maintain we use the parser combinator library: parsec.\nThe main idea behind parser combinators is that you build a parser for each part of the grammar and then combine them to build a parser for the entire grammar. For parsing a site we need to parse a ‘*’ character, an optional display name, followed by an url and an optional logo url. This gives us the parser\nparseSite :: Parser ParsedSite\nparseSite = do\n  _ &lt;- string \"*\"\n  whiteSpace\n  name &lt;- optionMaybe $ try parseDisplayName\n  url &lt;- parseUrl\n  logo &lt;- optionMaybe $ try parseLogo\n  return (name, url, logo)\nWhich is much easier to read than a regex. See the full parser below."
+  },
+  {
+    "objectID": "posts/start-page-generator/index.html#generating-the-html",
+    "href": "posts/start-page-generator/index.html#generating-the-html",
+    "title": "Overengineering a start page",
+    "section": "3.4 Generating the html",
+    "text": "3.4 Generating the html\nTo map from the parsed we map from the parsed sites to the site type and replace the template tag in the html with the generated html."
+  },
+  {
+    "objectID": "posts/start-page-generator/index.html#footnotes",
+    "href": "posts/start-page-generator/index.html#footnotes",
+    "title": "Overengineering a start page",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nI’m not overengineering my grammer for my overengineered project.↩︎"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html",
+    "href": "posts/terminal-setup/index.html",
+    "title": "Kick-ass terminal setup",
+    "section": "",
+    "text": "https://xkcd.com/1806"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#setting-up-iterm2",
+    "href": "posts/terminal-setup/index.html#setting-up-iterm2",
+    "title": "Kick-ass terminal setup",
+    "section": "2.1 Setting up Iterm2",
+    "text": "2.1 Setting up Iterm2\nFirst install Iterm2 either via the download link on their website or via brew as described in Section 3.\n  brew install iterm2\nIterm2 has an almost comical amount of configuration options and features. For a full list see their documentation and feature overview. I’ll go over the most important parts."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#fonts",
+    "href": "posts/terminal-setup/index.html#fonts",
+    "title": "Kick-ass terminal setup",
+    "section": "2.2 Fonts",
+    "text": "2.2 Fonts\nFonts are becoming a more integral part of the terminal experience. Fonts are no longer just how letters are rendered. Via ligatures, icons, and powerline glyphs fonts affect how the terminal looks and functions. The Nerd fonts project is a collection of programmer friendly fonts with all the features above enabled. To get them on your mac you can use brew:\n  brew tap homebrew/cask-fonts\n  brew install font-hack-nerd-font\nI prefer the Fira code font, but all the nerd fonts are quite nice. In iterm you have to set the font for each profile you use and enable ligatures. For a better powerline/glyph experience don’t use the monospaced version of the fonts as the icons will be to small.\n\n\n\nSome Haskell code in the Fira Code font, with ligatures"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#profiles-and-themes",
+    "href": "posts/terminal-setup/index.html#profiles-and-themes",
+    "title": "Kick-ass terminal setup",
+    "section": "2.3 Profiles and themes",
+    "text": "2.3 Profiles and themes\nI have the following three profiles in iterm:\n\nFree floating: My default profile used for new windows (Cmd-nCmd-n).\nHotkey window: Pressing (Ctrl-CtrlCtrl-Ctrl), drops down a window in “visor mode” from the top of the screen. Once you get used to always having a shell a quick double tap away it’s hard to go back.\nDanger Zone: A profile automatically trigged for when my K8s context is my non default.\n\n\nFree FloatingHot key windowDanger Zone\n\n\n\n\n\n\n\n\nFigure 1: The default “floating” window profile\n\n\n\n\n\n\n\nVideo\nVisor drop down mode\n\n\n\n\n\n\n\nTheme automatically activated, once I’m in a non local k8s context\n\n\n\n\n\n\nAutomatic profile switching\nAt my current job each developer has their own kubernetes cluster and we often use each other’s or switch to the staging/test cluster. I’ve setup that any non default cluster activates the danger zone profile. Having a clear visual distinction between default and non default contexts makes me more comfortable running commands such as helm rollback.\nThe feature to automatically switch profile in Iterm is not made for k8s. Instead it listens to username and hosts which works for ssh based workflows. My workaround has been to add a trigger to all my profiles that report the username and host as prod@prod whenever the regEx \\udb84\\udcfe (?!brotual)1 does not match my prompt."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#theme",
+    "href": "posts/terminal-setup/index.html#theme",
+    "title": "Kick-ass terminal setup",
+    "section": "2.4 Theme",
+    "text": "2.4 Theme\nBesides the eye catching Unikitty theme used for the Danger Zone profile my theme of choice is the is the awesome dracula theme. Besides beeing pretty but not to flashy, there are implementations for almost any tool.\n\n2.4.1 Embracing the light\nLike a true programmer I prefer dark mode but from time to time I use a light theme for programming. Another benifit is the ability to quickly switch to a light theme, during a presentation/screencast to help you viewers see the code.\nFor the times when I’m in the mood for a light theme I use the light version of the Solarized theme. This is built in to Iterm. I’ve setup custom functions to quickly switch my entire computer between light and dark via the terminal."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#cool-iterm-features",
+    "href": "posts/terminal-setup/index.html#cool-iterm-features",
+    "title": "Kick-ass terminal setup",
+    "section": "2.5 Cool Iterm features",
+    "text": "2.5 Cool Iterm features\n\ncmd-⌥bcmd-⌥b activates instant replay allowing you to scroll back through the output of the terminal. This is usefull when you want to go back to a point of time in an interactive tool such as k9s\ncmd-shift-mcmd-shift-m Sets a mark in the shell allowing you to jump back to the mark with cmd-shift-jcmd-shift-j. Usefull for when you want to be able to quickly go back to specific part of a build output or training run.\ncmd-⌥vcmd-⌥v opens the advanced paste menu, allowing you to format your clipboard before entering it. Usefull for stripping newlines or escape sequences.\nSplit panes with cmd-dcmd-d and cmd-shift-dcmd-shift-d\ncmd-shift-ccmd-shift-c enters a vim like copy mode, usefull for making a selection without touching the mouse.\nIf you have the shell integration you can setup a shortcut to show the most recently used directories allowing you to quickly enter a directory you’ve been in recently."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#meta-and-option",
+    "href": "posts/terminal-setup/index.html#meta-and-option",
+    "title": "Kick-ass terminal setup",
+    "section": "2.6 Meta and option",
+    "text": "2.6 Meta and option\nShells have the concept of a meta MM key, which when pressed with some letter key triggers some action. For instance in fish M-eM-e does not mean type a special “é” but open the current line in the $EDITOR. This is a problem for us programmers plebs that use a non us keyboard layout. In Denmark we don’t have keys for |,{},[] instead they are written with some combination of opt, shift, ctrl and other keys. This means that we can’t use the meta key for it’s intended purpose directly. Iterm does not have a nice way of solving this, it can be setup such that the left option key is meta and the right one for special characters. This sucks, instead I made a small hack and added key sequences for the most common special characters. That and mapping caps lock to control gives a nice keyboard experience."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#saving-and-restoring-configurations",
+    "href": "posts/terminal-setup/index.html#saving-and-restoring-configurations",
+    "title": "Kick-ass terminal setup",
+    "section": "2.7 Saving and restoring configurations",
+    "text": "2.7 Saving and restoring configurations\nAll configuration in iterm2 is saved in a plist file. This is a xml file where configuration changes can be automatically saved and tracked. This makes it’s easy to set up a new machine when required and it’s easy to share a setup where the recipient only has to make minimal changes to get up and running.\nMy setup is available on github. In the settings for iterm2 there is a section called “General” where you can load in the file above to get my config."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#configuration",
+    "href": "posts/terminal-setup/index.html#configuration",
+    "title": "Kick-ass terminal setup",
+    "section": "4.1 Configuration",
+    "text": "4.1 Configuration\nWhere bash and zsh shells have an .rc file for configuration, fish has a directory .config/fish. This is where you put your functions, completions etc. Configuration in fish works differently than in bash and zsh, instead of setting variables and path each time on start, I.e in .zshrc you would have a lot of lines of the form:\nexport PATH=\"/Users/rotendahl/Tools:\"$PATH\nexport PATH=\"$PATH:/Users/rotendahl/.dotnet/tools\"\nexport PATH=\"$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH\"\n\nexport VISUAL=vim\nexport EDITOR=\"$VISUAL\"\nThis would then be executed each time you start a new shell. In fish you instead use set -u &lt;varname&gt; &lt;value&gt; to set a variable or fish_add_path &lt;path&gt;. This only need to be run once and the variable is set for all future shells. This is achieved via the fish_variables file. I set my values wia the install script in my config repo. While this approach feels more clean in that you only need to set a variable once, it can be tricky if you want to remove/delete a variable, as it’s not clear where it’s set besides the fish_variables file. Other fish specific configuration is adding aliases and abbreviations. Abbreviations are a way to shorten commands, i.e k for kubectl but have it expand, I like this feature. You don’t have to type the full command but still get the knowledge of what is actually happining. I have set an abbreviation for abbr --add rm trash this means that when I type rm it will replace it with trash which is a tool that moves entities to the trash instead of deleting them immediately. By using an abbreviation instead of an alias I still get my muscle memory of typing rm but it’s clear that I’m not actually deleting the file. Had I instead just set an alias for rm to trash it would not be clear what’s going on."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#setting-up-completions",
+    "href": "posts/terminal-setup/index.html#setting-up-completions",
+    "title": "Kick-ass terminal setup",
+    "section": "4.2 Setting up completions",
+    "text": "4.2 Setting up completions\nFish has awesome autocompletion, it’s fast and works out of the box, it uses man pages to get a list of options and arguments which gives decent completions for most cli’s with zero configuration. Typing a partial command and pressing tabtab starts the autocomplete, if you press shift-tabshift-tab it searches the description of flags and arguments. As an example if I want to go back to a previous revions of a deploy via helm I can search for it with helm &lt;shift-tab&gt; (revions) to give me the following:\n\n\n\nSearching through completions\n\n\nAs mentioned all completions are functions which mean they can be as complex as the implementer wants. The kubectl autocompletions is a good example of this, when picking a deployment pressing tab will fetch current deployments from the cluster and present it. These dynamic completions are very powerfull and can be hard to go without once you’ve gotten used to them. Setting up these completions are typically done via the tool itself. For instance kubectl has a command kubectl completion fish which outputs the completions. My install file adds these completions for the tools I use."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#custom-functions",
+    "href": "posts/terminal-setup/index.html#custom-functions",
+    "title": "Kick-ass terminal setup",
+    "section": "4.3 Custom Functions",
+    "text": "4.3 Custom Functions\nFish makes it easy to write custom functions, my functions can be found in the config repo. The functions are all fairly simple and small quality of life improvements. For instance, there is a custom cat function that uses imgcat to display images when catting them, bat if it’s interactive, otherwise just the normal cat. There is a function for opening a google search with the args i.e\n  google how to quit vim?\nopens a browser with the search results. The only non custom function is the fish_greeting.fish which is a special function that is run on shell startup."
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#oh-my-posh",
+    "href": "posts/terminal-setup/index.html#oh-my-posh",
+    "title": "Kick-ass terminal setup",
+    "section": "4.4 Oh my Posh",
+    "text": "4.4 Oh my Posh\nThe last part of my setup is the prompt, beeing fish the prompt is also a function and not just a string saved as $PS1. The prompt is setup via oh my posh which is a framework for bulding prompts via a yaml file. My prompt shows the current directory, git branch, if there are uncommited changes, the version of relevant libraries (i.e net7, etc) and the current kubernetes context, powerlevel and exit code. Oh-my-posh is extremly customizable and can be a time sink, for my config see oh-my-posh.yaml"
+  },
+  {
+    "objectID": "posts/terminal-setup/index.html#footnotes",
+    "href": "posts/terminal-setup/index.html#footnotes",
+    "title": "Kick-ass terminal setup",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThe begining part is the unicode number for the kubernetes icon of the nerd font.↩︎"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Benjamin Rotendahl",
@@ -42,150 +189,24 @@
     "text": "1.2 The structure of a game\nEach game starts with a html file that loads the framework and the css required to make it responsive, lastly it loads .pde files and creates a canvas\nThe next step is to load the images required using the preprocessing directive &gt; /* @pjs preload=\"image1.jpg\"; */\nUsing these directives it’s simple to create a loading screen and scale the images once they are loaded. The setup and draw functions are placed in the file code.pde which controls the game’s state and the core game logic. Each game has a file game.pde that contains the data structures and classes for each game.\n\n1.2.1 The memory game\n\n\n\n\n\nThis game task the player to remember an ever increasing sequence of tiles. In the first level the user is shown three tiles numbered from one to three. After the timer runs out the numbers are hidden and the player must remember their order.\nThe game was made to show that we can “trick” our mind into remembering more information by storing it efficiently. First the kids had to check how they performed when trying to remember the positions of each tile. Afterwards they instead were told to remember the path and notice how their performance increased.\n\nImplementation\nThe game’s logic starts with creating a grid of a tile class, which holds the position and value for each tile, it exposes methods for hiding/showing and drawing it self. The game randomly picks tiles corresponding to \\(levelNumber + 2\\) ranks them from \\([1,levelNumber]\\) and draws them.\nThe state loop in game.pde starts a timer and turns tiles when needed. When the player loses they are given the option of posting their score or trying again.\n\n\n\n1.2.2 The “tabel” game\n\n\n\n\n\nThis game presents the player with at table that keeps scrolling down, at the bottom of the screen is the current “task” for the bottom row. The task can be picking the sum of two numbers, picking a number \\(n\\) such that \\(3 \\mid n\\), etc. If the player fails a task the row goes red and one extra row will stay red for the rest of the game.\nThe goal of the game was to have the kids find a way of avoiding doing the actual computation and find a pattern that could solve the task, I.e \\(5 \\mid n\\) can be solved by finding a number that ends in 5 or 0.\n\nImplementation\nThe game creates 5 rows containing 6 instances of the tile class. The rows scroll down and when they hit the bottom of the screen they are moved to the top again. When a row is “reset” the numbers on the tile are changed so they continue the sequence from the row nearest the top that isn’t red. The non red row closets to the bottom is the active one that the current task should be performed on. If a task is completed the row turns blue and active row and current task is changed.\n\n\n\n1.2.3 The reaction game\n\n\n\n\n\nThis game tests the players reactions and ability to perform simple cognitive tasks. It was inspired by the Batak board\nThe player has to hit a specified number of nodes in the graph, before the time runs out."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Rotendahls Blog",
-    "section": "",
-    "text": "Kick-ass terminal setup\n\n\n\n\n\n\n\nterminal\n\n\nsetup\n\n\n\n\n\n\n\n\n\n\n\nJul 7, 2023\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n  \n\n\n\n\nOverengineering a start page\n\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\nhaskell\n\n\n\n\n\n\n\n\n\n\n\nMay 13, 2023\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\n  \n\n\n\n\nMobile first games in processing\n\n\n\n\n\n\n\nfront-end\n\n\ncode\n\n\ngames\n\n\n\n\n\n\n\n\n\n\n\nJul 13, 2017\n\n\nBenjamin Rotendahl\n\n\n\n\n\n\nNo matching items"
+    "objectID": "posts/themes-and-checklists/themes-and-checklists.html#enter-daily-themes",
+    "href": "posts/themes-and-checklists/themes-and-checklists.html#enter-daily-themes",
+    "title": "Themes & checklists",
+    "section": "1.1 Enter daily themes",
+    "text": "1.1 Enter daily themes\nAs the current daily checklist has grown, and grown it’s become harder to consistently complete it. I take this a sign that the checklist has worked and more actions just kept creeping in.\nTo solve this creep I’ve instead split it out to a base checklist with core actions such as Clean unread emails that should be completed every day and a variety of themed checklist. My current themes are:\n\nHealth: Exercise, relax, and sleep well.\nProject: Work on a side project, build something fun.\nLearning: Learn something new.\nSocial: Connect with friends and family.\nAdmin: Handle laundry, emails, and other administrative tasks/chores.\n\nTo my weekly review checklist, I’ve added a task to plan the themes for the upcoming week. Not every theme gets a day, I might not have an admin day every week, opting instead for an extra project/health day and two social days over the weekend."
   },
   {
-    "objectID": "posts/terminal-setup/index.html",
-    "href": "posts/terminal-setup/index.html",
-    "title": "Kick-ass terminal setup",
-    "section": "",
-    "text": "https://xkcd.com/1806"
+    "objectID": "posts/themes-and-checklists/themes-and-checklists.html#setting-up-the-tech-for-checklists",
+    "href": "posts/themes-and-checklists/themes-and-checklists.html#setting-up-the-tech-for-checklists",
+    "title": "Themes & checklists",
+    "section": "1.2 Setting up the tech for checklists",
+    "text": "1.2 Setting up the tech for checklists\nI’ve set up a system that can manage the checklists templates and handle the logic of choosing which theme to invoke. It can also execute side effects I.e logging the choice of template to a sheet etc. The requirements for the tech stack are:\n\nI should be able to easily active the template from anywhere.\n\nThis means that I should be able to activate it from at least my phone, if it required access to my mac that would suck. It would also be nice if I was still able to active it from my mac, iPad, etc. So I don’t need to get out my phone if I’m already at my mac.\n\nIt should be easy to update templates and add new ones.\nIt should be stable and require as little maintenance as possible.\n\nGiven the above requirements, there obvious choice for orchestrating the actions fell on The Shortcuts app for apple’s platforms. This allows me to activate the template from any of my devices, meeting the first requirement.\nI did consider making my own backend in Haskell/Rust and getting the templates via an API call from shortcuts. While this could be super fun project, it would require more maintenance than I would like, having to run a server and keep code up to date.\nInstead I’ll manage templates via a folder in ICloud Drive, since the templates are plain text in task paper format I can update from all my devices, and it will be easy to move somewhere else if I ever want to.\nA problem I found after setting this up is that the shortcut “Get File” action fails if the file is not downloaded from ICloud drive. This is super annoying as the fix is to open the files app, find the folder, click download and run the action again. I hope this get’s fixed by running the shortcut often enough that iCloud drives never decides to offload it from local to remote storage. For now I’ve moved all file reading to the top of the script to ensure it side effects are only run if all files are present\n\n1.2.1 Log of all themes\nOnly activating a checklist would be fine if all i wanted was a prompt asking which theme I want. I prefer setting all the weeks themes in my calendar and having the system pick the right one. To achieve this I’ve created a new calender delegation called daily themes and added all day events with a selected theme for each day. This works amazingly well with the calendar sets of fantastical. This means I can use my calendar as a way to select themes.\nI’ve also created a sheet in apple numbers to log which theme was selected and when it was completed. This enabled me to see distrution of themes over time and if I’m completing the themes I’ve set."
   },
   {
-    "objectID": "posts/terminal-setup/index.html#setting-up-iterm2",
-    "href": "posts/terminal-setup/index.html#setting-up-iterm2",
-    "title": "Kick-ass terminal setup",
-    "section": "2.1 Setting up Iterm2",
-    "text": "2.1 Setting up Iterm2\nFirst install Iterm2 either via the download link on their website or via brew as described in Section 3.\n  brew install iterm2\nIterm2 has an almost comical amount of configuration options and features. For a full list see their documentation and feature overview. I’ll go over the most important parts."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#fonts",
-    "href": "posts/terminal-setup/index.html#fonts",
-    "title": "Kick-ass terminal setup",
-    "section": "2.2 Fonts",
-    "text": "2.2 Fonts\nFonts are becoming a more integral part of the terminal experience. Fonts are no longer just how letters are rendered. Via ligatures, icons, and powerline glyphs fonts affect how the terminal looks and functions. The Nerd fonts project is a collection of programmer friendly fonts with all the features above enabled. To get them on your mac you can use brew:\n  brew tap homebrew/cask-fonts\n  brew install font-hack-nerd-font\nI prefer the Fira code font, but all the nerd fonts are quite nice. In iterm you have to set the font for each profile you use and enable ligatures. For a better powerline/glyph experience don’t use the monospaced version of the fonts as the icons will be to small.\n\n\n\nSome Haskell code in the Fira Code font, with ligatures"
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#profiles-and-themes",
-    "href": "posts/terminal-setup/index.html#profiles-and-themes",
-    "title": "Kick-ass terminal setup",
-    "section": "2.3 Profiles and themes",
-    "text": "2.3 Profiles and themes\nI have the following three profiles in iterm:\n\nFree floating: My default profile used for new windows (Cmd-n).\nHotkey window: Pressing (Ctrl-Ctrl), drops down a window in “visor mode” from the top of the screen. Once you get used to always having a shell a quick double tap away it’s hard to go back.\nDanger Zone: A profile automatically trigged for when my K8s context is my non default.\n\n\nFree FloatingHot key windowDanger Zone\n\n\n\n\n\nFigure 1: The default “floating” window profile\n\n\n\n\n\n\nVideo\nVisor drop down mode\n\n\n\n\n\n\n\nTheme automatically activated, once I’m in a non local k8s context\n\n\n\n\n\n\nAutomatic profile switching\nAt my current job each developer has their own kubernetes cluster and we often use each other’s or switch to the staging/test cluster. I’ve setup that any non default cluster activates the danger zone profile. Having a clear visual distinction between default and non default contexts makes me more comfortable running commands such as helm rollback.\nThe feature to automatically switch profile in Iterm is not made for k8s. Instead it listens to username and hosts which works for ssh based workflows. My workaround has been to add a trigger to all my profiles that report the username and host as prod@prod whenever the regEx \\udb84\\udcfe (?!brotual)1 does not match my prompt."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#theme",
-    "href": "posts/terminal-setup/index.html#theme",
-    "title": "Kick-ass terminal setup",
-    "section": "2.4 Theme",
-    "text": "2.4 Theme\nBesides the eye catching Unikitty theme used for the Danger Zone profile my theme of choice is the is the awesome dracula theme. Besides beeing pretty but not to flashy, there are implementations for almost any tool.\n\n2.4.1 Embracing the light\nLike a true programmer I prefer dark mode but from time to time I use a light theme for programming. Another benifit is the ability to quickly switch to a light theme, during a presentation/screencast to help you viewers see the code.\nFor the times when I’m in the mood for a light theme I use the light version of the Solarized theme. This is built in to Iterm. I’ve setup custom functions to quickly switch my entire computer between light and dark via the terminal."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#cool-iterm-features",
-    "href": "posts/terminal-setup/index.html#cool-iterm-features",
-    "title": "Kick-ass terminal setup",
-    "section": "2.5 Cool Iterm features",
-    "text": "2.5 Cool Iterm features\n\ncmd-⌥b activates instant replay allowing you to scroll back through the output of the terminal. This is usefull when you want to go back to a point of time in an interactive tool such as k9s\ncmd-shift-m Sets a mark in the shell allowing you to jump back to the mark with cmd-shift-j. Usefull for when you want to be able to quickly go back to specific part of a build output or training run.\ncmd-⌥v opens the advanced paste menu, allowing you to format your clipboard before entering it. Usefull for stripping newlines or escape sequences.\nSplit panes with cmd-d and cmd-shift-d\ncmd-shift-c enters a vim like copy mode, usefull for making a selection without touching the mouse.\nIf you have the shell integration you can setup a shortcut to show the most recently used directories allowing you to quickly enter a directory you’ve been in recently."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#meta-and-option",
-    "href": "posts/terminal-setup/index.html#meta-and-option",
-    "title": "Kick-ass terminal setup",
-    "section": "2.6 Meta and option",
-    "text": "2.6 Meta and option\nShells have the concept of a meta M key, which when pressed with some letter key triggers some action. For instance in fish M-e does not mean type a special “é” but open the current line in the $EDITOR. This is a problem for us programmers plebs that use a non us keyboard layout. In Denmark we don’t have keys for |,{},[] instead they are written with some combination of opt, shift, ctrl and other keys. This means that we can’t use the meta key for it’s intended purpose directly. Iterm does not have a nice way of solving this, it can be setup such that the left option key is meta and the right one for special characters. This sucks, instead I made a small hack and added key sequences for the most common special characters. That and mapping caps lock to control gives a nice keyboard experience."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#saving-and-restoring-configurations",
-    "href": "posts/terminal-setup/index.html#saving-and-restoring-configurations",
-    "title": "Kick-ass terminal setup",
-    "section": "2.7 Saving and restoring configurations",
-    "text": "2.7 Saving and restoring configurations\nAll configuration in iterm2 is saved in a plist file. This is a xml file where configuration changes can be automatically saved and tracked. This makes it’s easy to set up a new machine when required and it’s easy to share a setup where the recipient only has to make minimal changes to get up and running.\nMy setup is available on github. In the settings for iterm2 there is a section called “General” where you can load in the file above to get my config."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#configuration",
-    "href": "posts/terminal-setup/index.html#configuration",
-    "title": "Kick-ass terminal setup",
-    "section": "4.1 Configuration",
-    "text": "4.1 Configuration\nWhere bash and zsh shells have an .rc file for configuration, fish has a directory .config/fish. This is where you put your functions, completions etc. Configuration in fish works differently than in bash and zsh, instead of setting variables and path each time on start, I.e in .zshrc you would have a lot of lines of the form:\nexport PATH=\"/Users/rotendahl/Tools:\"$PATH\nexport PATH=\"$PATH:/Users/rotendahl/.dotnet/tools\"\nexport PATH=\"$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH\"\n\nexport VISUAL=vim\nexport EDITOR=\"$VISUAL\"\nThis would then be executed each time you start a new shell. In fish you instead use set -u &lt;varname&gt; &lt;value&gt; to set a variable or fish_add_path &lt;path&gt;. This only need to be run once and the variable is set for all future shells. This is achieved via the fish_variables file. I set my values wia the install script in my config repo. While this approach feels more clean in that you only need to set a variable once, it can be tricky if you want to remove/delete a variable, as it’s not clear where it’s set besides the fish_variables file. Other fish specific configuration is adding aliases and abbreviations. Abbreviations are a way to shorten commands, i.e k for kubectl but have it expand, I like this feature. You don’t have to type the full command but still get the knowledge of what is actually happining. I have set an abbreviation for abbr --add rm trash this means that when I type rm it will replace it with trash which is a tool that moves entities to the trash instead of deleting them immediately. By using an abbreviation instead of an alias I still get my muscle memory of typing rm but it’s clear that I’m not actually deleting the file. Had I instead just set an alias for rm to trash it would not be clear what’s going on."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#setting-up-completions",
-    "href": "posts/terminal-setup/index.html#setting-up-completions",
-    "title": "Kick-ass terminal setup",
-    "section": "4.2 Setting up completions",
-    "text": "4.2 Setting up completions\nFish has awesome autocompletion, it’s fast and works out of the box, it uses man pages to get a list of options and arguments which gives decent completions for most cli’s with zero configuration. Typing a partial command and pressing tab starts the autocomplete, if you press shift-tab it searches the description of flags and arguments. As an example if I want to go back to a previous revions of a deploy via helm I can search for it with helm &lt;shift-tab&gt; (revions) to give me the following:\n\n\n\nSearching through completions\n\n\nAs mentioned all completions are functions which mean they can be as complex as the implementer wants. The kubectl autocompletions is a good example of this, when picking a deployment pressing tab will fetch current deployments from the cluster and present it. These dynamic completions are very powerfull and can be hard to go without once you’ve gotten used to them. Setting up these completions are typically done via the tool itself. For instance kubectl has a command kubectl completion fish which outputs the completions. My install file adds these completions for the tools I use."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#custom-functions",
-    "href": "posts/terminal-setup/index.html#custom-functions",
-    "title": "Kick-ass terminal setup",
-    "section": "4.3 Custom Functions",
-    "text": "4.3 Custom Functions\nFish makes it easy to write custom functions, my functions can be found in the config repo. The functions are all fairly simple and small quality of life improvements. For instance, there is a custom cat function that uses imgcat to display images when catting them, bat if it’s interactive, otherwise just the normal cat. There is a function for opening a google search with the args i.e\n  google how to quit vim?\nopens a browser with the search results. The only non custom function is the fish_greeting.fish which is a special function that is run on shell startup."
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#oh-my-posh",
-    "href": "posts/terminal-setup/index.html#oh-my-posh",
-    "title": "Kick-ass terminal setup",
-    "section": "4.4 Oh my Posh",
-    "text": "4.4 Oh my Posh\nThe last part of my setup is the prompt, beeing fish the prompt is also a function and not just a string saved as $PS1. The prompt is setup via oh my posh which is a framework for bulding prompts via a yaml file. My prompt shows the current directory, git branch, if there are uncommited changes, the version of relevant libraries (i.e net7, etc) and the current kubernetes context, powerlevel and exit code. Oh-my-posh is extremly customizable and can be a time sink, for my config see oh-my-posh.yaml"
-  },
-  {
-    "objectID": "posts/terminal-setup/index.html#footnotes",
-    "href": "posts/terminal-setup/index.html#footnotes",
-    "title": "Kick-ass terminal setup",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nThe begining part is the unicode number for the kubernetes icon of the nerd font.↩︎"
-  },
-  {
-    "objectID": "posts/start-page-generator/index.html",
-    "href": "posts/start-page-generator/index.html",
-    "title": "Overengineering a start page",
-    "section": "",
-    "text": "The default start page in my browser of choice (safari) suck. The page looks nice but does not sync between devices, and shows a lot of useless information. Figure 1 shows the safari start page. The “favorites” section is a copy of the links in my favorites bar, which are already visible in the browser. The “Shared with you” section is a list of links that my partner has shared with me, they are all old and was never relevant. I don’t use the reading list in safari, the entries are all read or added by mistake. The bottom row is the most useful part, as it allows me to access tabs from my iPad and iPhone, but the tab group feature in safari superseeds this feature.\n\nBad Safari start pageAwesome generated start page\n\n\n\n\n\nFigure 1: Safari’s bad startpage\n\n\n\n\n\n\n\nFigure 2: My Generated webpage"
-  },
-  {
-    "objectID": "posts/start-page-generator/index.html#configuring-the-start-page",
-    "href": "posts/start-page-generator/index.html#configuring-the-start-page",
-    "title": "Overengineering a start page",
-    "section": "2.1 Configuring the start page",
-    "text": "2.1 Configuring the start page\nTo make the above html fit your taste requires:\n\nSetting your color theme in the variables.css file.\nAdding &lt;a&gt; tags with each site you want to include.\n\nThis last point is a bit tedious, but could be done in a few minutes, but that’s no fun."
-  },
-  {
-    "objectID": "posts/start-page-generator/index.html#defining-the-favorite-sites-grammar.",
-    "href": "posts/start-page-generator/index.html#defining-the-favorite-sites-grammar.",
-    "title": "Overengineering a start page",
-    "section": "3.1 Defining the favorite sites grammar.",
-    "text": "3.1 Defining the favorite sites grammar.\nA favorite site consists of a url, a display name and a logo, the last two are optional. We could have used a format such as json or csv as the configuration file format, but instead we create our own format. Listing 1 shows an example of the format. The idea of the grammar is to have the non optional url in the center of a line, if there is a display name it precedes the url and points-&gt; to the url defining the favorite. A logo optionally succeeds the url and points back &lt;- to it.\n\nListing 1: Example grammar instance\nsome arbitrary text\n* youtube.com/feed/subscriptions &lt;- &lt;logo-url&gt;\n* Github.com\n* Data Science -&gt; towardsdatascience.com\n* Sentry.io\n* Azure DevOps -&gt; dev.azure.com &lt;- &lt;logo-url&gt;\n\nA links file can contain two types of text lines: comments and favorites. A comment is any line that does not start with a * and a favorite is any line that does. A favorite must have a url, but can optionally have a display name and a logo as specified above. The grammar for the favorite sites file can be seen in BNF in Listing 2.\n\nListing 2: The favorite sites grammar in BNF form\n  favorites ::= * &lt;favorite&gt; \\n &lt;favorites&gt; | ε\n  favorite ::= &lt;display-name&gt; -&gt; &lt;site&gt; | &lt;site&gt;\n  display-name ::= &lt;text&gt;\n  site ::= &lt;url&gt; | &lt;url&gt; &lt;- &lt;url&gt;\n  url ::= &lt;url-spec&gt;\n\nWhere &lt;text&gt; is any string of characters that does not contain -&gt; or &lt;- or newlines and &lt;url-spec&gt; is any valid url. The grammar follows the lexeme convention of parsing, where we allow arbitrary whitespace between tokens, and treat any lines not prefixed with a * as whitespace.\nThe grammar is non left recursive, non ambiguous requiring no precedence rules, the only downside of the grammar is that it requires lookahead for display names. When reading the lexeme following a * we don’t know if it is a display name or url until we observe a -&gt; or the lack of it. Since the display names are short this will not be a problem in practice1.\n\n3.1.1 Full grammer file"
-  },
-  {
-    "objectID": "posts/start-page-generator/index.html#creating-the-project",
-    "href": "posts/start-page-generator/index.html#creating-the-project",
-    "title": "Overengineering a start page",
-    "section": "3.2 Creating the project",
-    "text": "3.2 Creating the project\nTo setup our haskell project we use cabal and initialize the project with\ncabal init\nThis will create a start-page-generator.cabal file along with lib and test folders.\nIn typical haskell fashion we start by creating the types we need for our parser/(template engine). The types can be seen below:\n\nNote that the logo type is a type alias for the url. The ParsedSite type has the optional display name and logo url via the maybe monad. Our template engine will map between the ParsedSite and Site types filling in the optional fields. For the display name we use the hostname of the url if no display name is present. A missing logo url is filled in with logo.clearbit.com//&lt;hostname&gt; which provides a logo for most sites.\n\n3.2.1 Testing\nBeing a functional langauge Haskell has many great testing libaries from simple unit testing to property based testing. For this project we use the BDD style hspec library. The tests are simple assertions that given the specific input the code produces the expected output."
-  },
-  {
-    "objectID": "posts/start-page-generator/index.html#parsing-the-links-file",
-    "href": "posts/start-page-generator/index.html#parsing-the-links-file",
-    "title": "Overengineering a start page",
-    "section": "3.3 Parsing the links file",
-    "text": "3.3 Parsing the links file\nHaskell is excellent for writing parsers, instead of writing clunky regexes that are hard to read and maintain we use the parser combinator library: parsec.\nThe main idea behind parser combinators is that you build a parser for each part of the grammar and then combine them to build a parser for the entire grammar. For parsing a site we need to parse a ‘*’ character, an optional display name, followed by an url and an optional logo url. This gives us the parser\nparseSite :: Parser ParsedSite\nparseSite = do\n  _ &lt;- string \"*\"\n  whiteSpace\n  name &lt;- optionMaybe $ try parseDisplayName\n  url &lt;- parseUrl\n  logo &lt;- optionMaybe $ try parseLogo\n  return (name, url, logo)\nWhich is much easier to read than a regex. See the full parser below."
-  },
-  {
-    "objectID": "posts/start-page-generator/index.html#generating-the-html",
-    "href": "posts/start-page-generator/index.html#generating-the-html",
-    "title": "Overengineering a start page",
-    "section": "3.4 Generating the html",
-    "text": "3.4 Generating the html\nTo map from the parsed we map from the parsed sites to the site type and replace the template tag in the html with the generated html."
-  },
-  {
-    "objectID": "posts/start-page-generator/index.html#footnotes",
-    "href": "posts/start-page-generator/index.html#footnotes",
-    "title": "Overengineering a start page",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nI’m not overengineering my grammer for my overengineered project.↩︎"
+    "objectID": "posts/themes-and-checklists/themes-and-checklists.html#the-daily-checklist-script",
+    "href": "posts/themes-and-checklists/themes-and-checklists.html#the-daily-checklist-script",
+    "title": "Themes & checklists",
+    "section": "1.3 The daily checklist script",
+    "text": "1.3 The daily checklist script\nThe actions performed by the script are:\n\nInvoke the base checklist\nCheck if my work calendar has any events and if so invoke the work checklist\nGet theme from calendar, if no theme is set, ask for one and set it in the calendar\nInvoke the theme checklist\n\nA shortcut that performs the above actions can seen in figure Figure 1.\n\n\n\n\n\n\nFigure 1: Script/shortcut for my daily checklist"
   }
 ]
