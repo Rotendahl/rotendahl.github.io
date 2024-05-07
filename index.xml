@@ -9,7 +9,7 @@
 <link>https://rotendahl.dk/</link>
 <atom:link href="https://rotendahl.dk/index.xml" rel="self" type="application/rss+xml"/>
 <description>Posts about programming, math and bad jokes</description>
-<generator>quarto-1.4.553</generator>
+<generator>quarto-1.4.554</generator>
 <lastBuildDate>Sat, 02 Mar 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Themes &amp; checklists</title>
@@ -92,7 +92,7 @@ Figure&nbsp;1: Script/shortcut for my daily checklist
   <category>productivity</category>
   <guid>https://rotendahl.dk/posts/themes-and-checklists/themes-and-checklists.html</guid>
   <pubDate>Sat, 02 Mar 2024 00:00:00 GMT</pubDate>
-  <media:content url="https://rotendahl.dk/posts/themes-and-checklists/assets/checklist.jpeg" medium="image" type="image/jpeg"/>
+  <media:content url="https://rotendahl.dk/assets/checklist.jpeg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Kick-ass terminal setup</title>
