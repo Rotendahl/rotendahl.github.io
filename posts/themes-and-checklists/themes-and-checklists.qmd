@@ -3,8 +3,8 @@ title: "Themes & checklists"
 author: "Benjamin Rotendahl"
 date: "2024-03-02"
 categories: [productivity]
-image: assets/checklist.jpeg
-titlegraphic: assets/checklist.jpeg
+image: /assets/checklist.jpeg
+titlegraphic: /assets/checklist.jpeg
 
 ---
 ![](/assets/checklist.jpeg)
