@@ -1,0 +1,72 @@
+---
+title: "Happy developers and Microservices"
+author: "Benjamin Rotendahl"
+date: "2024-06-19"
+categories: [productivity, terminal, devops]
+# image: /assets/checklist.jpeg
+# titlegraphic: /assets/checklist.jpeg TODO add image
+
+---
+<!-- ![](/assets/checklist.jpeg) -->
+
+# Frustrations of a microservices developer
+At my current job we use a microservices architecture, to run our full system
+it requires 15+ services to be running. The seperation of services is great for
+scalability and maintainability, but it can be a pain to work with. The
+[_Majestic Monolith_](https://signalvnoise.com/svn3/the-majestic-monolith/)
+proponents has a point in that you impose a fairly large amount of complexity on
+your developers when you go full microservices.
+
+## The need for a full system
+When developing a new feature you typically don't need to run all services, you
+can test the feature in isolation with unit and acceptance tests. The problem
+arises when you need to do a full end-to-end test of the feature or when you need
+to debug an issue that spans multiple services. Other benefits of being able to
+run a full system locally is that you can demo features in full and get feedback
+from stakeholders.
+
+## Requirements to run multiple services
+I've tried running multiple microservices before, both via a simple script that
+ran a bunch of `dotnet run, npm start, python app.py` and similar commands.
+While this works, it's not ideal. The script is platform dependent and you need
+to start dependent services such as database etc manually.
+This can be simplified via docker-compose, but it's still not ideal. When I last
+tried docker-compose it was slow and had some issues with networking. I hear
+the file sync has gotten better but I havn't used it extensively since then.
+
+
+# You get a cluster, you get a cluster, all devs gets a cluster!
+The solution we opted for is to give each developer their own kubernetes cluster
+which mimcis production as closely as possible. We use helm to deloy docker
+images to the cluster and resources are provisioned via terraform. This is great
+in that
+
+
+
+# Skaffold
+
+
+
+## Able to deploy branches persistently
+
+
+# Working with the cluster locally
+
+
+## Telepresence
+
+
+
+
+
+
+
+# Optimizing for DX
+The developer experience (DX) of a companies software is very valuble. Good DX
+will make the developers more productive which will lead to faster development
+of new features. Good DX will
+
+<!-- References -->
+
+
+# Microservices
